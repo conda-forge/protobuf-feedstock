@@ -5,14 +5,13 @@ package:
     version: {{ version }}
 
 source:
-    fn: protobuf-{{ version }}.tar.gz
-    url: https://pypi.python.org/packages/source/p/protobuf/protobuf-{{ version }}.tar.gz
-    md5: f0d3bd2394345a9af4a277cd0302ae83
+    fn: protobuf-{{ version }}.post2.tar.gz
+    url: https://pypi.python.org/packages/source/p/protobuf/protobuf-{{ version }}.post2.tar.gz
+    md5: 42aa7ab79ebcb94917e938ff482ef7a6
 
 build:
-    preserve_egg_dir: True
-    number: 0
     script: python setup.py install --single-version-externally-managed --record record.txt
+    number: 1
 
 requirements:
     build:
@@ -40,3 +39,4 @@ extra:
     recipe-maintainers:
         - ocefpaf
         - dopplershift
+        - jjhelmus
