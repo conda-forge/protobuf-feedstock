@@ -1,12 +1,12 @@
-{% set version = "3.0.0b2" %}
+{% set version = "3.0.0b2.post2" %}
 
 package:
     name: protobuf
     version: {{ version }}
 
 source:
-    fn: protobuf-{{ version }}.post2.tar.gz
-    url: https://pypi.python.org/packages/source/p/protobuf/protobuf-{{ version }}.post2.tar.gz
+    fn: protobuf-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/p/protobuf/protobuf-{{ version }}.tar.gz
     md5: 42aa7ab79ebcb94917e938ff482ef7a6
 
 build:
