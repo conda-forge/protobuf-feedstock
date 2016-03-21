@@ -1,27 +1,46 @@
-{% set version = "3.0.0b2.post2" %}
+{% set version = "2.6.1" %}
 
 package:
     name: protobuf
     version: {{ version }}
 
 source:
-    fn: protobuf-{{ version }}.tar.gz
-    url: https://pypi.python.org/packages/source/p/protobuf/protobuf-{{ version }}.tar.gz
-    md5: 42aa7ab79ebcb94917e938ff482ef7a6
+    fn: v{{ version }}.tar.gz
+    url: https://github.com/google/protobuf/releases/download/v{{ version }}/protobuf-{{ version }}.tar.gz
+    md5: f3916ce13b7fcb3072a1fa8cf02b2423
+    patches:
+        - configure.patch
 
 build:
-    number: 2
+    number: 0
+    skip: true  # [win or py3k]
 
 requirements:
     build:
+        - autoconf
+        - automake
+        - libtool
+        - pkg-config
         - python
-        - setuptools
+        - six
+        - ordereddict        # [py26]
+        - unittest2          # [py26]
+        - google-apputils
+
     run:
         - python
-        - setuptools
         - six
+        - ordereddict        # [py26]
+        - unittest2          # [py26]
+        - google-apputils
 
 test:
+    commands:
+        - protoc --help
+        - test -f ${PREFIX}/lib/libprotobuf.a                # [unix]
+        - test -f ${PREFIX}/lib/libprotobuf.dylib            # [osx]
+        - test -f ${PREFIX}/lib/libprotobuf.so               # [linux]
+
     imports:
         - google
         - google.protobuf
@@ -32,7 +51,7 @@ test:
 about:
     home: https://developers.google.com/protocol-buffers/
     license: New BSD License
-    summary: 'Protocol Buffers'
+    summary: Protocol Buffers - Google's data interchange format
 
 extra:
     recipe-maintainers:
