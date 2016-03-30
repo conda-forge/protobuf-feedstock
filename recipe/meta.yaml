@@ -12,21 +12,27 @@ source:
 
 build:
     number: 3
-    skip: true  # [win]
+    features:
+        - vc9                # [win and py27]
+        - vc10               # [win and py34]
+        - vc14               # [win and py35]
 
 requirements:
     build:
-        - autoconf
-        - automake
-        - libtool
-        - pkg-config
+        - git
+        - cmake              # [win]
+        - autoconf           # [unix]
+        - automake           # [unix]
+        - libtool            # [unix]
+        - pkg-config         # [unix]
+        - zlib
         - python
         - six
         - ordereddict        # [py26]
         - unittest2          # [py26]
-        - git
 
     run:
+        - zlib
         - python
         - six
         - ordereddict        # [py26]
@@ -35,9 +41,10 @@ requirements:
 test:
     commands:
         - protoc --help
-        - test -f ${PREFIX}/lib/libprotobuf.a                # [unix]
-        - test -f ${PREFIX}/lib/libprotobuf.dylib            # [osx]
-        - test -f ${PREFIX}/lib/libprotobuf.so               # [linux]
+        - test -f ${PREFIX}/lib/libprotobuf.a                           # [unix]
+        - test -f ${PREFIX}/lib/libprotobuf.dylib                       # [osx]
+        - test -f ${PREFIX}/lib/libprotobuf.so                          # [linux]
+        - if not exist %PREFIX%\\Library\\lib\\libprotobuf.lib exit 1   # [win]
 
     imports:
         - google
