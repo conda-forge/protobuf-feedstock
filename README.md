@@ -7,7 +7,7 @@ Package license: New BSD License
 
 Feedstock license: BSD 3-Clause
 
-Summary: Protocol Buffers
+Summary: Protocol Buffers - Google's data interchange format
 
 
 
