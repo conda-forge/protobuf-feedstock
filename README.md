@@ -69,6 +69,7 @@ Terminology
 
 Current build status
 ====================
+
 Linux: [![Circle CI](https://circleci.com/gh/conda-forge/protobuf-feedstock.svg?style=svg)](https://circleci.com/gh/conda-forge/protobuf-feedstock)
 OSX: [![TravisCI](https://travis-ci.org/conda-forge/protobuf-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/protobuf-feedstock) 
 Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/protobuf-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/protobuf-feedstock/branch/master)
