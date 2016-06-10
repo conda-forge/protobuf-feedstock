@@ -1,5 +1,5 @@
-{% set version = "3.0.0b2.post2" %}
-{% set version_str = "v3.0.0-beta-2" %}
+{% set version = "3.0.0b3" %}
+{% set version_str = "v3.0.0-beta-3" %}
 
 package:
     name: protobuf
@@ -8,10 +8,10 @@ package:
 source:
     fn: protobuf_{{ version }}.tar.gz
     url: https://github.com/google/protobuf/archive/{{ version_str }}/protobuf-{{ version_str }}.tar.gz
-    md5: e7f2602baffcbc27fb607de659cfbab6
+    md5: 89afd3855f2d4782e59c09e07d9efa67
 
 build:
-    number: 3
+    number: 0
     features:
         - vc9                # [win and py27]
         - vc10               # [win and py34]
