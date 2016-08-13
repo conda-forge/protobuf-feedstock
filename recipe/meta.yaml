@@ -11,7 +11,7 @@ source:
     md5: 89afd3855f2d4782e59c09e07d9efa67
 
 build:
-    number: 0
+    number: 1
     features:
         - vc9                # [win and py27]
         - vc10               # [win and py34]
@@ -25,14 +25,14 @@ requirements:
         - automake           # [unix]
         - libtool            # [unix]
         - pkg-config         # [unix]
-        - zlib
+        - zlib 1.2.*
         - python
         - six
         - ordereddict        # [py26]
         - unittest2          # [py26]
 
     run:
-        - zlib
+        - zlib 1.2.*
         - python
         - six
         - ordereddict        # [py26]
