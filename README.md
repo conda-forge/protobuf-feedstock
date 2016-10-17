@@ -14,23 +14,24 @@ Summary: Protocol Buffers - Google's data interchange format
 Installing protobuf
 ===================
 
-Installing protobuf from the conda-forge channel can be achieved by adding conda-forge to your channels with:
+Installing `protobuf` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 ```
 
-Once the conda-forge channel has been enabled, protobuf can be installed with:
+Once the `conda-forge` channel has been enabled, `protobuf` can be installed with:
 
 ```
 conda install protobuf
 ```
 
-It is possible to list all of the versions of protobuf available on your platform with:
+It is possible to list all of the versions of `protobuf` available on your platform with:
 
 ```
 conda search protobuf --channel conda-forge
 ```
+
 
 
 About conda-forge
