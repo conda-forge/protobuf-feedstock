@@ -11,6 +11,9 @@ source:
     fn: {{ name }}-{{ version }}.tar.gz
     url: https://github.com/google/protobuf/archive/{{ version_str }}/{{ name }}-{{ version_str }}.tar.gz
     sha256: {{ sha256 }}
+    patches:
+      # Add a patch for non-C++11 support.
+      - field_mask_util.cc.patch
 
 build:
     number: 0
