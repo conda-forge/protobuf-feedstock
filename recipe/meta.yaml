@@ -35,6 +35,7 @@ requirements:
     run:
         - zlib 1.2.*
         - python
+        - setuptools
         - six
         - ordereddict        # [py26]
         - unittest2          # [py26]
