@@ -16,8 +16,6 @@ build:
     number: 0
     # skip the windows python 2.7 and 3.4 build
     # see https://github.com/google/protobuf/issues/1958
-    skip: True  # [win and py27]
-    skip: True  # [win and py34]
     features:
         - vc9                # [win and py27]
         - vc10               # [win and py34]
