@@ -14,6 +14,8 @@ source:
     patches:
       # Add a patch for non-C++11 support.
       - field_mask_util.cc.patch
+      # Adds a patch to get rid of some constants also included in a class.
+      - time_util_const_dedup.patch
 
 build:
     number: 0
