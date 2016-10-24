@@ -1,17 +1,26 @@
-{% set version = "3.0.0b3" %}
-{% set version_str = "v3.0.0-beta-3" %}
+{% set name = "protobuf" %}
+{% set version = "3.0.0" %}
+{% set version_str = "v3.0.0" %}
+{% set sha256 = "f5b3563f118f1d3d6e001705fa7082e8fc3bda50038ac3dff787650795734146" %}
 
 package:
-    name: protobuf
+    name: {{ name }}
     version: {{ version }}
 
 source:
-    fn: protobuf_{{ version }}.tar.gz
-    url: https://github.com/google/protobuf/archive/{{ version_str }}/protobuf-{{ version_str }}.tar.gz
-    md5: 89afd3855f2d4782e59c09e07d9efa67
+    fn: {{ name }}-{{ version }}.tar.gz
+    url: https://github.com/google/protobuf/archive/{{ version_str }}/{{ name }}-{{ version_str }}.tar.gz
+    sha256: {{ sha256 }}
+    patches:
+      # Add a patch for non-C++11 support.
+      - field_mask_util.cc.patch
+      # Adds a patch to get rid of some constants also included in a class.
+      - time_util_const_dedup.patch
 
 build:
-    number: 2
+    number: 0
+    # skip the windows python 2.7 and 3.4 build
+    # see https://github.com/google/protobuf/issues/1958
     features:
         - vc9                # [win and py27]
         - vc10               # [win and py34]
