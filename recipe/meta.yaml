@@ -59,7 +59,7 @@ test:
 
 about:
     home: https://developers.google.com/protocol-buffers/
-    license: New BSD License
+    license: BSD 3-Clause
     summary: Protocol Buffers - Google's data interchange format
 
 extra:
