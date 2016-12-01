@@ -1,7 +1,7 @@
 :: Doesn't include gmock or gtest. So, need to get these ourselves for `make check`.
 git clone -b release-1.7.0 git://github.com/google/googlemock.git gmock
 if errorlevel 1 exit 1
-git clone -b release-1.8.0 git://github.com/google/googletest.git gmock/gtest
+git clone -b release-1.7.0 git://github.com/google/googletest.git gmock/gtest
 if errorlevel 1 exit 1
 
 :: Setup directory structure per protobuf's instructions.
