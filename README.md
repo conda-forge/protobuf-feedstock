@@ -3,7 +3,7 @@ About protobuf
 
 Home: https://developers.google.com/protocol-buffers/
 
-Package license: New BSD License
+Package license: BSD 3-Clause
 
 Feedstock license: BSD 3-Clause
 
