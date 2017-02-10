@@ -4,70 +4,67 @@
 {% set sha256 = "0a0ae63cbffc274efb573bdde9a253e3f32e458c41261df51c5dbc5ad541e8f7" %}
 
 package:
-    name: {{ name }}
-    version: {{ version }}
+  name: {{ name }}
+  version: {{ version }}
 
 source:
-    fn: {{ name }}-{{ version }}.tar.gz
-    url: https://github.com/google/protobuf/archive/{{ version_str }}/{{ name }}-{{ version_str }}.tar.gz
-    sha256: {{ sha256 }}
-    patches:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/google/protobuf/archive/{{ version_str }}/{{ name }}-{{ version_str }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
-    number: 0
-    features:
-        - vc9                # [win and py27]
-        - vc10               # [win and py34]
-        - vc14               # [win and py35]
-        - vc14               # [win and py36]
-    # Skip the x64 Python 2.7 build on windows due to failing tests
-    skip: True               # [win and py27 and x86_64]
+  number: 0
+  # Skip the x64 Python 2.7 build on windows due to failing tests
+  skip: True               # [win and py27 and x86_64]
+  features:
+    - vc9                # [win and py27]
+    - vc10               # [win and py34]
+    - vc14               # [win and py35]
+    - vc14               # [win and py36]
 
 requirements:
-    build:
-        - git
-        - cmake              # [win]
-        - autoconf           # [unix]
-        - automake           # [unix]
-        - libtool            # [unix]
-        - pkg-config         # [unix]
-        - zlib 1.2.*
-        - python
-        - setuptools
-        - six
-        - ordereddict        # [py26]
-        - unittest2          # [py26]
-
-    run:
-        - zlib 1.2.*
-        - python
-        - setuptools
-        - six
-        - ordereddict        # [py26]
-        - unittest2          # [py26]
+  build:
+    - git
+    - cmake              # [win]
+    - autoconf           # [unix]
+    - automake           # [unix]
+    - libtool            # [unix]
+    - pkg-config         # [unix]
+    - zlib 1.2.*
+    - python
+    - setuptools
+    - six
+    - ordereddict        # [py26]
+    - unittest2          # [py26]
+  run:
+    - zlib 1.2.*
+    - python
+    - setuptools
+    - six
+    - ordereddict        # [py26]
+    - unittest2          # [py26]
 
 test:
-    commands:
-        - protoc --help
-        - test -f ${PREFIX}/lib/libprotobuf.a                           # [unix]
-        - test -f ${PREFIX}/lib/libprotobuf.dylib                       # [osx]
-        - test -f ${PREFIX}/lib/libprotobuf.so                          # [linux]
-        - if not exist %PREFIX%\\Library\\lib\\libprotobuf.lib exit 1   # [win]
-
-    imports:
-        - google
-        - google.protobuf
-        - google.protobuf.internal
-        - google.protobuf.pyext
+  commands:
+    - protoc --help
+    - test -f ${PREFIX}/lib/libprotobuf.a                           # [unix]
+    - test -f ${PREFIX}/lib/libprotobuf.dylib                       # [osx]
+    - test -f ${PREFIX}/lib/libprotobuf.so                          # [linux]
+    - if not exist %PREFIX%\\Library\\lib\\libprotobuf.lib exit 1   # [win]
+  imports:
+    - google
+    - google.protobuf
+    - google.protobuf.internal
+    - google.protobuf.pyext
 
 about:
-    home: https://developers.google.com/protocol-buffers/
-    license: BSD 3-Clause
-    summary: Protocol Buffers - Google's data interchange format
+  home: https://developers.google.com/protocol-buffers/
+  license: BSD 3-Clause
+  summary: "Protocol Buffers - Google's data interchange format."
 
 extra:
-    recipe-maintainers:
-        - dopplershift
-        - jakirkham
-        - jjhelmus
-        - ocefpaf
+  recipe-maintainers:
+    - dopplershift
+    - jakirkham
+    - jjhelmus
+    - ocefpaf
