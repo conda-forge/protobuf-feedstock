@@ -8,12 +8,13 @@ then
     export CC=clang
     export CXX=clang++
     export CXXFLAGS="-mmacosx-version-min=${MACOSX_VERSION_MIN}"
-    export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -std=c++11"
+    export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -std=c++11 -O2"
     export LIBS="-lc++"
 elif [ "$(uname)" == "Linux" ];
 then
     export CC=gcc
     export CXX=g++
+    export CXXFLAGS="-O2"
 fi
 
 # Doesn't include gmock or gtest. So, need to get these ourselves for `make check`.
@@ -28,6 +29,9 @@ autoreconf -i
 automake --add-missing
 
 ./configure --prefix="${PREFIX}" \
+            --with-pic \
+            --enable-shared \
+            --enable-static \
 	    CC="${CC}" \
 	    CXX="${CXX}" \
 	    CXXFLAGS="${CXXFLAGS}" \
