@@ -28,9 +28,12 @@ autoreconf -i
 automake --add-missing
 
 ./configure --prefix="${PREFIX}" \
+            --with-pic \
+            --enable-shared \
+            --enable-static \
 	    CC="${CC}" \
 	    CXX="${CXX}" \
-	    CXXFLAGS="${CXXFLAGS}" \
+	    CXXFLAGS="${CXXFLAGS} -O2" \
 	    LDFLAGS="${LDFLAGS}"
 make
 make check
