@@ -57,6 +57,7 @@ test:
 about:
   home: https://developers.google.com/protocol-buffers/
   license: BSD 3-Clause
+  license_file: LICENSE
   summary: "Protocol Buffers - Google's data interchange format."
 
 extra:
