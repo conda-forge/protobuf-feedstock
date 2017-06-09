@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 2
   features:
     - vc9                # [win and py27]
     - vc10               # [win and py34]
@@ -57,6 +57,7 @@ test:
 about:
   home: https://developers.google.com/protocol-buffers/
   license: BSD 3-Clause
+  license_file: LICENSE
   summary: "Protocol Buffers - Google's data interchange format."
 
 extra:
