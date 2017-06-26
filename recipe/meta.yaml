@@ -49,6 +49,7 @@ test:
     - test -f ${PREFIX}/lib/libprotobuf.dylib                       # [osx]
     - test -f ${PREFIX}/lib/libprotobuf.so                          # [linux]
     - if not exist %PREFIX%\\Library\\lib\\libprotobuf.lib exit 1   # [win]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"
   imports:
     - google
     - google.protobuf
