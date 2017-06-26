@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 3
   features:
     - vc9                # [win and py27]
     - vc10               # [win and py34]
@@ -21,7 +21,7 @@ build:
 
 requirements:
   build:
-    - git
+    - git                # [win]
     - cmake              # [win]
     - autoconf           # [unix]
     - automake           # [unix]
@@ -33,6 +33,7 @@ requirements:
     - six
     - ordereddict        # [py26]
     - unittest2          # [py26]
+    - unzip              # [unix]
   run:
     - zlib 1.2.*
     - python
@@ -66,3 +67,4 @@ extra:
     - jakirkham
     - jjhelmus
     - ocefpaf
+    - hajapy
