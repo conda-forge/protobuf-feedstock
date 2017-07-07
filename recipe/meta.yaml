@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 3
   features:
     - vc9                # [win and py27]
     - vc10               # [win and py34]
@@ -21,7 +21,7 @@ build:
 
 requirements:
   build:
-    - git
+    - git                # [win]
     - cmake              # [win]
     - autoconf           # [unix]
     - automake           # [unix]
@@ -33,6 +33,7 @@ requirements:
     - six
     - ordereddict        # [py26]
     - unittest2          # [py26]
+    - unzip              # [unix]
   run:
     - zlib 1.2.*
     - python
@@ -48,6 +49,8 @@ test:
     - test -f ${PREFIX}/lib/libprotobuf.dylib                       # [osx]
     - test -f ${PREFIX}/lib/libprotobuf.so                          # [linux]
     - if not exist %PREFIX%\\Library\\lib\\libprotobuf.lib exit 1   # [win]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win]
   imports:
     - google
     - google.protobuf
@@ -66,3 +69,4 @@ extra:
     - jakirkham
     - jjhelmus
     - ocefpaf
+    - hajapy

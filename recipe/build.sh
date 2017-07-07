@@ -16,17 +16,7 @@ then
     export CXX=g++
 fi
 
-# Doesn't include gmock or gtest. So, need to get these ourselves for `make check`.
-git clone -b release-1.7.0 git://github.com/google/googlemock.git gmock
-git clone -b release-1.7.0 git://github.com/google/googletest.git gmock/gtest
-
-# Build configure/Makefile as they are not present.
-aclocal
-libtoolize
-autoconf
-autoreconf -i
-automake --add-missing
-
+./autogen.sh
 ./configure --prefix="${PREFIX}" \
             --with-pic \
             --enable-shared \
@@ -35,7 +25,7 @@ automake --add-missing
 	    CXX="${CXX}" \
 	    CXXFLAGS="${CXXFLAGS} -O2" \
 	    LDFLAGS="${LDFLAGS}"
-make
-make check
+make -j ${CPU_COUNT}
+make check -j ${CPU_COUNT}
 make install
-(cd python && python setup.py install --single-version-externally-managed --record record.txt && cd ..)
+(cd python && python setup.py install --cpp_implementation --single-version-externally-managed --record record.txt && cd ..)
