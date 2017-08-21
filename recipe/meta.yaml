@@ -13,11 +13,11 @@ source:
 
 build:
   number: 0
+  skip: True  # [win and py27]
   features:
-    - vc9                # [win and py27]
-    - vc10               # [win and py34]
-    - vc14               # [win and py35]
-    - vc14               # [win and py36]
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and (py35 or py36)]
 
 requirements:
   build:
@@ -27,7 +27,7 @@ requirements:
     - automake           # [unix]
     - libtool            # [unix]
     - pkg-config         # [unix]
-    - zlib 1.2.*
+    - zlib 1.2.8
     - python
     - setuptools
     - six
@@ -35,7 +35,7 @@ requirements:
     - unittest2          # [py26]
     - unzip              # [unix]
   run:
-    - zlib 1.2.*
+    - zlib 1.2.8
     - python
     - setuptools
     - six
