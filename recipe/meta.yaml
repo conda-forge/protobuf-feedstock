@@ -1,6 +1,6 @@
 {% set name = "protobuf" %}
-{% set version = "3.3.2" %}
-{% set sha256 = "8b8e442becbeff637f160c1ef4a3a56769c50ba7c9ff939ccc94086530ff00e4" %}
+{% set version = "3.4.0" %}
+{% set sha256 = "cd55ee08e64a86cf12aaadd4672961813f592c194ed0c9ad94da0ec75acf219f" %}
 
 package:
   name: {{ name }}
@@ -13,11 +13,11 @@ source:
 
 build:
   number: 0
+  skip: True  # [win and py27]
   features:
-    - vc9                # [win and py27]
-    - vc10               # [win and py34]
-    - vc14               # [win and py35]
-    - vc14               # [win and py36]
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and (py35 or py36)]
 
 requirements:
   build:
@@ -27,7 +27,7 @@ requirements:
     - automake           # [unix]
     - libtool            # [unix]
     - pkg-config         # [unix]
-    - zlib 1.2.*
+    - zlib 1.2.8
     - python
     - setuptools
     - six
@@ -35,7 +35,7 @@ requirements:
     - unittest2          # [py26]
     - unzip              # [unix]
   run:
-    - zlib 1.2.*
+    - zlib 1.2.8
     - python
     - setuptools
     - six
