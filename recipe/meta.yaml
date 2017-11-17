@@ -1,6 +1,6 @@
 {% set name = "protobuf" %}
-{% set version = "3.4.0" %}
-{% set sha256 = "f6600abeee3babfa18591961a0ff21e7db6a6d9ef82418a261ec4fee44ee6d44" %}
+{% set version = "3.5.0" %}
+{% set sha256 = "0cc6607e2daa675101e9b7398a436f09167dffb8ca0489b0307ff7260498c13c" %}
 
 package:
   name: {{ name }}
@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win and py27]
   features:
     - vc9  # [win and py27]
