@@ -9,6 +9,13 @@ package:
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    #######################################################
+    # Reverts some C++11 usage to fix VS2008 builds       #
+    #                                                     #
+    # xref: https://github.com/google/protobuf/pull/3769  #
+    # #####################################################
+    - PR_3769.patch
 
 build:
   number: 0
