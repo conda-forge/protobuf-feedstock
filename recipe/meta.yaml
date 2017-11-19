@@ -17,6 +17,7 @@ source:
     # #####################################################
     - PR_3769.patch
     - fix_auto.diff
+    - fix_string_back.diff
 
 build:
   number: 0
