@@ -16,6 +16,7 @@ source:
     # xref: https://github.com/google/protobuf/pull/3769  #
     # #####################################################
     - PR_3769.patch
+    - fix_auto.diff
 
 build:
   number: 0
