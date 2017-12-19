@@ -1,0 +1,22 @@
+From 19d0e9934c997b1dc46ad539c37d67ea6c6fc33f Mon Sep 17 00:00:00 2001
+From: Jisi Liu <jisi.liu@gmail.com>
+Date: Tue, 19 Dec 2017 15:23:37 -0800
+Subject: [PATCH] Fix string::back() usage in googletest.cc
+
+---
+ src/google/protobuf/testing/googletest.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git src/google/protobuf/testing/googletest.cc src/google/protobuf/testing/googletest.cc
+index c329b6c1e5..b81d3994b7 100644
+--- src/google/protobuf/testing/googletest.cc
++++ src/google/protobuf/testing/googletest.cc
+@@ -132,7 +132,7 @@ string GetTemporaryDirectoryName() {
+   // with "\\?\") but these will be degenerate in the sense that you cannot
+   // chdir into such directories (or navigate into them with Windows Explorer)
+   // nor can you open such files with some programs (e.g. Notepad).
+-  if (result.back() == '.') {
++  if (result[result.size() - 1] == '.') {
+     result[result.size() - 1] = '_';
+   }
+   // On Win32, tmpnam() returns a file prefixed with '\', but which is supposed

@@ -9,6 +9,15 @@ package:
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    #######################################################
+    # Apply patches for pre-C++11 compilers.              #
+    #                                                     #
+    # xref: https://github.com/google/protobuf/pull/4074  #
+    # xref: https://github.com/google/protobuf/pull/4076  #
+    #######################################################
+    - PR_4074.patch
+    - PR_4076.patch
 
 build:
   number: 0
