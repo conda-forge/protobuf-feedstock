@@ -1,0 +1,22 @@
+From 501093d778258197cb8eec10d31cc9497520e459 Mon Sep 17 00:00:00 2001
+From: Jisi Liu <jisi.liu@gmail.com>
+Date: Tue, 19 Dec 2017 12:20:13 -0800
+Subject: [PATCH] Replace C++11 only method std::map::at
+
+---
+ src/google/protobuf/util/field_mask_util.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git src/google/protobuf/util/field_mask_util.cc src/google/protobuf/util/field_mask_util.cc
+index 4d0d3a46a5..8a41349875 100644
+--- src/google/protobuf/util/field_mask_util.cc
++++ src/google/protobuf/util/field_mask_util.cc
+@@ -374,7 +374,7 @@ void FieldMaskTree::RemovePath(const string& path,
+       }
+     }
+     if (ContainsKey(node->children, parts[i])) {
+-      node = node->children.at(parts[i]);
++      node = node->children[parts[i]];
+       if (field_descriptor->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE) {
+         current_descriptor = field_descriptor->message_type();
+       }
