@@ -20,7 +20,7 @@ source:
     - PR_4076.patch
 
 build:
-  number: 0
+  number: 1
   features:
     - vc9  # [win and py27]
     - vc10  # [win and py34]
