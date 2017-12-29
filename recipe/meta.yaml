@@ -18,7 +18,7 @@ source:
     - PR_4124.patch
 
 build:
-  number: 2
+  number: 3
   features:
     - vc9  # [win and py27]
     - vc10  # [win and py34]
@@ -64,6 +64,8 @@ test:
     - google.protobuf
     - google.protobuf.internal
     - google.protobuf.pyext
+    - google.protobuf.util
+    - google.protobuf.compiler
 
 about:
   home: https://developers.google.com/protocol-buffers/
