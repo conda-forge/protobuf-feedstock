@@ -1,0 +1,25 @@
+From 50cc0a5b1cc015adbfc8f4c789145c07eaaac75f Mon Sep 17 00:00:00 2001
+From: hajapy <hajapy@users.noreply.github.com>
+Date: Fri, 29 Dec 2017 08:09:16 -0500
+Subject: [PATCH 2/2] remove #
+
+---
+ python/google/protobuf/compiler/__init__.py | 1 -
+ python/google/protobuf/util/__init__.py     | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/python/google/protobuf/compiler/__init__.py b/python/google/protobuf/compiler/__init__.py
+index 792d6005..e69de29b 100644
+--- a/python/google/protobuf/compiler/__init__.py
++++ b/python/google/protobuf/compiler/__init__.py
+@@ -1 +0,0 @@
+-#
+diff --git a/python/google/protobuf/util/__init__.py b/python/google/protobuf/util/__init__.py
+index 792d6005..e69de29b 100644
+--- a/python/google/protobuf/util/__init__.py
++++ b/python/google/protobuf/util/__init__.py
+@@ -1 +0,0 @@
+-#
+-- 
+2.15.1
+

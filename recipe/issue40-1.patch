@@ -1,0 +1,29 @@
+From 57c7ff344b953437a3f5e5cd095eb0436b5a6792 Mon Sep 17 00:00:00 2001
+From: hajapy <hajapy@users.noreply.github.com>
+Date: Thu, 28 Dec 2017 16:15:27 -0500
+Subject: [PATCH] add __init__.py files to ensure packages are made
+
+---
+ python/google/protobuf/compiler/__init__.py | 1 +
+ python/google/protobuf/util/__init__.py     | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 python/google/protobuf/compiler/__init__.py
+ create mode 100644 python/google/protobuf/util/__init__.py
+
+diff --git a/python/google/protobuf/compiler/__init__.py b/python/google/protobuf/compiler/__init__.py
+new file mode 100644
+index 00000000..792d6005
+--- /dev/null
++++ b/python/google/protobuf/compiler/__init__.py
+@@ -0,0 +1 @@
++#
+diff --git a/python/google/protobuf/util/__init__.py b/python/google/protobuf/util/__init__.py
+new file mode 100644
+index 00000000..792d6005
+--- /dev/null
++++ b/python/google/protobuf/util/__init__.py
+@@ -0,0 +1 @@
++#
+-- 
+2.15.1
+

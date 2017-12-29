@@ -9,9 +9,15 @@ package:
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    # Ensures missing packages (compiler and util) get included in distribution
+    # Done in two steps because conda-build doesn't recognize
+    # files modified in a create-only patch
+    - issue40-1.patch
+    - issue40-2.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win and py27]
   features:
     - vc9  # [win and py27]
@@ -57,6 +63,8 @@ test:
     - google.protobuf
     - google.protobuf.internal
     - google.protobuf.pyext
+    - google.protobuf.compiler
+    - google.protobuf.util
 
 about:
   home: https://developers.google.com/protocol-buffers/
