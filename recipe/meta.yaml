@@ -10,7 +10,11 @@ source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
-    - issue40.patch
+    # Ensures missing packages (compiler and util) get included in distribution
+    # Done in two steps because conda-build doesn't recognize
+    # files modified in a create-only patch
+    - issue40-1.patch
+    - issue40-2.patch
 
 build:
   number: 1
