@@ -9,52 +9,35 @@ package:
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    #######################################################
-    # Apply patches for pre-C++11 compilers.              #
-    #                                                     #
-    # xref: https://github.com/google/protobuf/pull/4124  #
-    #######################################################
-    - PR_4124.patch
 
 build:
   number: 3
   features:
-    - vc9  # [win and py27]
+    - vc9   # [win and py27]
     - vc10  # [win and py34]
     - vc14  # [win and (py35 or py36)]
 
 requirements:
   build:
     - toolchain
-    - git                # [win]
-    - cmake              # [win]
-    - autoconf           # [unix]
-    - automake           # [unix]
-    - libtool            # [unix]
-    - pkg-config         # [unix]
     - zlib 1.2.11
     - python
     - setuptools
+    - libprotobuf {{ version }}
     - six
-    - ordereddict        # [py26]
-    - unittest2          # [py26]
-    - unzip              # [unix]
+    - ordereddict                # [py26]
+    - unittest2                  # [py26]
   run:
     - zlib 1.2.11
     - python
     - setuptools
+    - libprotobuf {{ version }}
     - six
-    - ordereddict        # [py26]
-    - unittest2          # [py26]
+    - ordereddict                # [py26]
+    - unittest2                  # [py26]
 
 test:
   commands:
-    - protoc --help
-    - test -f ${PREFIX}/lib/libprotobuf.a                           # [unix]
-    - test -f ${PREFIX}/lib/libprotobuf.dylib                       # [osx]
-    - test -f ${PREFIX}/lib/libprotobuf.so                          # [linux]
-    - if not exist %PREFIX%\\Library\\lib\\libprotobuf.lib exit 1   # [win]
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix]
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win]
     - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
