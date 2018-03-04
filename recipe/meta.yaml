@@ -1,17 +1,15 @@
-{% set name = "protobuf" %}
-{% set version = "3.5.1" %}
-{% set sha256 = "826425182ee43990731217b917c5c3ea7190cfda141af4869e6d4ad9085a740f" %}
+{% set version = "3.5.1.1" %}
 
 package:
-  name: {{ name }}
+  name: protobuf
   version: {{ version }}
 
 source:
-  url: https://github.com/google/protobuf/archive/v{{ version }}/{{ name }}-v{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
+  sha256: 56b5d9e1ab2bf4f5736c4cfba9f4981fbc6976246721e7ded5602fbaee6d6869
 
 build:
-  number: 4
+  number: 0
   features:
     - vc9   # [win and py27]
     - vc10  # [win and py34]
