@@ -14,14 +14,16 @@ Summary: Protocol Buffers - Google's data interchange format.
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/protobuf-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/protobuf-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/protobuf-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/protobuf-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/protobuf-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/protobuf-feedstock/branch/master)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/protobuf-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/protobuf-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/protobuf-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/protobuf-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/protobuf-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/protobuf-feedstock/branch/master)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/protobuf/badges/version.svg)](https://anaconda.org/conda-forge/protobuf)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/protobuf/badges/downloads.svg)](https://anaconda.org/conda-forge/protobuf)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-protobuf-green.svg)](https://anaconda.org/conda-forge/protobuf) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/protobuf.svg)](https://anaconda.org/conda-forge/protobuf) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/protobuf.svg)](https://anaconda.org/conda-forge/protobuf) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/protobuf.svg)](https://anaconda.org/conda-forge/protobuf) |
 
 Installing protobuf
 ===================
