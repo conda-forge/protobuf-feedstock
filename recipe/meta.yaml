@@ -10,26 +10,24 @@ source:
 
 build:
   number: 0
-  features:
-    - vc9   # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and (py35 or py36)]
 
 requirements:
   build:
-    - toolchain
-    - zlib 1.2.11
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - zlib
     - python
     - setuptools
-    - libprotobuf {{ version }}
+    - libprotobuf    version }}
     - six
     - ordereddict                # [py26]
     - unittest2                  # [py26]
   run:
-    - zlib 1.2.11
+    - zlib
     - python
     - setuptools
-    - libprotobuf {{ version }}
+    - libprotobuf    version }}
     - six
     - ordereddict                # [py26]
     - unittest2                  # [py26]
