@@ -19,7 +19,7 @@ requirements:
     - zlib
     - python
     - setuptools
-    - libprotobuf    version }}
+    - libprotobuf {{ version }}
     - six
     - ordereddict                # [py26]
     - unittest2                  # [py26]
@@ -27,7 +27,7 @@ requirements:
     - zlib
     - python
     - setuptools
-    - libprotobuf    version }}
+    - libprotobuf {{ version }}
     - six
     - ordereddict                # [py26]
     - unittest2                  # [py26]
