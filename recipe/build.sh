@@ -18,4 +18,9 @@ touch google/protobuf/util/__init__.py
 touch google/protobuf/compiler/__init__.py
 # End fix
 
-python setup.py install --cpp_implementation --single-version-externally-managed --record record.txt
+if [[ ${PY_VER} == 3.7 ]]; then
+  # https://github.com/google/protobuf/issues/4086
+  export CFLAGS="${CFLAGS} -fpermissive"
+fi
+
+${PYTHON} setup.py install --cpp_implementation --single-version-externally-managed --record record.txt

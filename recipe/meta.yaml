@@ -1,4 +1,4 @@
-{% set version = "3.5.2" %}
+{% set version = "3.6.0" %}
 
 package:
   name: protobuf
@@ -6,7 +6,9 @@ package:
 
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 4ffd420f39f226e96aebc3554f9c66a912f6cad6261f39f194f16af8a1f6dab2
+  sha256: 50a5753995b3142627ac55cfd496cebc418a2e575ca0236e29033c67bd5665f4
+  patches:
+    - 0001-Python-3.7-compat-const-char.patch
 
 build:
   number: 0
