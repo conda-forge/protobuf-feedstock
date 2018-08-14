@@ -6,13 +6,14 @@ pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
-  zlib:
-    max_pin: x.x
+  vc:
+    max_pin: x
 python:
-- '3.6'
+- '3.5'
+vc:
+- '14'
 zip_keys:
 - - python
+  - vc
   - c_compiler
   - cxx_compiler
-zlib:
-- '1.2'
