@@ -1,4 +1,4 @@
-{% set version = "3.5.2" %}
+{% set version = "3.6.0" %}
 
 package:
   name: protobuf
@@ -6,17 +6,20 @@ package:
 
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 4ffd420f39f226e96aebc3554f9c66a912f6cad6261f39f194f16af8a1f6dab2
+  sha256: 50a5753995b3142627ac55cfd496cebc418a2e575ca0236e29033c67bd5665f4
+  patches:
+    - 0001-Python-3.7-compat-const-char.patch
 
 build:
   number: 0
+  # Requires C++ 11, VS 2008 is not supported
+  skip: True  # [win and vc<14]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    - zlib
     - python
     - setuptools
     - libprotobuf {{ version }}
@@ -24,7 +27,6 @@ requirements:
     - ordereddict                # [py26]
     - unittest2                  # [py26]
   run:
-    - zlib
     - python
     - setuptools
     - libprotobuf {{ version }}
@@ -36,8 +38,6 @@ test:
   commands:
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix]
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win]
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
   imports:
     - google
     - google.protobuf
@@ -49,8 +49,14 @@ test:
 about:
   home: https://developers.google.com/protocol-buffers/
   license: BSD 3-Clause
+  license_family: BSD
   license_file: LICENSE
   summary: "Protocol Buffers - Google's data interchange format."
+  description: |
+    Protocol buffers are Google's language-neutral, platform-neutral, extensible
+    mechanism for serializing structured data,think XML, but smaller, faster, and simpler.
+  doc_url: https://developers.google.com/protocol-buffers/docs/tutorials
+  doc_source_url: https://github.com/google/protobuf/blob/master/README.md
 
 extra:
   recipe-maintainers:
