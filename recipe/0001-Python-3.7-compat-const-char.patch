@@ -1,0 +1,81 @@
+diff -urN protobuf-3.5.2.orig/python/google/protobuf/pyext/descriptor.cc protobuf-3.5.2/python/google/protobuf/pyext/descriptor.cc
+--- protobuf-3.5.2.orig/python/google/protobuf/pyext/descriptor.cc	2018-06-18 05:40:29.000000000 -0700
++++ protobuf-3.5.2/python/google/protobuf/pyext/descriptor.cc	2018-06-18 05:40:54.000000000 -0700
+@@ -56,7 +56,7 @@
+   #endif
+   #define PyString_AsStringAndSize(ob, charpp, sizep) \
+     (PyUnicode_Check(ob)? \
+-       ((*(charpp) = PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
++       ((*(charpp) = (char *)PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
+        PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
+ #endif
+ 
+diff -urN protobuf-3.5.2.orig/python/google/protobuf/pyext/descriptor_containers.cc protobuf-3.5.2/python/google/protobuf/pyext/descriptor_containers.cc
+--- protobuf-3.5.2.orig/python/google/protobuf/pyext/descriptor_containers.cc	2018-06-18 05:40:29.000000000 -0700
++++ protobuf-3.5.2/python/google/protobuf/pyext/descriptor_containers.cc	2018-06-18 05:41:08.000000000 -0700
+@@ -66,7 +66,7 @@
+   #endif
+   #define PyString_AsStringAndSize(ob, charpp, sizep) \
+     (PyUnicode_Check(ob)? \
+-       ((*(charpp) = PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
++       ((*(charpp) = (char *)PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
+        PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
+ #endif
+ 
+diff -urN protobuf-3.5.2.orig/python/google/protobuf/pyext/descriptor_pool.cc protobuf-3.5.2/python/google/protobuf/pyext/descriptor_pool.cc
+--- protobuf-3.5.2.orig/python/google/protobuf/pyext/descriptor_pool.cc	2018-06-18 05:40:29.000000000 -0700
++++ protobuf-3.5.2/python/google/protobuf/pyext/descriptor_pool.cc	2018-06-18 05:41:24.000000000 -0700
+@@ -48,7 +48,7 @@
+   #endif
+   #define PyString_AsStringAndSize(ob, charpp, sizep) \
+     (PyUnicode_Check(ob)? \
+-       ((*(charpp) = PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
++       ((*(charpp) = (char *)PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
+        PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
+ #endif
+ 
+diff -urN protobuf-3.5.2.orig/python/google/protobuf/pyext/extension_dict.cc protobuf-3.5.2/python/google/protobuf/pyext/extension_dict.cc
+--- protobuf-3.5.2.orig/python/google/protobuf/pyext/extension_dict.cc	2018-06-18 05:40:29.000000000 -0700
++++ protobuf-3.5.2/python/google/protobuf/pyext/extension_dict.cc	2018-06-18 05:41:40.000000000 -0700
+@@ -56,7 +56,7 @@
+   #endif
+   #define PyString_AsStringAndSize(ob, charpp, sizep) \
+     (PyUnicode_Check(ob)? \
+-       ((*(charpp) = PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
++       ((*(charpp) = (char *)PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
+        PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
+ #endif
+ 
+diff -urN protobuf-3.5.2.orig/python/google/protobuf/pyext/message.cc protobuf-3.5.2/python/google/protobuf/pyext/message.cc
+--- protobuf-3.5.2.orig/python/google/protobuf/pyext/message.cc	2018-06-18 05:40:29.000000000 -0700
++++ protobuf-3.5.2/python/google/protobuf/pyext/message.cc	2018-06-18 05:45:07.000000000 -0700
+@@ -82,7 +82,7 @@
+     (PyUnicode_Check(ob)? PyUnicode_AsUTF8(ob): PyBytes_AsString(ob))
+   #define PyString_AsStringAndSize(ob, charpp, sizep) \
+     (PyUnicode_Check(ob)? \
+-       ((*(charpp) = PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
++       ((*(charpp) = (char *)PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
+        PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
+   #endif
+ #endif
+@@ -1536,7 +1536,7 @@
+     return NULL;
+   }
+ #else
+-  field_name = PyUnicode_AsUTF8AndSize(arg, &size);
++  field_name = (char *)PyUnicode_AsUTF8AndSize(arg, &size);
+   if (!field_name) {
+     return NULL;
+   }
+diff -urN protobuf-3.5.2.orig/python/google/protobuf/pyext/message_factory.cc protobuf-3.5.2/python/google/protobuf/pyext/message_factory.cc
+--- protobuf-3.5.2.orig/python/google/protobuf/pyext/message_factory.cc	2018-06-18 05:40:29.000000000 -0700
++++ protobuf-3.5.2/python/google/protobuf/pyext/message_factory.cc	2018-06-18 05:42:12.000000000 -0700
+@@ -42,7 +42,7 @@
+   #endif
+   #define PyString_AsStringAndSize(ob, charpp, sizep) \
+     (PyUnicode_Check(ob)? \
+-       ((*(charpp) = PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
++       ((*(charpp) = (char *)PyUnicode_AsUTF8AndSize(ob, (sizep))) == NULL? -1: 0): \
+        PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
+ #endif
+ 
