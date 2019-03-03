@@ -7,8 +7,6 @@ package:
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: a19dcfe9d156ae45d209b15e0faed5c7b5f109b6117bfc1974b6a7b98a850320
-  patches:
-    - 0001-Python-3.7-compat-const-char.patch
 
 build:
   number: 0
