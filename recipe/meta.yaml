@@ -9,7 +9,7 @@ source:
   sha256: 1fbf1c2962af287607232b2eddeaec9b4f4a7a6f5934e1a9276e9af76952f7e0
 
 build:
-  number: 0
+  number: 1
   # Requires C++ 11, VS 2008 is not supported
   skip: True  # [win and vc<14]
 
