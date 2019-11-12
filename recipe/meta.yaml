@@ -1,4 +1,4 @@
-{% set version = "3.10.1" %}
+{% set version = "3.8.0" %}
 
 package:
   name: protobuf
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 6adf73fd7f90409e479d6ac86529ade2d45f50494c5c10f539226693cb8fe4f7
+  sha256: 03d2e5ef101aee4c2f6ddcf145d2a04926b9c19e7086944df3842b1b8502b783
 
 build:
-  number: 0
+  number: 2
   # Requires C++ 11, VS 2008 is not supported
   skip: True  # [win and vc<14]
 
