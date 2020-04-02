@@ -9,7 +9,7 @@ source:
   sha256: a79d19dcdf9139fa4b81206e318e33d245c4c9da1ffed21c87288ed4380426f9
 
 build:
-  number: 0
+  number: 1
   # Requires C++ 11, VS 2008 is not supported
   skip: True  # [win and vc<14]
 
@@ -30,8 +30,8 @@ requirements:
 
 test:
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix and python_impl != "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win or (unix and python_impl == "pypy")]
   imports:
     - google
     - google.protobuf
