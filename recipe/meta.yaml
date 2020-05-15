@@ -1,4 +1,4 @@
-{% set version = "3.11.4" %}
+{% set version = "3.12.0" %}
 
 package:
   name: protobuf
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: a79d19dcdf9139fa4b81206e318e33d245c4c9da1ffed21c87288ed4380426f9
+  sha256: 946ba5371e423e1220d2cbefc1f65e69a1e81ca5bab62a03d66894172983cfcd
 
 build:
-  number: 1
+  number: 0
   # Requires C++ 11, VS 2008 is not supported
-  skip: True  # [win and vc<14]
+  skip: true  # [win and vc<14]
 
 requirements:
   build:
@@ -45,7 +45,7 @@ about:
   license: BSD 3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: "Protocol Buffers - Google's data interchange format."
+  summary: Protocol Buffers - Google's data interchange format.
   description: |
     Protocol buffers are Google's language-neutral, platform-neutral, extensible
     mechanism for serializing structured data,think XML, but smaller, faster, and simpler.
