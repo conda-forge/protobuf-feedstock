@@ -5,13 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/google/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
+  url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: 512e5a674bf31f8b7928a64d8adf73ee67b8fe88339ad29adaa3b84dbaa570d8
 
 build:
   number: 0
-  # Requires C++ 11, VS 2008 is not supported
-  skip: true  # [win and vc<14]
 
 requirements:
   build:
@@ -42,7 +40,7 @@ test:
 
 about:
   home: https://developers.google.com/protocol-buffers/
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: Protocol Buffers - Google's data interchange format.
@@ -50,7 +48,7 @@ about:
     Protocol buffers are Google's language-neutral, platform-neutral, extensible
     mechanism for serializing structured data,think XML, but smaller, faster, and simpler.
   doc_url: https://developers.google.com/protocol-buffers/docs/tutorials
-  doc_source_url: https://github.com/google/protobuf/blob/master/README.md
+  doc_source_url: https://github.com/protocolbuffers/protobuf/blob/master/README.md
 
 extra:
   recipe-maintainers:
