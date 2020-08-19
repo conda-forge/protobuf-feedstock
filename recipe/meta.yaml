@@ -17,7 +17,7 @@ requirements:
     - {{ compiler('cxx') }}
   host:
     - python
-    - setuptools
+    - pip
     - libprotobuf {{ version }}
     - six
   run:
