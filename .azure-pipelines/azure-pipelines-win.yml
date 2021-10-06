@@ -8,9 +8,6 @@ jobs:
     vmImage: vs2017-win2016
   strategy:
     matrix:
-      win_64_python3.6.____cpythonpython_implcpython:
-        CONFIG: win_64_python3.6.____cpythonpython_implcpython
-        UPLOAD_PACKAGES: 'True'
       win_64_python3.7.____73_pypypython_implpypy:
         CONFIG: win_64_python3.7.____73_pypypython_implpypy
         UPLOAD_PACKAGES: 'True'
