@@ -1,4 +1,4 @@
-{% set version = "3.18.1" %}
+{% set version = "3.19.1" %}
 
 package:
   name: protobuf
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 9111bf0b542b631165fadbd80aa60e7fb25b25311c532139ed2089d76ddf6dd7
+  sha256: 87407cd28e7a9c95d9f61a098a53cf031109d451a7763e7dd1253abf8b4df422
 
 build:
   number: 0
