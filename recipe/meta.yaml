@@ -12,7 +12,7 @@ build:
   number: 2
   script:
     - cd python
-    - >
+    - >-
         {{ PYTHON }} setup.py install
         --cpp_implementation                 # [unix]
         --single-version-externally-managed
