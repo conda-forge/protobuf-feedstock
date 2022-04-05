@@ -11,12 +11,10 @@ source:
 build:
   number: 4
   script:
-    - copy %LIBRARY_LIB%\libprotobuf.lib %LIBRARY_LIB%\protobuf.lib  # [win]
     - cd python
     - >-
         "{{ PYTHON }}" -m pip install . -vv
         --install-option="--cpp_implementation"
-    - del %LIBRARY_LIB%\protobuf.lib                                 # [win]
 
 requirements:
   build:
