@@ -1,4 +1,4 @@
-{% set version = "3.19.1" %}
+{% set version = "3.20.0" %}
 
 package:
   name: protobuf
@@ -6,10 +6,15 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 87407cd28e7a9c95d9f61a098a53cf031109d451a7763e7dd1253abf8b4df422
+  sha256: b07772d38ab07e55eca4d50f4b53da2d998bb221575c60a4f81100242d4b4889
 
 build:
-  number: 1
+  number: 3
+  script:
+    - cd python
+    - >-
+        "{{ PYTHON }}" -m pip install . -vv
+        --install-option="--cpp_implementation"
 
 requirements:
   build:
@@ -50,6 +55,7 @@ about:
   description: |
     Protocol buffers are Google's language-neutral, platform-neutral, extensible
     mechanism for serializing structured data,think XML, but smaller, faster, and simpler.
+  dev_url: https://github.com/protocolbuffers/protobuf
   doc_url: https://developers.google.com/protocol-buffers/docs/tutorials
   doc_source_url: https://github.com/protocolbuffers/protobuf/blob/master/README.md
 
