@@ -9,6 +9,8 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/protobuf-feedst
 
 Summary: Protocol Buffers - Google's data interchange format.
 
+Development: https://github.com/protocolbuffers/protobuf
+
 Documentation: https://developers.google.com/protocol-buffers/docs/tutorials
 
 Protocol buffers are Google's language-neutral, platform-neutral, extensible
