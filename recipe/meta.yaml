@@ -1,4 +1,4 @@
-{% set version = "3.20.1" %}
+{% set version = "3.21.1" %}
 
 package:
   name: protobuf
@@ -6,15 +6,14 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 8b28fdd45bab62d15db232ec404248901842e5340299a57765e48abe8a80d930
+  sha256: a295dd3b9551d3e2749a9969583dea110c6cdcc39d02088f7c7bb1100077e081
 
 build:
   number: 0
   script:
     - cd python
     - >-
-        "{{ PYTHON }}" -m pip install . -vv
-        --install-option="--cpp_implementation"  # [unix]
+      "{{ PYTHON }}" -m pip install . -vv --install-option="--cpp_implementation"  # [unix]
 
 requirements:
   build:
