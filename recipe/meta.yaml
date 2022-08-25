@@ -12,8 +12,8 @@ build:
   number: 0
   script:
     - cd python
-    - >-
-      "{{ PYTHON }}" -m pip install . -vv --install-option="--cpp_implementation"  # [unix]
+    - {{ PYTHON }} -m pip install . -vv  # [win]
+    - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"  # [unix]
 
 requirements:
   build:
