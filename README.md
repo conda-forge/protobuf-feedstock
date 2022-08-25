@@ -399,4 +399,5 @@ Feedstock Maintainers
 * [@jakirkham](https://github.com/jakirkham/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@xhochy](https://github.com/xhochy/)
+* [@xylar](https://github.com/xylar/)
 

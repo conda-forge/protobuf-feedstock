@@ -1,4 +1,4 @@
-{% set version = "3.21.1" %}
+{% set version = "21.2" %}
 
 package:
   name: protobuf
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: a295dd3b9551d3e2749a9969583dea110c6cdcc39d02088f7c7bb1100077e081
+  sha256: ca983c9d2c8f8c935513642bcc4b2cbc64e4046e0bb16bf2ff893128577ece8c
 
 build:
   number: 0
@@ -26,12 +26,10 @@ requirements:
     - python
     - pip
     - libprotobuf {{ version }}
-    - six
   run:
     - python
     - setuptools
     - libprotobuf {{ version }}
-    - six
 
 test:
   commands:
