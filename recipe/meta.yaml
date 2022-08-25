@@ -26,12 +26,10 @@ requirements:
     - python
     - pip
     - libprotobuf {{ version }}
-    - six
   run:
     - python
     - setuptools
     - libprotobuf {{ version }}
-    - six
 
 test:
   commands:
