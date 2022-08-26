@@ -1,5 +1,5 @@
 # keep this without major version to let the bot pick it up
-{% set version = "21.1" %}
+{% set version = "21.2" %}
 # protobuf doesn't add the major version in the tag...
 {% set major = "4" %}
 # libprotobuf now has a different major version than protobuf
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: f1a83673cbcaff6346a8fba87a9c02c0f943a4a696b6c7d1b71586d97609db12
+  sha256: ca983c9d2c8f8c935513642bcc4b2cbc64e4046e0bb16bf2ff893128577ece8c
 
 build:
   number: 0
