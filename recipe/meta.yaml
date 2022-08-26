@@ -1,12 +1,17 @@
-{% set version = "21.2" %}
+# keep this without major version to let the bot pick it up
+{% set version = "21.1" %}
+# protobuf doesn't add the major version in the tag...
+{% set major = "4" %}
+# libprotobuf now has a different major version than protobuf
+{% set lib_major = "3" %}
 
 package:
   name: protobuf
-  version: {{ version }}
+  version: {{ major + "." + version }}
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: ca983c9d2c8f8c935513642bcc4b2cbc64e4046e0bb16bf2ff893128577ece8c
+  sha256: f1a83673cbcaff6346a8fba87a9c02c0f943a4a696b6c7d1b71586d97609db12
 
 build:
   number: 0
@@ -21,15 +26,15 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}                    # [unix]
     - {{ compiler('cxx') }}                  # [unix]
-    - libprotobuf {{ version }}              # [build_platform != target_platform]
+    - libprotobuf {{ lib_major + "." + version }}  # [build_platform != target_platform]
   host:
     - python
     - pip
-    - libprotobuf {{ version }}
+    - libprotobuf {{ lib_major + "." + version }}
   run:
     - python
     - setuptools
-    - libprotobuf {{ version }}
+    - libprotobuf {{ lib_major + "." + version }}
 
 test:
   commands:

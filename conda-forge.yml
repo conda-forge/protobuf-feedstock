@@ -1,5 +1,4 @@
 bot:
-  automerge: true
   check_solvable: true
 build_platform:
   linux_aarch64: linux_64
