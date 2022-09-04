@@ -71,3 +71,4 @@ extra:
     - ocefpaf
     - hajapy
     - xhochy
+    - conda-forge/libprotobuf
