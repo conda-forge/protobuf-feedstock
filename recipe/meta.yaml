@@ -33,7 +33,8 @@ requirements:
   host:
     - python
     - pip
-    - libprotobuf {{ lib_major + "." + version }}
+    - libprotobuf {{ lib_major + "." + version }}         # [unix]
+    - libprotobuf-static {{ lib_major + "." + version }}  # [win]
   run:
     - python
     - setuptools
