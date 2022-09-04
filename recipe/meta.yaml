@@ -12,6 +12,8 @@ package:
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: 4a7e87e4166c358c63342dddcde6312faee06ea9d5bb4e2fa87d3478076f6639
+  patches:
+    - patches/0001-do-not-link-msvc-runtime-statically.patch
 
 build:
   number: 1
