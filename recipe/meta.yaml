@@ -12,25 +12,29 @@ package:
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: 4a7e87e4166c358c63342dddcde6312faee06ea9d5bb4e2fa87d3478076f6639
+  patches:
+    - patches/0001-do-not-link-msvc-runtime-statically.patch
+    - patches/0002-fix-paths-for-include-lib-directories.patch
+    - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
-    - {{ PYTHON }} -m pip install . -vv  # [win]
-    - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"  # [unix]
+    - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - {{ compiler('c') }}                    # [unix]
-    - {{ compiler('cxx') }}                  # [unix]
     - libprotobuf {{ lib_major + "." + version }}  # [build_platform != target_platform]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
   host:
     - python
     - pip
-    - libprotobuf {{ lib_major + "." + version }}
+    - libprotobuf {{ lib_major + "." + version }}         # [unix]
+    - libprotobuf-static {{ lib_major + "." + version }}  # [win]
   run:
     - python
     - setuptools
@@ -38,8 +42,8 @@ requirements:
 
 test:
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix and python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win or (unix and python_impl == "pypy")]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
   imports:
     - google
     - google.protobuf
@@ -69,3 +73,4 @@ extra:
     - ocefpaf
     - hajapy
     - xhochy
+    - conda-forge/libprotobuf
