@@ -37,8 +37,8 @@ requirements:
 
 test:
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix and python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win or (unix and python_impl == "pypy")]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
   imports:
     - google
     - google.protobuf
