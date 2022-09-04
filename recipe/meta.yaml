@@ -15,6 +15,7 @@ source:
   patches:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
+    - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
 
 build:
   number: 1
