@@ -1,38 +1,39 @@
-{% set version = "3.20.0" %}
+# keep this without major version to let the bot pick it up
+{% set version = "21.5" %}
+# protobuf doesn't add the major version in the tag...
+{% set major = "4" %}
+# libprotobuf now has a different major version than protobuf
+{% set lib_major = "3" %}
 
 package:
   name: protobuf
-  version: {{ version }}
+  version: {{ major + "." + version }}
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: b07772d38ab07e55eca4d50f4b53da2d998bb221575c60a4f81100242d4b4889
+  sha256: 4a7e87e4166c358c63342dddcde6312faee06ea9d5bb4e2fa87d3478076f6639
 
 build:
-  number: 4
+  number: 1
   script:
     - cd python
-    - >-
-        "{{ PYTHON }}" -m pip install . -vv
-        --install-option="--cpp_implementation"
+    - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - libprotobuf {{ lib_major + "." + version }}  # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - libprotobuf {{ version }}              # [build_platform != target_platform]
   host:
     - python
     - pip
-    - libprotobuf {{ version }}
-    - six
+    - libprotobuf {{ lib_major + "." + version }}
   run:
     - python
     - setuptools
-    - libprotobuf {{ version }}
-    - six
+    - libprotobuf {{ lib_major + "." + version }}
 
 test:
   commands:
@@ -61,6 +62,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - xylar
     - dopplershift
     - jakirkham
     - ocefpaf
