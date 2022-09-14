@@ -394,6 +394,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@conda-forge/libprotobuf](https://github.com/conda-forge/libprotobuf/)
 * [@dopplershift](https://github.com/dopplershift/)
 * [@hajapy](https://github.com/hajapy/)
 * [@jakirkham](https://github.com/jakirkham/)
