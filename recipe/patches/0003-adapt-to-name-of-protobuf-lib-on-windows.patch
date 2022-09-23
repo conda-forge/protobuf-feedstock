@@ -17,7 +17,7 @@ index 2b907cf9f..9127f05d2 100755
      compile_static_ext = GetOptionFromArgv('--compile_static_extension')
 -    libraries = ['protobuf']
 +    # our windows builds don't follow standard windows naming (i.e. have a lib prefix)
-+    libraries = ['protobuf'] if sys.platform != 'win32' else ['libprotobuf']
++    libraries = ['protobuf'] if sys.platform != 'win32' else ['libprotobuf-static']
      extra_objects = None
      if compile_static_ext:
        libraries = None
