@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: b07772d38ab07e55eca4d50f4b53da2d998bb221575c60a4f81100242d4b4889
+  patches:
+    - 0001-fix-version.patch
 
 build:
-  number: 4
+  number: 5
   script:
     - cd python
     - >-
@@ -35,9 +37,12 @@ requirements:
     - six
 
 test:
+  requires:
+    - pip
   commands:
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix and python_impl != "pypy"]
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win or (unix and python_impl == "pypy")]
+    - pip check
   imports:
     - google
     - google.protobuf
