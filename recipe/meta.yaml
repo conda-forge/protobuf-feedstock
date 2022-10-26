@@ -16,6 +16,7 @@ source:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
     - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
+    - patches/0004-fix-build-with-python-311.patch
 
 build:
   number: 1
