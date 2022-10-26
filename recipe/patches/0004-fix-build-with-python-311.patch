@@ -1,17 +1,6 @@
-From da973aff2adab60a9e516d3202c111dbdde1a50f Mon Sep 17 00:00:00 2001
-From: Alexander Shadchin <alexandr.shadchin@gmail.com>
-Date: Sun, 14 Aug 2022 21:13:49 +0300
-Subject: [PATCH] Fix build with Python 3.11
-
-The PyFrameObject structure members have been removed from the public C API.
----
- python/google/protobuf/pyext/descriptor.cc | 75 ++++++++++++++++++----
- 1 file changed, 62 insertions(+), 13 deletions(-)
-
-diff --git a/python/google/protobuf/pyext/descriptor.cc b/python/google/protobuf/pyext/descriptor.cc
-index fc83acf01a..fc97b0fa6c 100644
---- a/python/google/protobuf/pyext/descriptor.cc
-+++ b/python/google/protobuf/pyext/descriptor.cc
+diff -ruN protobuf-21.8/python/google/protobuf/pyext/descriptor.cc protobuf-21.8-patch/python/google/protobuf/pyext/descriptor.cc
+--- protobuf-21.8/python/google/protobuf/pyext/descriptor.cc	2022-10-18 17:45:18.000000000 +0200
++++ protobuf-21.8-patch/python/google/protobuf/pyext/descriptor.cc	2022-10-26 21:57:26.217437077 +0200
 @@ -58,6 +58,37 @@
                : 0)                                               \
         : PyBytes_AsStringAndSize(ob, (charpp), (sizep)))
@@ -50,14 +39,21 @@ index fc83acf01a..fc97b0fa6c 100644
  namespace google {
  namespace protobuf {
  namespace python {
-@@ -96,48 +127,66 @@ bool _CalledFromGeneratedFile(int stacklevel) {
+@@ -92,52 +123,72 @@
+ // TODO(amauryfa): Change the proto2 compiler to remove the assignments, and
+ // remove this hack.
+ bool _CalledFromGeneratedFile(int stacklevel) {
+-#ifndef PYPY_VERSION
++#ifdef PYPY_VERSION
++  return true;
++#else
++  bool result = false;
    // This check is not critical and is somewhat difficult to implement correctly
    // in PyPy.
    PyFrameObject* frame = PyEval_GetFrame();
 +  PyCodeObject* frame_code = nullptr;
 +  PyObject* frame_globals = nullptr;
 +  PyObject* frame_locals = nullptr;
-+  bool result = false;
 +
    if (frame == nullptr) {
 -    return false;
@@ -118,8 +114,6 @@ index fc83acf01a..fc97b0fa6c 100644
 -    return false;
 +    goto exit;
    }
- #endif
--  return true;
 +  result = true;
 +exit:
 +  Py_XDECREF(frame_globals);
@@ -127,6 +121,8 @@ index fc83acf01a..fc97b0fa6c 100644
 +  Py_XDECREF(frame_code);
 +  Py_XDECREF(frame);
 +  return result;
+ #endif
+-  return true;
  }
  
  // If the calling code is not a _pb2.py file, raise AttributeError.
