@@ -18,7 +18,7 @@ source:
     - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
