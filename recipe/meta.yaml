@@ -9,7 +9,7 @@ source:
   sha256: 88231778cffebf93bc905e76ea757fae0f2ef497cc00f64973e41f1acd4fc781
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - >-
