@@ -1,9 +1,0 @@
-diff -ruN protobuf-3.20.0/python/google/protobuf/__init__.py protobuf-3.20.0-patch/python/google/protobuf/__init__.py
---- protobuf-3.20.0/python/google/protobuf/__init__.py	2022-03-24 12:51:33.000000000 -0600
-+++ protobuf-3.20.0-patch/python/google/protobuf/__init__.py	2022-09-24 20:32:55.750599294 -0600
-@@ -30,4 +30,4 @@
- 
- # Copyright 2007 Google Inc. All Rights Reserved.
- 
--__version__ = '3.20.0rc2'
-+__version__ = '3.20.0'
