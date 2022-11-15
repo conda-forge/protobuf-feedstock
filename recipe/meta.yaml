@@ -1,4 +1,4 @@
-{% set version = "3.20.0" %}
+{% set version = "3.20.2" %}
 
 package:
   name: protobuf
@@ -6,12 +6,10 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: b07772d38ab07e55eca4d50f4b53da2d998bb221575c60a4f81100242d4b4889
-  patches:
-    - 0001-fix-version.patch
+  sha256: 88231778cffebf93bc905e76ea757fae0f2ef497cc00f64973e41f1acd4fc781
 
 build:
-  number: 5
+  number: 0
   script:
     - cd python
     - >-
