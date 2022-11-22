@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: 88231778cffebf93bc905e76ea757fae0f2ef497cc00f64973e41f1acd4fc781
+  patches:
+    - patches/0004-fix-build-with-python-311.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - >-
