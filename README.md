@@ -1,11 +1,11 @@
-About protobuf
-==============
+About protobuf-feedstock
+========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/protobuf-feedstock/blob/main/LICENSE.txt)
 
 Home: https://developers.google.com/protocol-buffers/
 
 Package license: BSD-3-Clause
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/protobuf-feedstock/blob/main/LICENSE.txt)
 
 Summary: Protocol Buffers - Google's data interchange format.
 
