@@ -5,8 +5,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-python-{{ version }}.tar.gz
-  sha256: 88231778cffebf93bc905e76ea757fae0f2ef497cc00f64973e41f1acd4fc781
+  url: https://github.com/protocolbuffers/protobuf/releases/download/v{{ version }}/protobuf-python-{{ version }}.tar.gz
+  sha256: 63c5828825ceee13a8053a31074f114e1480dc5e3d1c2528d4156aa71e8ba515
   patches:
     - patches/0004-fix-build-with-python-311.patch
 
