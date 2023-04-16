@@ -13,10 +13,7 @@ source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: 9a301cf94a8ddcb380b901e7aac852780b826595075577bb967004050c835056
   patches:
-    - patches/0001-do-not-link-msvc-runtime-statically.patch
-    - patches/0002-fix-paths-for-include-lib-directories.patch
-    - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
-    - patches/0004-fix-build-with-python-311.patch
+     - 0001-remove-Werror-from-test-flags.patch  # [ppc64le or aarch64]
 
 build:
   number: 0
