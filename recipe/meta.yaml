@@ -1,47 +1,38 @@
-# keep this without major version to let the bot pick it up
-{% set version = "19.6" %}
-# protobuf doesn't add the major version in the tag...
-{% set major = "3" %}
-# libprotobuf now has a different major version than protobuf
-{% set lib_major = "3" %}
+{% set version = "3.19.6" %}
 
 package:
   name: protobuf
-  version: {{ major + "." + version }}
+  version: {{ version }}
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
   sha256: 9a301cf94a8ddcb380b901e7aac852780b826595075577bb967004050c835056
-  patches:
-     - 0001-remove-Werror-from-test-flags.patch  # [ppc64le or aarch64]
 
 build:
   number: 0
-  script:
-    - cd python
-    - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - libprotobuf {{ lib_major + "." + version }}  # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - libprotobuf {{ version }}              # [build_platform != target_platform]
   host:
     - python
     - pip
-    - libprotobuf {{ lib_major + "." + version }}         # [unix]
-    - libprotobuf-static {{ lib_major + "." + version }}  # [win]
+    - libprotobuf {{ version }}
+    - six
   run:
     - python
     - setuptools
-    - libprotobuf {{ lib_major + "." + version }}
+    - libprotobuf {{ version }}
+    - six
 
 test:
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"  # [unix and python_impl != "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [win or (unix and python_impl == "pypy")]
   imports:
     - google
     - google.protobuf
