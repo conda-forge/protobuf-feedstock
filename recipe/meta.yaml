@@ -37,7 +37,7 @@ requirements:
     - {{ compiler('cxx') }}
   host:
     - python
-    - pip
+    - pip <23.1
     - setuptools
     - libabseil
     - libprotobuf {{ lib_major ~ "." ~ version }}         # [unix]
