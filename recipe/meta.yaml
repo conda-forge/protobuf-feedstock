@@ -1,9 +1,10 @@
 # keep this without major version to let the bot pick it up
-{% set version = "21.12" %}
-# protobuf doesn't add the major version in the tag...
+{% set version = "22.5" %}
+# protobuf doesn't add the major version in the tag, it's defined per language in
+# https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "4" %}
-# libprotobuf now has a different major version than protobuf
-{% set lib_major = "3" %}
+# libprotobuf can have a different major version than protobuf
+{% set lib_major = "4" %}
 
 package:
   name: protobuf
@@ -11,12 +12,11 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 22fdaf641b31655d4b2297f9981fa5203b2866f8332d3c6333f6b0107bb320de
+  sha256: 4b98c800b352e7582bc92ed398999030ce4ebb49c7858dcb070850ec476b72f2
   patches:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
     - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
-    - patches/0004-fix-build-with-python-311.patch
 
 build:
   number: 0

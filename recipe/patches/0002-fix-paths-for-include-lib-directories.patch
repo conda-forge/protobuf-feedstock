@@ -1,4 +1,4 @@
-From f3f67634ac60d6df42f119b1478f6a84bfb2db48 Mon Sep 17 00:00:00 2001
+From ecd4d1dfe12ed1466ed1a94c0a560eca9127c960 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 18:42:34 +0200
 Subject: [PATCH 2/3] fix paths for include & lib directories
@@ -8,10 +8,10 @@ Subject: [PATCH 2/3] fix paths for include & lib directories
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index 39988effd..2b907cf9f 100755
+index b6de92d1d..193685733 100755
 --- a/python/setup.py
 +++ b/python/setup.py
-@@ -292,6 +292,14 @@ if __name__ == '__main__':
+@@ -403,6 +403,14 @@ if __name__ == '__main__':
        extra_compile_args.append('-Werror')
        sys.argv.remove(warnings_as_errors)
  
@@ -26,15 +26,12 @@ index 39988effd..2b907cf9f 100755
      # C++ implementation extension
      ext_module_list.extend([
          Extension(
-@@ -301,7 +309,7 @@ if __name__ == '__main__':
+@@ -412,7 +420,7 @@ if __name__ == '__main__':
              libraries=libraries,
              extra_objects=extra_objects,
              extra_link_args=message_extra_link_args,
--            library_dirs=['../src/.libs'],
+-            library_dirs=library_dirs,
 +            library_dirs=[lib_dir],
              extra_compile_args=extra_compile_args,
          ),
          Extension(
--- 
-2.37.0.windows.1
-
