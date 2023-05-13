@@ -38,6 +38,7 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
     - libabseil
     - libprotobuf {{ lib_major ~ "." ~ version }}         # [unix]
     - libprotobuf-static {{ lib_major ~ "." ~ version }}  # [win]
