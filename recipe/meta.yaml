@@ -23,6 +23,9 @@ build:
   number: 0
   script:
     - cd python
+    - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
+    - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
+    - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
     - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
 
 requirements:
