@@ -1,0 +1,27 @@
+From 1d7c0d7885178f0cfd9caab881559cfbdd2013e0 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Thu, 18 May 2023 18:49:27 +1100
+Subject: [PATCH 5/5] set PROTOBUF_USE_DLLS; clean up other symbols on win
+
+---
+ python/setup.py | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/python/setup.py b/python/setup.py
+index 91c4e9b36..897191d7b 100755
+--- a/python/setup.py
++++ b/python/setup.py
+@@ -394,11 +394,8 @@ if __name__ == '__main__':
+ 
+     # https://github.com/Theano/Theano/issues/4926
+     if sys.platform == 'win32':
+-      extra_compile_args.append('-D_hypot=hypot')
+-
+-    # https://github.com/tpaviot/pythonocc-core/issues/48
+-    if sys.platform == 'win32' and  '64 bit' in sys.version:
+-      extra_compile_args.append('-DMS_WIN64')
++      extra_compile_args.append('/D_hypot=hypot')
++      extra_compile_args.append('/DPROTOBUF_USE_DLLS')
+ 
+     if 'clang' in os.popen('$CC --version 2> /dev/null').read():
+       extra_compile_args.append('-Wno-shorten-64-to-32')

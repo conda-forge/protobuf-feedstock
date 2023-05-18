@@ -1,7 +1,7 @@
 From cbe7b53095c6acf29abb65aee4b825f3235babf9 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 18:14:41 +0200
-Subject: [PATCH 1/4] do not link msvc runtime statically
+Subject: [PATCH 1/5] do not link msvc runtime statically
 
 ---
  python/setup.py | 4 ----
