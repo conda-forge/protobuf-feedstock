@@ -20,6 +20,8 @@ source:
     - patches/0004-use-C-17-everywhere.patch
     - patches/0005-set-PROTOBUF_USE_DLLS-clean-up-other-symbols-on-win.patch
     - patches/0006-explicitly-link-to-abseil_dll-on-windows.patch
+    # backport 69a4876d69eeee37aab121f6f4908bec7b35b271 to fix PyPy support
+    - patches/0007-restore-pypy-support-broken-when-adding-3.11-support.patch
 
 build:
   number: 0
