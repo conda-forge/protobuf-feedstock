@@ -1,37 +1,49 @@
-From ecd4d1dfe12ed1466ed1a94c0a560eca9127c960 Mon Sep 17 00:00:00 2001
+From db8c830280ee0cf0a853d24a2e634728e224813b Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 18:42:34 +0200
-Subject: [PATCH 2/3] fix paths for include & lib directories
+Subject: [PATCH 2/4] fix paths for include & lib directories
 
 ---
- python/setup.py | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ python/setup.py | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index b6de92d1d..193685733 100755
+index b6de92d1d..ccdfc5f78 100755
 --- a/python/setup.py
 +++ b/python/setup.py
-@@ -403,6 +403,14 @@ if __name__ == '__main__':
+@@ -37,6 +37,7 @@ from distutils import util
+ import fnmatch
+ import glob
+ import os
++import pathlib
+ import pkg_resources
+ import re
+ import subprocess
+@@ -403,16 +404,25 @@ if __name__ == '__main__':
        extra_compile_args.append('-Werror')
        sys.argv.remove(warnings_as_errors)
  
 +    # correct lib dir for usage in conda builds;
-+    # cannot point include dir because libprotobuf
++    # cannot point to include dir for libprotobuf because it
 +    # does not contain some headers, e.g. in google/protobuf/pyext
 +    if sys.platform == 'win32':
-+        lib_dir = os.environ["LIBRARY_LIB"]
++        prefix = pathlib.Path(os.environ["LIBRARY_PREFIX"])
 +    else:
-+        lib_dir = os.path.join(os.environ["PREFIX"], "lib")
++        prefix = pathlib.Path(os.environ["PREFIX"])
++    lib_dir = prefix / "lib"
 +
      # C++ implementation extension
      ext_module_list.extend([
          Extension(
-@@ -412,7 +420,7 @@ if __name__ == '__main__':
+             'google.protobuf.pyext._message',
+             glob.glob('google/protobuf/pyext/*.cc'),
+-            include_dirs=['.', '../src', '../third_party/abseil-cpp'],
++            include_dirs=['.', '../src', str(prefix / 'include/abseil-cpp')],
              libraries=libraries,
              extra_objects=extra_objects,
              extra_link_args=message_extra_link_args,
 -            library_dirs=library_dirs,
-+            library_dirs=[lib_dir],
++            library_dirs=[str(lib_dir)],
              extra_compile_args=extra_compile_args,
          ),
          Extension(

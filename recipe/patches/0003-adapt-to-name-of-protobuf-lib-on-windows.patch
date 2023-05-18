@@ -1,17 +1,17 @@
-From e37e53770669b8e2d63d79fc89978de31168814b Mon Sep 17 00:00:00 2001
+From e893d9d92207989b1cc917564518545dd5615143 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 19:42:16 +0200
-Subject: [PATCH 3/3] adapt to name of protobuf lib on windows
+Subject: [PATCH 3/4] adapt to name of protobuf lib on windows
 
 ---
  python/setup.py | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index 193685733..88bd80a33 100755
+index ccdfc5f78..0063ac0e3 100755
 --- a/python/setup.py
 +++ b/python/setup.py
-@@ -336,7 +336,8 @@ if __name__ == '__main__':
+@@ -337,7 +337,8 @@ if __name__ == '__main__':
            extra_objects += list(
                glob.iglob('../third_party/abseil-cpp/absl/**/*.a'))
      else:
