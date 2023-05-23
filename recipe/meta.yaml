@@ -1,45 +1,53 @@
 # keep this without major version to let the bot pick it up
-{% set version = "21.12" %}
-# protobuf doesn't add the major version in the tag...
+{% set version = "22.5" %}
+# protobuf doesn't add the major version in the tag, it's defined per language in
+# https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "4" %}
-# libprotobuf now has a different major version than protobuf
-{% set lib_major = "3" %}
+# libprotobuf can have a different major version than protobuf
+{% set lib_major = "4" %}
 
 package:
   name: protobuf
-  version: {{ major + "." + version }}
+  version: {{ major ~ "." ~ version }}
 
 source:
-  url: https://github.com/protocolbuffers/protobuf/archive/v{{ version }}/protobuf-v{{ version }}.tar.gz
-  sha256: 22fdaf641b31655d4b2297f9981fa5203b2866f8332d3c6333f6b0107bb320de
+  url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 4b98c800b352e7582bc92ed398999030ce4ebb49c7858dcb070850ec476b72f2
   patches:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
     - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
-    - patches/0004-fix-build-with-python-311.patch
+    - patches/0004-use-C-17-everywhere.patch
+    - patches/0005-set-PROTOBUF_USE_DLLS-clean-up-other-symbols-on-win.patch
+    - patches/0006-explicitly-link-to-abseil_dll-on-windows.patch
+    # backport 69a4876d69eeee37aab121f6f4908bec7b35b271 to fix PyPy support
+    - patches/0007-restore-pypy-support-broken-when-adding-3.11-support.patch
 
 build:
   number: 0
   script:
     - cd python
+    - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
+    - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
+    - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
     - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - libprotobuf {{ lib_major + "." + version }}  # [build_platform != target_platform]
+    - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
     - python
-    - pip
-    - libprotobuf {{ lib_major + "." + version }}         # [unix]
-    - libprotobuf-static {{ lib_major + "." + version }}  # [win]
+    - pip <23.1
+    - setuptools
+    - libabseil
+    - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
     - setuptools
-    - libprotobuf {{ lib_major + "." + version }}
 
 test:
   commands:

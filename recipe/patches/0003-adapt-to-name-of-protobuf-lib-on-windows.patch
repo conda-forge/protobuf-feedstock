@@ -1,26 +1,23 @@
-From c19e949337634e068597c3a3dcd9fd218d03da63 Mon Sep 17 00:00:00 2001
+From e893d9d92207989b1cc917564518545dd5615143 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 19:42:16 +0200
-Subject: [PATCH 3/3] adapt to name of protobuf lib on windows
+Subject: [PATCH 3/7] adapt to name of protobuf lib on windows
 
 ---
  python/setup.py | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index 2b907cf9f..9127f05d2 100755
+index ccdfc5f78..0063ac0e3 100755
 --- a/python/setup.py
 +++ b/python/setup.py
-@@ -228,7 +228,8 @@ if __name__ == '__main__':
-     # extension. Note that those libraries have to be compiled with
-     # -fPIC for this to work.
-     compile_static_ext = GetOptionFromArgv('--compile_static_extension')
--    libraries = ['protobuf']
-+    # our windows builds don't follow standard windows naming (i.e. have a lib prefix)
-+    libraries = ['protobuf'] if sys.platform != 'win32' else ['libprotobuf-static']
-     extra_objects = None
-     if compile_static_ext:
-       libraries = None
--- 
-2.37.0.windows.1
-
+@@ -337,7 +337,8 @@ if __name__ == '__main__':
+           extra_objects += list(
+               glob.iglob('../third_party/abseil-cpp/absl/**/*.a'))
+     else:
+-      libraries = ['protobuf']
++      # our windows builds don't follow standard windows naming (i.e. have a lib prefix)
++      libraries = ['protobuf'] if sys.platform != 'win32' else ['libprotobuf']
+       if HasLibraryDirsOpt():
+         library_dirs = None
+       elif os.path.exists('../bazel-bin/src/google/protobuf/libprotobuf.a'):
