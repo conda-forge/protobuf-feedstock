@@ -20,6 +20,7 @@ source:
     - patches/0004-use-C-17-everywhere.patch
     - patches/0005-set-PROTOBUF_USE_DLLS-clean-up-other-symbols-on-win.patch
     - patches/0006-explicitly-link-to-abseil_dll-on-windows.patch
+    - patches/0007-be-more-lenient-with-abseil-version.patch
 
 build:
   number: 0
