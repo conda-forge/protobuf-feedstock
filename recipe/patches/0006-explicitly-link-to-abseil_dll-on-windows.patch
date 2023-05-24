@@ -1,7 +1,7 @@
-From 6261ee512478a6ba826243b368dd7d35527f5b14 Mon Sep 17 00:00:00 2001
+From 6558d8f26b9da235ef6eb2e501952efbe839c5cd Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Thu, 18 May 2023 19:20:35 +1100
-Subject: [PATCH 6/7] explicitly link to abseil_dll on windows
+Subject: [PATCH 6/6] explicitly link to abseil_dll on windows
 
 ---
  python/setup.py | 2 +-

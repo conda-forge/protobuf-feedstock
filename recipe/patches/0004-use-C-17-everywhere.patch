@@ -1,7 +1,7 @@
-From f5c19b6bcb953106ffa3852f930f9906d9577490 Mon Sep 17 00:00:00 2001
+From e2071832c91476c5e66985f9c7a510ee65012bf0 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Thu, 18 May 2023 17:14:37 +1100
-Subject: [PATCH 4/7] use C++17 everywhere
+Subject: [PATCH 4/6] use C++17 everywhere
 
 ---
  python/setup.py | 4 +++-
