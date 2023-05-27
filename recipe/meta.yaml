@@ -57,6 +57,7 @@ test:
     - google.protobuf
     - google.protobuf.internal
     - google.protobuf.pyext
+    - google.protobuf.pyext._message
     - google.protobuf.util
     - google.protobuf.compiler
 
