@@ -51,6 +51,7 @@ test:
   imports:
     - google
     - google.protobuf
+    - google.protobuf.descriptor
     - google.protobuf.internal
     - google.protobuf.pyext
     - google.protobuf.pyext._message
