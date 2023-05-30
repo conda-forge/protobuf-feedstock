@@ -22,7 +22,7 @@ source:
     - patches/0006-be-more-lenient-with-abseil-version.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
