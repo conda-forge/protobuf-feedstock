@@ -49,9 +49,6 @@ requirements:
     - setuptools
 
 test:
-  commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
   imports:
     - google
     - google.protobuf
@@ -60,6 +57,9 @@ test:
     - google.protobuf.pyext._message
     - google.protobuf.util
     - google.protobuf.compiler
+  commands:
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
 
 about:
   home: https://developers.google.com/protocol-buffers/
