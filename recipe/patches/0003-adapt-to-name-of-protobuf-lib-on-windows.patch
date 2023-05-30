@@ -1,4 +1,4 @@
-From 467073578b7b7e2d84ad913edd42dada43519bd4 Mon Sep 17 00:00:00 2001
+From 90b1f2fe02ca14d8b07760f06824cef482dabe0b Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 19:42:16 +0200
 Subject: [PATCH 3/7] adapt to name of protobuf lib on windows
@@ -8,7 +8,7 @@ Subject: [PATCH 3/7] adapt to name of protobuf lib on windows
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index ccdfc5f78..0063ac0e3 100755
+index 73b4aeffb..0ffc118e2 100755
 --- a/python/setup.py
 +++ b/python/setup.py
 @@ -337,7 +337,8 @@ if __name__ == '__main__':

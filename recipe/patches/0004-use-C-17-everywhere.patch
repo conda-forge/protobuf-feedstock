@@ -1,4 +1,4 @@
-From e2071832c91476c5e66985f9c7a510ee65012bf0 Mon Sep 17 00:00:00 2001
+From 5116993e1bf01c46c40bad9ce9165b268ab27a96 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Thu, 18 May 2023 17:14:37 +1100
 Subject: [PATCH 4/7] use C++17 everywhere
@@ -8,7 +8,7 @@ Subject: [PATCH 4/7] use C++17 everywhere
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index 0063ac0e3..91c4e9b36 100755
+index 0ffc118e2..647d5a9a9 100755
 --- a/python/setup.py
 +++ b/python/setup.py
 @@ -372,7 +372,9 @@ if __name__ == '__main__':
