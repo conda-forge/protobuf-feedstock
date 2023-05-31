@@ -1,17 +1,17 @@
-From 870eec2515726ee3deb944c5ae6f95de6e0fb3c9 Mon Sep 17 00:00:00 2001
+From 0cb65e0e0c6c82ce5459e15a5054df5e2fb5a527 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Thu, 18 May 2023 18:49:27 +1100
-Subject: [PATCH 5/7] set PROTOBUF_USE_DLLS; clean up other symbols on win
+Subject: [PATCH 5/6] set PROTOBUF_USE_DLLS; clean up other symbols on win
 
 ---
  python/setup.py | 7 ++-----
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index 91c4e9b36..897191d7b 100755
+index d6f99ab3d..fdf416a14 100755
 --- a/python/setup.py
 +++ b/python/setup.py
-@@ -394,11 +394,8 @@ if __name__ == '__main__':
+@@ -399,11 +399,8 @@ if __name__ == '__main__':
  
      # https://github.com/Theano/Theano/issues/4926
      if sys.platform == 'win32':

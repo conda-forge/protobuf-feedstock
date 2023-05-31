@@ -1,14 +1,14 @@
-From 962f82d295079c64beac78e60dd11cb22186e458 Mon Sep 17 00:00:00 2001
+From 41c8f95c5715a0eb009de81678fcb154cf6de91b Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 18:42:34 +0200
-Subject: [PATCH 2/7] fix paths for include & lib directories
+Subject: [PATCH 2/6] fix paths for include & lib directories
 
 ---
- python/setup.py | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ python/setup.py | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/python/setup.py b/python/setup.py
-index b6de92d1d..ccdfc5f78 100755
+index b6de92d1d..73b4aeffb 100755
 --- a/python/setup.py
 +++ b/python/setup.py
 @@ -37,6 +37,7 @@ from distutils import util
@@ -19,13 +19,11 @@ index b6de92d1d..ccdfc5f78 100755
  import pkg_resources
  import re
  import subprocess
-@@ -403,16 +404,25 @@ if __name__ == '__main__':
+@@ -403,16 +404,23 @@ if __name__ == '__main__':
        extra_compile_args.append('-Werror')
        sys.argv.remove(warnings_as_errors)
  
-+    # correct lib dir for usage in conda builds;
-+    # cannot point to include dir for libprotobuf because it
-+    # does not contain some headers, e.g. in google/protobuf/pyext
++    # correct lib dir for usage in conda builds
 +    if sys.platform == 'win32':
 +        prefix = pathlib.Path(os.environ["LIBRARY_PREFIX"])
 +    else:
@@ -38,7 +36,7 @@ index b6de92d1d..ccdfc5f78 100755
              'google.protobuf.pyext._message',
              glob.glob('google/protobuf/pyext/*.cc'),
 -            include_dirs=['.', '../src', '../third_party/abseil-cpp'],
-+            include_dirs=['.', '../src', str(prefix / 'include/abseil-cpp')],
++            include_dirs=['.', str(prefix / 'include')],
              libraries=libraries,
              extra_objects=extra_objects,
              extra_link_args=message_extra_link_args,

@@ -16,14 +16,13 @@ source:
   patches:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
-    - patches/0003-adapt-to-name-of-protobuf-lib-on-windows.patch
+    - patches/0003-correctly-link-to-protobuf-abseil.patch
     - patches/0004-use-C-17-everywhere.patch
     - patches/0005-set-PROTOBUF_USE_DLLS-clean-up-other-symbols-on-win.patch
-    - patches/0006-explicitly-link-to-abseil_dll-on-windows.patch
-    - patches/0007-be-more-lenient-with-abseil-version.patch
+    - patches/0006-be-more-lenient-with-abseil-version.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
@@ -49,16 +48,17 @@ requirements:
     - setuptools
 
 test:
-  commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
   imports:
     - google
     - google.protobuf
     - google.protobuf.internal
     - google.protobuf.pyext
+    - google.protobuf.pyext._message
     - google.protobuf.util
     - google.protobuf.compiler
+  commands:
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
 
 about:
   home: https://developers.google.com/protocol-buffers/
