@@ -1,5 +1,5 @@
 # keep this without major version to let the bot pick it up
-{% set version = "23.2" %}
+{% set version = "23.3" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "4" %}
@@ -12,17 +12,16 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 0b0395d34e000f1229679e10d984ed7913078f3dd7f26cf0476467f5e65716f4
+  sha256: 4e176116949be52b0408dfd24f8925d1eb674a781ae242a75296b17a1c721395
   patches:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
     - patches/0003-correctly-link-to-protobuf-abseil.patch
     - patches/0004-use-C-17-everywhere.patch
-    - patches/0005-set-PROTOBUF_USE_DLLS-clean-up-other-symbols-on-win.patch
-    - patches/0006-be-more-lenient-with-abseil-version.patch
+    - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
 
 build:
-  number: 1
+  number: 0
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
@@ -51,6 +50,7 @@ test:
   imports:
     - google
     - google.protobuf
+    - google.protobuf.descriptor
     - google.protobuf.internal
     - google.protobuf.pyext
     - google.protobuf.pyext._message
