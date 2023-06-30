@@ -1,7 +1,7 @@
-From af2add83f961394eb805900c93faafcac3403d25 Mon Sep 17 00:00:00 2001
+From 441ce78767779ba0a8f64241ffcd353a731679cf Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 19:42:16 +0200
-Subject: [PATCH 3/6] correctly link to protobuf & abseil
+Subject: [PATCH 3/5] correctly link to protobuf & abseil
 
 ---
  python/setup.py | 8 +++++++-

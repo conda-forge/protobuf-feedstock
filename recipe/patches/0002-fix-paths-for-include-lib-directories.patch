@@ -1,7 +1,7 @@
-From 41c8f95c5715a0eb009de81678fcb154cf6de91b Mon Sep 17 00:00:00 2001
+From fc05924f4174d570d5ea17803f48b6333b2f6ae7 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 4 Sep 2022 18:42:34 +0200
-Subject: [PATCH 2/6] fix paths for include & lib directories
+Subject: [PATCH 2/5] fix paths for include & lib directories
 
 ---
  python/setup.py | 12 ++++++++++--

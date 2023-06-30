@@ -18,8 +18,7 @@ source:
     - patches/0002-fix-paths-for-include-lib-directories.patch
     - patches/0003-correctly-link-to-protobuf-abseil.patch
     - patches/0004-use-C-17-everywhere.patch
-    - patches/0005-set-PROTOBUF_USE_DLLS-clean-up-other-symbols-on-win.patch
-    - patches/0006-be-more-lenient-with-abseil-version.patch
+    - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
 
 build:
   number: 0
