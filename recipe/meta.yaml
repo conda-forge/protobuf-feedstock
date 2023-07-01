@@ -21,7 +21,7 @@ source:
     - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
