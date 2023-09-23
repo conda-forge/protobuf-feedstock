@@ -21,14 +21,15 @@ source:
     - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [python_impl == "pypy"]
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
     - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
     - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
-    - {{ PYTHON }} -m pip install . -vv --install-option="--cpp_implementation"
+    - python setup.py bdist_wheel --cpp_implementation
+    - {{ PYTHON }} -m pip install -f dist protobuf=={{ major ~ "." ~ version }}
 
 requirements:
   build:
@@ -39,7 +40,7 @@ requirements:
     - {{ compiler('cxx') }}
   host:
     - python
-    - pip <23.1
+    - pip
     - setuptools
     - libabseil
     - libprotobuf {{ lib_major ~ "." ~ version }}
