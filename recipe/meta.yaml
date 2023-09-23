@@ -29,7 +29,7 @@ build:
     - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
     - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
     - python setup.py bdist_wheel --cpp_implementation
-    - {{ PYTHON }} -m pip install dist/protobuf-{{ major ~ "." ~ version }}-*.whl
+    - {{ PYTHON }} -m pip install -f dist protobuf=={{ major ~ "." ~ version }}
 
 requirements:
   build:
