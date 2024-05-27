@@ -2,9 +2,9 @@
 {% set version = "27.0" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
-{% set major = "4" %}
+{% set major = "5" %}
 # libprotobuf can have a different major version than protobuf
-{% set lib_major = "4" %}
+{% set lib_major = "5" %}
 
 package:
   name: protobuf
