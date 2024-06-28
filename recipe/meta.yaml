@@ -3,6 +3,8 @@
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "5" %}
+# libprotobuf can have a different major version than protobuf
+{% set lib_major = "5" %}
 
 package:
   name: protobuf
@@ -23,13 +25,14 @@ build:
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
     - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
     - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
-    - bazel build //python/dist:source_wheel
+    - bazel build //python/dist:source_wheel --define=use_fast_cpp_protos=true
     - {{ PYTHON }} -m pip install -f dist protobuf=={{ major ~ "." ~ version }}
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - bazel
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
@@ -37,7 +40,9 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
     - libabseil
+    - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
 
