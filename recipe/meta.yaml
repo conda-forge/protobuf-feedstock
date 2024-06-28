@@ -16,7 +16,7 @@ source:
   patches:
     # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
     - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
-    - patches/0002-don-t-mark-windows-as-unsupported.patch
+    # - patches/0002-don-t-mark-windows-as-unsupported.patch
     - patches/0003-don-t-link-statically-on-windows.patch
 
 build:
@@ -27,7 +27,7 @@ build:
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
     - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
     - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
-    - bazel build //python/dist:source_wheel --define=use_fast_cpp_protos=true
+    - bazel build //python/dist:binary_wheel --define=use_fast_cpp_protos=true
     - {{ PYTHON }} -m pip install -f dist protobuf=={{ major ~ "." ~ version }}
 
 requirements:
