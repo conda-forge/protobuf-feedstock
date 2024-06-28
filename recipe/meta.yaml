@@ -17,6 +17,7 @@ source:
 
 build:
   number: 0
+  skip: true  # [python_impl == "pypy"]
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
@@ -51,8 +52,7 @@ test:
     - google.protobuf.util
     - google.protobuf.compiler
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"
 
 about:
   home: https://developers.google.com/protocol-buffers/
