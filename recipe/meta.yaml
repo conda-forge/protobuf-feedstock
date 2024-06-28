@@ -13,12 +13,6 @@ package:
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
   sha256: e4ff2aeb767da6f4f52485c2e72468960ddfe5262483879ef6ad552e52757a77
-  patches:
-    - patches/0001-do-not-link-msvc-runtime-statically.patch
-    - patches/0002-fix-paths-for-include-lib-directories.patch
-    - patches/0003-correctly-link-to-protobuf-abseil.patch
-    - patches/0004-use-C-17-everywhere.patch
-    - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
 
 build:
   number: 0
