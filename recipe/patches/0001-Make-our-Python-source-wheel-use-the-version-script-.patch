@@ -1,0 +1,66 @@
+From 0aead38bedc3121f0eeb0b552182444ac4072091 Mon Sep 17 00:00:00 2001
+From: Joshua Haberman <haberman@google.com>
+Date: Fri, 21 Jun 2024 11:12:25 -0700
+Subject: [PATCH] Make our Python source wheel use the version script to
+ restruct symbol visibility.
+
+We generally want our extension module to hide all symbols except a single entry point, `PyInit__message()`.  We accomplish this through a `version_script.lds`, which instructs the linker to hide all symbols except our single entry point.
+
+Currently, only our Bazel-based build is using `version_script.lds`.  This CL makes our Python source package also use `version_script.lds`, so that it can produce binary wheel that are more similar to the Bazel-built ones that we release.
+
+PiperOrigin-RevId: 645445353
+---
+ python/BUILD.bazel      | 2 ++
+ python/dist/BUILD.bazel | 1 +
+ python/dist/MANIFEST.in | 3 ++-
+ python/dist/setup.py    | 2 +-
+ 4 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/python/BUILD.bazel b/python/BUILD.bazel
+index 3e34bbdbc..162c365de 100644
+--- a/python/BUILD.bazel
++++ b/python/BUILD.bazel
+@@ -181,6 +181,8 @@ filegroup(
+     # end:google_only
+ )
+ 
++exports_files(["version_script.lds"])
++
+ py_extension(
+     name = "_message",
+     srcs = [":message_srcs"],
+diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
+index 265d9b885..5964ad36b 100644
+--- a/python/dist/BUILD.bazel
++++ b/python/dist/BUILD.bazel
+@@ -238,6 +238,7 @@ pkg_files(
+     srcs = [
+         "//:LICENSE",
+         "//python:message_srcs",
++        "//python:version_script.lds",
+         "//upb:source_files",
+         "//upb/base:source_files",
+         "//upb/hash:source_files",
+diff --git a/python/dist/MANIFEST.in b/python/dist/MANIFEST.in
+index 1b619364e..f243c1018 100644
+--- a/python/dist/MANIFEST.in
++++ b/python/dist/MANIFEST.in
+@@ -1,2 +1,3 @@
+ global-include *.h
+-global-include *.inc
+\ No newline at end of file
++global-include *.inc
++include python/version_script.lds
+diff --git a/python/dist/setup.py b/python/dist/setup.py
+index 534e3fb5c..2938a1bd3 100755
+--- a/python/dist/setup.py
++++ b/python/dist/setup.py
+@@ -33,7 +33,7 @@ def GetVersion():
+ 
+ 
+ current_dir = os.path.dirname(os.path.abspath(__file__))
+-extra_link_args = []
++extra_link_args = ["-Wl,--version-script=python/version_script.lds"]
+ 
+ if sys.platform.startswith('win'):
+   extra_link_args = ['-static']
