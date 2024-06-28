@@ -16,6 +16,8 @@ source:
   patches:
     # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
     - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
+    - patches/0002-don-t-mark-windows-as-unsupported.patch
+    - patches/0003-don-t-link-statically-on-windows.patch
 
 build:
   number: 0
