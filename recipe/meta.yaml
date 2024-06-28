@@ -1,5 +1,5 @@
 # keep this without major version to let the bot pick it up
-{% set version = "26.1" %}
+{% set version = "27.2" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "5" %}
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8
+  sha256: e4ff2aeb767da6f4f52485c2e72468960ddfe5262483879ef6ad552e52757a77
   patches:
     - patches/0001-do-not-link-msvc-runtime-statically.patch
     - patches/0002-fix-paths-for-include-lib-directories.patch
