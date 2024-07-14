@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ex
 
+source gen-bazel-toolchain
+chmod +x bazel
+
 cd python
 
 export PROTOC=$PREFIX/bin/protoc
