@@ -18,6 +18,7 @@ source:
     - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
     - patches/0002-don-t-mark-windows-as-unsupported.patch
     - patches/0003-don-t-link-statically-on-windows.patch
+    - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
 
 build:
   number: 0
