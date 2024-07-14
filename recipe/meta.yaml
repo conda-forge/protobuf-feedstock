@@ -22,14 +22,6 @@ source:
 build:
   number: 0
   skip: true  # [python_impl == "pypy"]
-  script:
-    - cd python
-    - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
-    - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
-    - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
-    - bazel build //python/dist:binary_wheel  # [not osx]
-    - bazel build //python/dist:binary_wheel  --define=use_fast_cpp_protos=true  # [osx]
-    - {{ PYTHON }} -m pip install -f bazel-bin/python/dist protobuf=={{ major ~ "." ~ version }}
 
 requirements:
   build:
