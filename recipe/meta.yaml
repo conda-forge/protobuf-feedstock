@@ -21,8 +21,8 @@ source:
       - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
-  - fn: bazel       # [unix]
-  - fn: bazel.exe   # [win]
+  - fn: bazel-standalone    # [unix]
+  - fn: bazel.exe           # [win]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-x86_64        # [build_platform == "linux-64"]
     sha256: 218ce0aed544d29084f4d9ff98f01bc784b90fe4c79dab63fa990dc68e66eaa9    # [build_platform == "linux-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
