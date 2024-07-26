@@ -1,11 +1,12 @@
-From 6e69e5db52bd1dcfff29a78ba07e6c3a3e64cb3b Mon Sep 17 00:00:00 2001
+From 8d04ea3f5b7fbdcb612b94a5cd28ff5cc4abb18b Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 14 Jul 2024 22:44:55 +1100
 Subject: [PATCH 4/4] enable windows as a target for python bindings
 
 ---
- python/BUILD.bazel | 11 -----------
- 1 file changed, 11 deletions(-)
+ python/BUILD.bazel      | 11 -----------
+ python/dist/BUILD.bazel |  1 -
+ 2 files changed, 12 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
 index 615563465..c4f87f7a8 100644
@@ -33,3 +34,15 @@ index 615563465..c4f87f7a8 100644
  filegroup(
      name = "message_srcs",
      srcs = [
+diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
+index 861c558f6..d44b7a98f 100644
+--- a/python/dist/BUILD.bazel
++++ b/python/dist/BUILD.bazel
+@@ -345,7 +345,6 @@ py_wheel(
+         "src/",
+     ],
+     target_compatible_with = select({
+-        "@system_python//:none": ["@platforms//:incompatible"],
+         "//conditions:default": [],
+     }),
+     version = PROTOBUF_PYTHON_VERSION,
