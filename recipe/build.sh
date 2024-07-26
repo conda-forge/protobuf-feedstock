@@ -3,6 +3,7 @@ set -ex
 
 source gen-bazel-toolchain
 chmod +x bazel
+chmod +x bazel-standalone
 
 cd python
 
