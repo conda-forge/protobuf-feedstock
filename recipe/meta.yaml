@@ -11,14 +11,24 @@ package:
   version: {{ major ~ "." ~ version }}
 
 source:
-  url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8
-  patches:
-    # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
-    - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
-    - patches/0002-don-t-mark-windows-as-unsupported.patch
-    - patches/0003-don-t-link-statically-on-windows.patch
-    - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
+  - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: 4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8
+    patches:
+      # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
+      - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
+      - patches/0002-don-t-mark-windows-as-unsupported.patch
+      - patches/0003-don-t-link-statically-on-windows.patch
+      - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
+  {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
+  {% set bz_ver = "6.5.0" %}
+  - fn: bazel       # [unix]
+  - fn: bazel.exe   # [win]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-x86_64        # [build_platform == "linux-64"]
+    sha256: 218ce0aed544d29084f4d9ff98f01bc784b90fe4c79dab63fa990dc68e66eaa9    # [build_platform == "linux-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
+    sha256: ccc67fa48a6444818a5b85e8174c89ca2630df60c1e2327714d944035a240fc9    # [build_platform == "osx-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [build_platform == "win-64"]
+    sha256: 6eae8e7f28e1b68b833503d1a58caf139c11e52de19df0d787d974653a0ea4c6    # [build_platform == "win-64"]
 
 build:
   number: 0
@@ -29,7 +39,6 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
-    - bazel
     - bazel-toolchain       # [unix]
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
