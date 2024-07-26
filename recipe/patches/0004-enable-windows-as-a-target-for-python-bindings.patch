@@ -1,17 +1,17 @@
-From 529b68bdeea365559d9c5c6c2ed75401ba4ea089 Mon Sep 17 00:00:00 2001
+From 6e69e5db52bd1dcfff29a78ba07e6c3a3e64cb3b Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 14 Jul 2024 22:44:55 +1100
 Subject: [PATCH 4/4] enable windows as a target for python bindings
 
 ---
- python/BUILD.bazel | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ python/BUILD.bazel | 11 -----------
+ 1 file changed, 11 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index f2535de71..712e0726a 100644
+index 615563465..c4f87f7a8 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
-@@ -135,21 +135,11 @@ selects.config_setting_group(
+@@ -135,21 +135,10 @@ selects.config_setting_group(
      ],
  )
  
@@ -19,7 +19,6 @@ index f2535de71..712e0726a 100644
  _message_target_compatible_with = {
 -    "@system_python//:none": ["@platforms//:incompatible"],
 -    "@system_python//:unsupported": ["@platforms//:incompatible"],
-+    "@platforms//os:windows": ["@platforms//:incompatible"],
      "//conditions:default": [],
  }
  

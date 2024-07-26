@@ -1,4 +1,4 @@
-From 6fef94c6da3733cdbd633cb898ff36c75bfbb1d2 Mon Sep 17 00:00:00 2001
+From ac5797d754a916369c23c8d0e14617f13de52b5e Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 29 Jun 2024 09:50:18 +1100
 Subject: [PATCH 3/4] don't link statically on windows

@@ -1,4 +1,4 @@
-From ed445a383c0437e9c3083ff9a70008c8b2c24557 Mon Sep 17 00:00:00 2001
+From 85fe49522b7ba50811d4c0f412873dc9d64eed7a Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 29 Jun 2024 09:49:55 +1100
 Subject: [PATCH 2/4] don't mark windows as unsupported
@@ -8,7 +8,7 @@ Subject: [PATCH 2/4] don't mark windows as unsupported
  1 file changed, 1 deletion(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index 162c365de..f2535de71 100644
+index 00238769e..615563465 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -137,7 +137,6 @@ selects.config_setting_group(
