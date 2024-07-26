@@ -4,7 +4,7 @@ cd python
 
 set PROTOC=%LIBRARY_BIN%\protoc
 
-bazel build //python/dist:binary_wheel
+..\bazel build //python/dist:binary_wheel
 if %ERRORLEVEL% neq 0 exit 1
 
 :: `pip install dist\protobuf*.whl` does not work on windows,
