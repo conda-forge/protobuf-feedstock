@@ -36,7 +36,7 @@ build:
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
+    - python                                 # [build_platform != target_platform or win]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - bazel-toolchain       # [unix]
@@ -50,7 +50,6 @@ requirements:
     - setuptools
     - libabseil
     - libprotobuf {{ lib_major ~ "." ~ version }}
-    - openjdk 21.*          # [win]
   run:
     - python
 
