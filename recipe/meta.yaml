@@ -21,7 +21,7 @@ source:
     - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - cd python
     - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
@@ -36,6 +36,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
   host:
     - python
