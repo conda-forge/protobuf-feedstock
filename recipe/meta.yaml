@@ -27,6 +27,8 @@ source:
     sha256: 218ce0aed544d29084f4d9ff98f01bc784b90fe4c79dab63fa990dc68e66eaa9    # [build_platform == "linux-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
     sha256: ccc67fa48a6444818a5b85e8174c89ca2630df60c1e2327714d944035a240fc9    # [build_platform == "osx-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-arm64        # [build_platform == "osx-arm64"]
+    sha256: 37017223885da29d8c42be781e8c11b84e71a3d9355b073d43b08a5dfa99229a    # [build_platform == "osx-arm64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [build_platform == "win-64"]
     sha256: 6eae8e7f28e1b68b833503d1a58caf139c11e52de19df0d787d974653a0ea4c6    # [build_platform == "win-64"]
 
