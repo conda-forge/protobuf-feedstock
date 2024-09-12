@@ -3,11 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-<<<<<<< HEAD:.ci_support/linux_aarch64_python3.9.____cpythonpython_implcpython.yaml
-- '12'
-=======
 - '13'
->>>>>>> upstream/main:.ci_support/linux_aarch64_python3.9.____cpython.yaml
 c_stdlib:
 - sysroot
 c_stdlib_version:

@@ -5,11 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-<<<<<<< HEAD:.ci_support/osx_64_python3.11.____cpythonpython_implcpython.yaml
-- '16'
-=======
 - '17'
->>>>>>> upstream/main:.ci_support/osx_64_python3.11.____cpython.yaml
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
