@@ -43,6 +43,7 @@ requirements:
     - openjdk 21.*          # [unix]
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
   host:
     - python
