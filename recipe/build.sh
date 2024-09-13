@@ -4,6 +4,7 @@ set -ex
 source gen-bazel-toolchain
 chmod +x bazel
 chmod +x bazel-standalone
+$RECIPE_DIR/add_py_toolchain.sh
 
 cd python
 
@@ -22,6 +23,7 @@ export BAZEL="$(pwd)/../bazel-standalone"
     --extra_toolchains=//bazel_toolchain:cc_cf_toolchain \
     --extra_toolchains=//bazel_toolchain:cc_cf_host_toolchain \
     --crosstool_top=//bazel_toolchain:toolchain \
+    --extra_toolchains=//py_toolchain:py_toolchain \
     --cpu=${TARGET_CPU} \
     --local_cpu_resources=${CPU_COUNT} \
     //python/dist:binary_wheel \
