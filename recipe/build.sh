@@ -16,6 +16,9 @@ fi
 ls -R ../bazel
 ls -R ../bazel-standalone
 
+if [[ "${target_platform}" == "linux-*" ]]; then
+  EXTRA_BAZEL_ARGS="--extra_toolchains=//py_toolchain:py_toolchain"
+fi
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \
     --platforms=//bazel_toolchain:target_platform \
@@ -23,7 +26,7 @@ export BAZEL="$(pwd)/../bazel-standalone"
     --extra_toolchains=//bazel_toolchain:cc_cf_toolchain \
     --extra_toolchains=//bazel_toolchain:cc_cf_host_toolchain \
     --crosstool_top=//bazel_toolchain:toolchain \
-    --extra_toolchains=//py_toolchain:py_toolchain \
+    ${EXTRA_BAZEL_ARGS:-} \
     --cpu=${TARGET_CPU} \
     --local_cpu_resources=${CPU_COUNT} \
     //python/dist:binary_wheel \
