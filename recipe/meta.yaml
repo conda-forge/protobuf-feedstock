@@ -63,11 +63,10 @@ test:
     - google.protobuf.descriptor
     - google.protobuf.internal
     - google.protobuf.pyext
-    - google.protobuf.pyext._message
     - google.protobuf.util
     - google.protobuf.compiler
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
 
 about:
   home: https://developers.google.com/protocol-buffers/
