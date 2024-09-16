@@ -1,10 +1,12 @@
 @echo on
 setlocal enabledelayedexpansion
 
+md py_toolchain
+
 for /f "tokens=*" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     set line=%%i
     set line=!line:PYTHON_EXE=!PYTHON!!
-    echo !line! >> %SRC_DIR%\py_toolchain.bzl
+    echo !line! >> %SRC_DIR%\py_toolchain\py_toolchain.bzl
 )
 
 dir
