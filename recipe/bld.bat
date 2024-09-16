@@ -15,6 +15,9 @@ cd python
 
 set PROTOC=%LIBRARY_BIN%\protoc
 
+..\bazel query "//py_toolchain:*"
+if %ERRORLEVEL% neq 0 exit 1
+
 ..\bazel build --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel
 if %ERRORLEVEL% neq 0 exit 1
 
