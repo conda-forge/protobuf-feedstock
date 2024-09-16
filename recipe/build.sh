@@ -5,7 +5,7 @@ source gen-bazel-toolchain
 chmod +x bazel
 chmod +x bazel-standalone
 
-if [[ "${target_platform}" == "linux-*" ]]; then
+if [[ "${target_platform}" == linux-* ]]; then
   $RECIPE_DIR/add_py_toolchain.sh
   EXTRA_BAZEL_ARGS="--extra_toolchains=//py_toolchain:py_toolchain"
 fi
