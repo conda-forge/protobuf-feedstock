@@ -3,11 +3,13 @@ setlocal enabledelayedexpansion
 
 md py_toolchain
 
-for /f "tokens=*" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
+for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     set line=%%i
-    set line=!line:PYTHON_EXE=!PYTHON!!
+    set "line=!line:PYTHON_EXE=%PYTHON%!"
     echo !line! >> %SRC_DIR%\py_toolchain\BUILD
 )
+
+type py_toolchain\BUILD
 
 cd python
 
