@@ -1,6 +1,10 @@
 #!/bin/bash
 set -ex
 
+# Workaround missing leading whitespace for mcpu stripping in bazel-toolchain
+export CFLAGS=" ${CXXFLAGS}"
+export CXXFLAGS=" ${CXXFLAGS}"
+
 source gen-bazel-toolchain
 chmod +x bazel
 chmod +x bazel-standalone
