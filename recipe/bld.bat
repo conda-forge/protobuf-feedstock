@@ -11,7 +11,7 @@ for /f "tokens=*" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
 )
 
 
-..\bazel --extra_toolchains=//py_toolchain:py_toolchain build //python/dist:binary_wheel
+..\bazel build --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel
 if %ERRORLEVEL% neq 0 exit 1
 
 :: `pip install dist\protobuf*.whl` does not work on windows,
