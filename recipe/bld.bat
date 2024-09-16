@@ -1,8 +1,5 @@
 @echo on
-
-cd python
-
-set PROTOC=%LIBRARY_BIN%\protoc
+setlocal enabledelayedexpansion
 
 for /f "tokens=*" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     set line=%%i
@@ -10,6 +7,11 @@ for /f "tokens=*" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     echo !line! >> %SRC_DIR%\py_toolchain.bzl
 )
 
+dir
+
+cd python
+
+set PROTOC=%LIBRARY_BIN%\protoc
 
 ..\bazel build --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel
 if %ERRORLEVEL% neq 0 exit 1
