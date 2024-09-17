@@ -11,6 +11,8 @@ for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     echo !line! >> %SRC_DIR%\py_toolchain\BUILD
 )
 
+python -c "import os, fileinput; print(''.join([line.replace(' SYSTEM_PYTHON_VERSION', os.getenv('PY_VER', '').replace('.', '')) for line in fileinput.input('python/dist/dist.bzl', inplace=True)]))"
+
 type py_toolchain\BUILD
 
 cd python
