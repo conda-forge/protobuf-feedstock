@@ -21,6 +21,7 @@ source:
       - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
       - patches/0001-Add-another-aarch64-variant-to-bzl.patch
       - patches/0001-Support-ppc64le.patch
+      - patches/0001-Support-Windows-CPUs.patch
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
   - fn: bazel-standalone    # [unix]
