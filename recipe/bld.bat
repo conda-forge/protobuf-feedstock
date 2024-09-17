@@ -5,6 +5,7 @@ md py_toolchain
 
 set "PYTHON_CYGPATH=%PYTHON:\=/%"
 set "PY_VER_NO_DOT=%PY_VER:.=%"
+set
 
 for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     set line=%%i
@@ -23,7 +24,7 @@ set PROTOC=%LIBRARY_BIN%\protoc
 ..\bazel query "//python/dist:*"
 if %ERRORLEVEL% neq 0 exit 1
 
-..\bazel build --subcommands --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel --define=use_fast_cpp_protos=true
+..\bazel build --output_base="D:\\bld\\bazel" --subcommands --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
 :: `pip install dist\protobuf*.whl` does not work on windows,
