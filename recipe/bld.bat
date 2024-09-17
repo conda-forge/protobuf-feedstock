@@ -20,7 +20,7 @@ set PROTOC=%LIBRARY_BIN%\protoc
 ..\bazel query "//py_toolchain:*"
 if %ERRORLEVEL% neq 0 exit 1
 
-..\bazel build --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel
+..\bazel build --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel
 if %ERRORLEVEL% neq 0 exit 1
 
 :: `pip install dist\protobuf*.whl` does not work on windows,
