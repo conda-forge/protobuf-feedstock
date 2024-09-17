@@ -1,0 +1,29 @@
+From 7cf2def3631314bef3c608dd8c0314be0b9c96fc Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Tue, 17 Sep 2024 22:29:40 +0200
+Subject: [PATCH] No no-pedantic on Windows
+
+---
+ python/BUILD.bazel | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/python/BUILD.bazel b/python/BUILD.bazel
+index c4f87f7..98d2877 100644
+--- a/python/BUILD.bazel
++++ b/python/BUILD.bazel
+@@ -174,11 +174,7 @@ exports_files(["version_script.lds"])
+ py_extension(
+     name = "_message",
+     srcs = [":message_srcs"],
+-    copts = UPB_DEFAULT_COPTS + select(LIMITED_API_FLAG_SELECT) + [
+-        # The Python API requires patterns that are ISO C incompatible, like
+-        # casts between function pointers and object pointers.
+-        "-Wno-pedantic",
+-    ],
++    copts = UPB_DEFAULT_COPTS + select(LIMITED_API_FLAG_SELECT),
+     target_compatible_with = select(_message_target_compatible_with),
+     deps = [
+         "//third_party/utf8_range",
+-- 
+2.39.5 (Apple Git-154)
+

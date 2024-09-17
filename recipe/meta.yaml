@@ -22,6 +22,7 @@ source:
       - patches/0001-Add-another-aarch64-variant-to-bzl.patch
       - patches/0001-Support-ppc64le.patch
       - patches/0001-Support-Windows-CPUs.patch
+      - patches/0001-No-no-pedantic-on-Windows.patch  # [win]
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
   - fn: bazel-standalone    # [unix]
