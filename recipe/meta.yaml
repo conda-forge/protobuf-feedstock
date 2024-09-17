@@ -37,6 +37,7 @@ source:
 build:
   number: 0
   skip: true  # [python_impl == "pypy"]
+  skip: true  # [not (win and py==311)]
 
 requirements:
   build:
