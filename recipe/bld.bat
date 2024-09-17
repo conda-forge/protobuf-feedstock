@@ -28,7 +28,7 @@ if defined CONDA_BLD_PATH (
   set OUTPUT_BASE=
 )
 
-..\bazel %CONDA_BLD_PATH% build --subcommands --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel --define=use_fast_cpp_protos=true
+..\bazel %OUTPUT_BASE% build --subcommands --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
 :: `pip install dist\protobuf*.whl` does not work on windows,
