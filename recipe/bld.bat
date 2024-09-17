@@ -23,7 +23,7 @@ set PROTOC=%LIBRARY_BIN%\protoc
 @rem Shorten path in CI
 @rem See https://github.com/bazelbuild/bazel/issues/18683 and https://github.com/protocolbuffers/protobuf/issues/12947
 if defined CONDA_BLD_PATH (
-  set OUTPUT_BASE="--output_base=%CONDA_BLD_PATH%bazel"
+  set "OUTPUT_BASE=--output_base=%CONDA_BLD_PATH%bazel"
 ) else (
   set OUTPUT_BASE=
 )
