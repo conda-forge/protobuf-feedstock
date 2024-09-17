@@ -48,6 +48,7 @@ requirements:
     - bazel-toolchain       # [unix]
     - openjdk 21.*          # [unix]
     - sed                   # [unix]
+    - posix                 # [not unix]
     - m2-sed                # [not unix]
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
