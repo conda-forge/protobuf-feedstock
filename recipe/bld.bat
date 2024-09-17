@@ -4,6 +4,7 @@ setlocal enabledelayedexpansion
 md py_toolchain
 
 set "PYTHON_CYGPATH=%PYTHON:\=/%"
+set "PY_VER_NO_DOT=%PY_VER:.=%"
 
 for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     set line=%%i
@@ -11,7 +12,7 @@ for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     echo !line! >> %SRC_DIR%\py_toolchain\BUILD
 )
 
-python -c "import os, fileinput; print(''.join([line.replace(' SYSTEM_PYTHON_VERSION', ' str(' + os.getenv('PY_VER', '').replace('.', '') + ')') for line in fileinput.input('python/dist/dist.bzl', inplace=True)]))" > python\dist\dist.bzl
+sed -i "s/ SYSTEM_PYTHON_VERSION/ %PY_VER_NO_DOT%/g" python\dist\dist.bzl
 
 type python\dist\dist.bzl
 
