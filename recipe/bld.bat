@@ -11,15 +11,15 @@ for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
     echo !line! >> %SRC_DIR%\py_toolchain\BUILD
 )
 
-python -c "import os, fileinput; print(''.join([line.replace(' SYSTEM_PYTHON_VERSION', os.getenv('PY_VER', '').replace('.', '')) for line in fileinput.input('python/dist/dist.bzl', inplace=True)]))"
+python -c "import os, fileinput; print(''.join([line.replace(' SYSTEM_PYTHON_VERSION', ' ' + os.getenv('PY_VER', '').replace('.', '')) for line in fileinput.input('python/dist/dist.bzl', inplace=True)]))"
 
-type py_toolchain\BUILD
+type python\dist\dist.bzl
 
 cd python
 
 set PROTOC=%LIBRARY_BIN%\protoc
 
-..\bazel query "//py_toolchain:*"
+..\bazel query "//python/dist:*"
 if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel build --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel
