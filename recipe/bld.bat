@@ -60,9 +60,6 @@ if defined CONDA_BLD_PATH (
 ..\bazel %OUTPUT_BASE% build --subcommands --linkopt "/LIBPATH:%PREFIX%\libs" --action_env "LIB=/LIBPATH:%PREFIX%\libs" --action_env PYTHON_BIN_PATH=%PYTHON% --extra_toolchains=//py_toolchain:py_cc --extra_toolchains=//py_toolchain:py_toolchain //python/dist:binary_wheel --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
-:: `pip install dist\protobuf*.whl` does not work on windows,
-:: so use a loop; there's only one wheel in dist/ anyway
-for /f %%f in ('dir /b /S .\bazel-bin\python\dist') do (
-    python -m pip install %%f==%PKG_VERSION%
-    if %ERRORLEVEL% neq 0 exit 1
+for %%f in (bazel-bin\python\dist\protobuf-*.whl) do (
+  python -m pip install %%f
 )
