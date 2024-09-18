@@ -1,0 +1,25 @@
+From cf22259716974b13f720dc53ddf57e3f4c07c32a Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Wed, 18 Sep 2024 15:34:51 +0200
+Subject: [PATCH] Omit flatten
+
+---
+ python/message.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/python/message.c b/python/message.c
+index f873393..3073e6c 100644
+--- a/python/message.c
++++ b/python/message.c
+@@ -967,7 +967,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
+  * Attribute lookup must find both message fields and base class methods like
+  * msg.SerializeToString().
+  */
+-__attribute__((flatten)) static PyObject* PyUpb_Message_GetAttr(
++static PyObject* PyUpb_Message_GetAttr(
+     PyObject* _self, PyObject* attr) {
+   PyUpb_Message* self = (void*)_self;
+ 
+-- 
+2.39.5 (Apple Git-154)
+
