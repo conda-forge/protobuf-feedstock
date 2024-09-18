@@ -34,13 +34,13 @@ if %ERRORLEVEL% neq 0 exit 1
 sed -i "s;PY_VER_NO_DOT;%PY_VER_NO_DOT%;g" %SRC_DIR%\py_toolchain\BUILD
 if %ERRORLEVEL% neq 0 exit 1
 
-sed -i "s;PY_VER;%PY_VER%;g" %SRC_DIR%\py_toolchain\BUILD
-if %ERRORLEVEL% neq 0 exit 1
-
 sed -i "s;PY_VER_MAJOR;%PY_VER_MAJOR%;g" %SRC_DIR%\py_toolchain\BUILD
 if %ERRORLEVEL% neq 0 exit 1
 
 sed -i "s;PY_VER_MINOR;%PY_VER_MINOR%;g" %SRC_DIR%\py_toolchain\BUILD
+if %ERRORLEVEL% neq 0 exit 1
+
+sed -i "s;PY_VER;%PY_VER%;g" %SRC_DIR%\py_toolchain\BUILD
 if %ERRORLEVEL% neq 0 exit 1
 
 type %SRC_DIR%\py_toolchain\BUILD

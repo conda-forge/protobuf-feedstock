@@ -5,10 +5,10 @@ py_runtime(
     name = "python3",
     python_version = "PY3",
     interpreter_path = "PYTHON_EXE",
-    interpreter_version_info = {{
+    interpreter_version_info = {
         "major": "PY_VER_MAJOR",
         "minor": "PY_VER_MINOR",
-    }},
+    },
 )
 
 py_runtime_pair(
@@ -39,18 +39,18 @@ cc_library(
     name = "headers",
     hdrs = glob(["include/**/*.h"]),
     includes = ["include"],
-    deps = select({{
+    deps = select({
         "@platforms//os:windows": [":interface_library"],
         "//conditions:default": [],
-    }}),
+    }),
 )
 
 cc_import(
     name = "interface_library",
-    interface_library = select({{
+    interface_library = select({
         "@platforms//os:windows": "libs/pythonPY_VER_NO_DOT.lib",
         "//conditions:default": None,
-    }}),
+    }),
     system_provided = True,
 )
 
