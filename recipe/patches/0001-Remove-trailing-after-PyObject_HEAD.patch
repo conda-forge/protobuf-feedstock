@@ -1,12 +1,178 @@
-From c0222cd231e7b1791cafb2f50022aa1743d22db2 Mon Sep 17 00:00:00 2001
+From 1b28405cc0aa1fc5e605ca20a293fd1e83b624fb Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 12:42:17 +0200
 Subject: [PATCH] Remove trailing ; after PyObject_HEAD
 
 ---
- python/unknown_fields.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ python/descriptor.c            |  2 +-
+ python/descriptor_containers.c | 10 +++++-----
+ python/descriptor_pool.c       |  2 +-
+ python/extension_dict.c        |  4 ++--
+ python/map.c                   |  4 ++--
+ python/message.c               |  2 +-
+ python/protobuf.c              |  2 +-
+ python/repeated.c              |  2 +-
+ python/unknown_fields.c        |  2 +-
+ 9 files changed, 15 insertions(+), 15 deletions(-)
 
+diff --git a/python/descriptor.c b/python/descriptor.c
+index 29ba6b3..d802767 100644
+--- a/python/descriptor.c
++++ b/python/descriptor.c
+@@ -23,7 +23,7 @@
+ // This representation is used by all concrete descriptors.
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* pool;          // We own a ref.
+   const void* def;         // Type depends on the class. Kept alive by "pool".
+   PyObject* options;       // NULL if not present or not cached.
+diff --git a/python/descriptor_containers.c b/python/descriptor_containers.c
+index 05751a0..2b36cea 100644
+--- a/python/descriptor_containers.c
++++ b/python/descriptor_containers.c
+@@ -29,7 +29,7 @@ err:
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   const PyUpb_ByNameMap_Funcs* funcs;
+   const void* parent;    // upb_MessageDef*, upb_DefPool*, etc.
+   PyObject* parent_obj;  // Python object that keeps parent alive, we own a ref.
+@@ -89,7 +89,7 @@ static PyType_Spec PyUpb_ByNameIterator_Spec = {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   const PyUpb_ByNumberMap_Funcs* funcs;
+   const void* parent;    // upb_MessageDef*, upb_DefPool*, etc.
+   PyObject* parent_obj;  // Python object that keeps parent alive, we own a ref.
+@@ -149,7 +149,7 @@ static PyType_Spec PyUpb_ByNumberIterator_Spec = {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   const PyUpb_GenericSequence_Funcs* funcs;
+   const void* parent;    // upb_MessageDef*, upb_DefPool*, etc.
+   PyObject* parent_obj;  // Python object that keeps parent alive, we own a ref.
+@@ -342,7 +342,7 @@ static PyType_Spec PyUpb_GenericSequence_Spec = {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   const PyUpb_ByNameMap_Funcs* funcs;
+   const void* parent;    // upb_MessageDef*, upb_DefPool*, etc.
+   PyObject* parent_obj;  // Python object that keeps parent alive, we own a ref.
+@@ -556,7 +556,7 @@ static PyType_Spec PyUpb_ByNameMap_Spec = {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   const PyUpb_ByNumberMap_Funcs* funcs;
+   const void* parent;    // upb_MessageDef*, upb_DefPool*, etc.
+   PyObject* parent_obj;  // Python object that keeps parent alive, we own a ref.
+diff --git a/python/descriptor_pool.c b/python/descriptor_pool.c
+index 089d31b..31817bb 100644
+--- a/python/descriptor_pool.c
++++ b/python/descriptor_pool.c
+@@ -21,7 +21,7 @@
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   upb_DefPool* symtab;
+   PyObject* db;  // The DescriptorDatabase underlying this pool.  May be NULL.
+ } PyUpb_DescriptorPool;
+diff --git a/python/extension_dict.c b/python/extension_dict.c
+index 34e1f9b..80ad1e9 100644
+--- a/python/extension_dict.c
++++ b/python/extension_dict.c
+@@ -16,7 +16,7 @@
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* msg;  // Owning ref to our parent pessage.
+ } PyUpb_ExtensionDict;
+ 
+@@ -168,7 +168,7 @@ static PyType_Spec PyUpb_ExtensionDict_Spec = {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* msg;
+   size_t iter;
+ } PyUpb_ExtensionIterator;
+diff --git a/python/map.c b/python/map.c
+index bbbd636..11f7a37 100644
+--- a/python/map.c
++++ b/python/map.c
+@@ -18,7 +18,7 @@
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* arena;
+   // The field descriptor (upb_FieldDef*).
+   // The low bit indicates whether the container is reified (see ptr below).
+@@ -422,7 +422,7 @@ static PyType_Spec PyUpb_MessageMapContainer_Spec = {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyUpb_MapContainer* map;  // We own a reference.
+   size_t iter;
+   int version;
+diff --git a/python/message.c b/python/message.c
+index d394e6f..f873393 100644
+--- a/python/message.c
++++ b/python/message.c
+@@ -176,7 +176,7 @@ err:
+ // The parent may also be non-present, in which case a mutation will trigger a
+ // chain reaction.
+ typedef struct PyUpb_Message {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* arena;
+   uintptr_t def;  // Tagged, low bit 1 == upb_FieldDef*, else upb_MessageDef*
+   union {
+diff --git a/python/protobuf.c b/python/protobuf.c
+index 4f53154..bfe776f 100644
+--- a/python/protobuf.c
++++ b/python/protobuf.c
+@@ -199,7 +199,7 @@ PyObject* PyUpb_ObjCache_Get(const void* key) {
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   upb_Arena* arena;
+ } PyUpb_Arena;
+ 
+diff --git a/python/repeated.c b/python/repeated.c
+index 57e3479..98cb947 100644
+--- a/python/repeated.c
++++ b/python/repeated.c
+@@ -18,7 +18,7 @@ static PyObject* PyUpb_RepeatedScalarContainer_Append(PyObject* _self,
+ 
+ // Wrapper for a repeated field.
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* arena;
+   // The field descriptor (PyObject*).
+   // The low bit indicates whether the container is reified (see ptr below).
 diff --git a/python/unknown_fields.c b/python/unknown_fields.c
 index 8017bd8..177d36f 100644
 --- a/python/unknown_fields.c
