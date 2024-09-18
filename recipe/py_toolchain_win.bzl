@@ -5,10 +5,11 @@ py_runtime(
     name = "python3",
     python_version = "PY3",
     interpreter_path = "PYTHON_EXE",
-    interpreter_version_info = {
-        "major": "PY_VER_MAJOR",
-        "minor": "PY_VER_MINOR",
-    },
+    # Newer versions of rules_python will require this
+    # interpreter_version_info = {
+    #     "major": "PY_VER_MAJOR",
+    #     "minor": "PY_VER_MINOR",
+    # },
 )
 
 py_runtime_pair(
