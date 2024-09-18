@@ -19,12 +19,6 @@ for /f "tokens=1,2 delims=." %%a in ("%PY_VER%") do (
 
 set
 
-@rem for /f "delims=" %%i in (%RECIPE_DIR%\py_toolchain_win.bzl) do (
-@rem     set line=%%i
-@rem     set "line=!line:PYTHON_EXE=%PYTHON_CYGPATH%!"
-@rem     echo !line! >> %SRC_DIR%\py_toolchain\BUILD
-@rem )
-
 copy %RECIPE_DIR%\py_toolchain_win.bzl %SRC_DIR%\py_toolchain\BUILD
 if %ERRORLEVEL% neq 0 exit 1
 
@@ -46,6 +40,9 @@ if %ERRORLEVEL% neq 0 exit 1
 type %SRC_DIR%\py_toolchain\BUILD
 
 sed -i "s/ SYSTEM_PYTHON_VERSION/ %PY_VER_NO_DOT%/g" python\dist\dist.bzl
+if %ERRORLEVEL% neq 0 exit 1
+
+sed -i "s;PYTHON_EXE;%PYTHON_CYGPATH%;g" %SRC_DIR%\bazel\system_python.bzl
 if %ERRORLEVEL% neq 0 exit 1
 
 cd python
