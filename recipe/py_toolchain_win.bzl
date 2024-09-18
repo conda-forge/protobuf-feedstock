@@ -31,7 +31,8 @@ toolchain(
 py_cc_toolchain(
     name = "py_cc_toolchain",
     headers = ":headers",
-    libs = ":libraries",
+    # Newer versions of rules_python will require this
+    # libs = ":libraries",
     python_version = "PY_VER",
 )
 
