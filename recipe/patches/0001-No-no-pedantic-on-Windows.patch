@@ -1,11 +1,12 @@
-From 7cf2def3631314bef3c608dd8c0314be0b9c96fc Mon Sep 17 00:00:00 2001
+From d0c1db8192757d002ad5ca51b978e2523e5560ab Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 17 Sep 2024 22:29:40 +0200
 Subject: [PATCH] No no-pedantic on Windows
 
 ---
- python/BUILD.bazel | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ python/BUILD.bazel      | 6 +-----
+ python/py_extension.bzl | 2 +-
+ 2 files changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
 index c4f87f7..98d2877 100644
@@ -24,6 +25,19 @@ index c4f87f7..98d2877 100644
      target_compatible_with = select(_message_target_compatible_with),
      deps = [
          "//third_party/utf8_range",
+diff --git a/python/py_extension.bzl b/python/py_extension.bzl
+index 9a2828b..ee13d54 100644
+--- a/python/py_extension.bzl
++++ b/python/py_extension.bzl
+@@ -15,7 +15,7 @@ def py_extension(name, srcs, copts, deps = [], **kwargs):
+     native.cc_binary(
+         name = name + "_binary",
+         srcs = srcs,
+-        copts = copts + ["-fvisibility=hidden"],
++        copts = copts,
+         linkopts = selects.with_or({
+             (
+                 "//python/dist:osx_x86_64",
 -- 
 2.39.5 (Apple Git-154)
 
