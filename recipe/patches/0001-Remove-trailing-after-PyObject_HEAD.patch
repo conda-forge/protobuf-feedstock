@@ -1,0 +1,25 @@
+From c0222cd231e7b1791cafb2f50022aa1743d22db2 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Wed, 18 Sep 2024 12:42:17 +0200
+Subject: [PATCH] Remove trailing ; after PyObject_HEAD
+
+---
+ python/unknown_fields.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/python/unknown_fields.c b/python/unknown_fields.c
+index 8017bd8..177d36f 100644
+--- a/python/unknown_fields.c
++++ b/python/unknown_fields.c
+@@ -18,7 +18,7 @@
+ // -----------------------------------------------------------------------------
+ 
+ typedef struct {
+-  PyObject_HEAD;
++  PyObject_HEAD
+   PyObject* fields;
+ } PyUpb_UnknownFieldSet;
+ 
+-- 
+2.39.5 (Apple Git-154)
+
