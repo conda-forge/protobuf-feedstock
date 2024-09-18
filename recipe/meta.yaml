@@ -25,6 +25,7 @@ source:
       - patches/0001-No-no-pedantic-on-Windows.patch  # [win]
       - patches/0001-Hardcode-python_exe.patch  # [win]
       - patches/0001-Remove-trailing-after-PyObject_HEAD.patch  # [win]
+      - patches/0001-Use-Windows-visibility.patch  # [win]
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
   - fn: bazel-standalone    # [unix]
