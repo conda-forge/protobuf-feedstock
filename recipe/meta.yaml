@@ -36,13 +36,13 @@ source:
     sha256: 6eae8e7f28e1b68b833503d1a58caf139c11e52de19df0d787d974653a0ea4c6    # [build_platform == "win-64"]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform or win]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
+    # - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - bazel-toolchain       # [unix]
     - openjdk 21.*          # [unix]
     - sed                   # [unix]
@@ -56,10 +56,11 @@ requirements:
     - python
     - pip
     - setuptools
-    - libabseil
-    - libprotobuf {{ lib_major ~ "." ~ version }}
+    # - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
+  run_constrained:
+    - libprotobuf {{ lib_major ~ "." ~ version }}
 
 test:
   imports:
