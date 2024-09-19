@@ -1,4 +1,4 @@
-From c674f7d8c33be5560bf5c8a12afbdab2c5025f81 Mon Sep 17 00:00:00 2001
+From 7494606a6d3e71ca7cf7cfe2e0d2c6fd1de8439c Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 14 Jul 2024 22:44:55 +1100
 Subject: [PATCH 4/7] enable windows as a target for python bindings
@@ -9,7 +9,7 @@ Subject: [PATCH 4/7] enable windows as a target for python bindings
  2 files changed, 12 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index 6155634..c4f87f7 100644
+index f2535de..503a62a 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -135,21 +135,10 @@ selects.config_setting_group(
@@ -35,10 +35,10 @@ index 6155634..c4f87f7 100644
      name = "message_srcs",
      srcs = [
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index 861c558..d44b7a9 100644
+index 5964ad3..457302c 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -345,7 +345,6 @@ py_wheel(
+@@ -351,7 +351,6 @@ py_wheel(
          "src/",
      ],
      target_compatible_with = select({
