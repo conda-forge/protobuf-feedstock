@@ -18,8 +18,6 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '17'
-libabseil:
-- '20240116'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pin_run_as_build:
