@@ -26,8 +26,6 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.13.* *_cp313
-python_impl:
-- cpython
 target_platform:
 - linux-64
 zip_keys:
@@ -36,5 +34,4 @@ zip_keys:
 - - c_stdlib_version
   - cdt_name
 - - python
-  - python_impl
   - channel_sources

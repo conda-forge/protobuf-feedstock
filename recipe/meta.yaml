@@ -1,40 +1,54 @@
 # keep this without major version to let the bot pick it up
-{% set version = "25.3" %}
+{% set version = "26.1" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
-{% set major = "4" %}
+{% set major = "5" %}
 # libprotobuf can have a different major version than protobuf
-{% set lib_major = "4" %}
+{% set lib_major = "5" %}
 
 package:
   name: protobuf
   version: {{ major ~ "." ~ version }}
 
 source:
-  url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: d19643d265b978383352b3143f04c0641eea75a75235c111cc01a1350173180e
-  patches:
-    - patches/0001-do-not-link-msvc-runtime-statically.patch
-    - patches/0002-fix-paths-for-include-lib-directories.patch
-    - patches/0003-correctly-link-to-protobuf-abseil.patch
-    - patches/0004-use-C-17-everywhere.patch
-    - patches/0005-set-PROTOBUF_USE_DLLS-on-windows.patch
+  - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: 4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8
+    patches:
+      # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
+      - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
+      - patches/0002-don-t-mark-windows-as-unsupported.patch
+      - patches/0003-don-t-link-statically-on-windows.patch
+      - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
+      - patches/0005-Support-more-architectures-for-Python-bindings.patch
+      - patches/0006-Compatible-windows-changes.patch
+      - patches/0007-Hacky-windows-workarounds.patch  # [win]
+  {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
+  {% set bz_ver = "6.5.0" %}
+  - fn: bazel-standalone    # [unix]
+  - fn: bazel.exe           # [win]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-x86_64        # [build_platform == "linux-64"]
+    sha256: 218ce0aed544d29084f4d9ff98f01bc784b90fe4c79dab63fa990dc68e66eaa9    # [build_platform == "linux-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
+    sha256: ccc67fa48a6444818a5b85e8174c89ca2630df60c1e2327714d944035a240fc9    # [build_platform == "osx-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-arm64        # [build_platform == "osx-arm64"]
+    sha256: 37017223885da29d8c42be781e8c11b84e71a3d9355b073d43b08a5dfa99229a    # [build_platform == "osx-arm64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [build_platform == "win-64"]
+    sha256: 6eae8e7f28e1b68b833503d1a58caf139c11e52de19df0d787d974653a0ea4c6    # [build_platform == "win-64"]
 
 build:
-  number: 1
-  script:
-    - cd python
-    - export PROTOC=$PREFIX/bin/protoc        # [unix and (build_platform == target_platform)]
-    - export PROTOC=$BUILD_PREFIX/bin/protoc  # [unix and (build_platform != target_platform)]
-    - set PROTOC=%LIBRARY_BIN%\protoc         # [win]
-    - python setup.py bdist_wheel --cpp_implementation
-    - {{ PYTHON }} -m pip install -f dist protobuf=={{ major ~ "." ~ version }}
+  number: 0
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
+    - python                                 # [build_platform != target_platform or win]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
+    - bazel-toolchain       # [unix]
+    - openjdk 21.*          # [unix]
+    - sed                   # [unix]
+    - posix                 # [not unix]
+    - m2-sed                # [not unix]
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
@@ -46,7 +60,6 @@ requirements:
     - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
-    - setuptools
 
 test:
   imports:
@@ -55,12 +68,10 @@ test:
     - google.protobuf.descriptor
     - google.protobuf.internal
     - google.protobuf.pyext
-    - google.protobuf.pyext._message
     - google.protobuf.util
     - google.protobuf.compiler
   commands:
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'cpp'"     # [python_impl != "pypy"]
-    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'python'"  # [python_impl == "pypy"]
+    - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
 
 about:
   home: https://developers.google.com/protocol-buffers/

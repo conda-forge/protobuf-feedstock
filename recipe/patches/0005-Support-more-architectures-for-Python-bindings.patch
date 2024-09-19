@@ -1,0 +1,56 @@
+From f16d7479f3ebbe93617682c80025b80dfe367ecb Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Mon, 16 Sep 2024 11:49:04 +0200
+Subject: [PATCH 5/7] Support more architectures for Python bindings
+
+---
+ WORKSPACE            | 6 +++---
+ python/dist/dist.bzl | 6 ++++--
+ 2 files changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/WORKSPACE b/WORKSPACE
+index b7bc51c..16087fc 100644
+--- a/WORKSPACE
++++ b/WORKSPACE
+@@ -25,10 +25,10 @@ py_repositories()
+ http_archive(
+     name = "platforms",
+     urls = [
+-        "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.7/platforms-0.0.7.tar.gz",
+-        "https://github.com/bazelbuild/platforms/releases/download/0.0.7/platforms-0.0.7.tar.gz",
++        "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.10/platforms-0.0.10.tar.gz",
++        "https://github.com/bazelbuild/platforms/releases/download/0.0.10/platforms-0.0.10.tar.gz",
+     ],
+-    sha256 = "3a561c99e7bdbe9173aa653fd579fe849f1d8d67395780ab4770b1f381431d51",
++    sha256 = "218efe8ee736d26a3572663b374a253c012b716d8af0c07e842e82f238a0a7ee",
+ )
+ 
+ http_archive(
+diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
+index 75c21c3..f28c1ce 100644
+--- a/python/dist/dist.bzl
++++ b/python/dist/dist.bzl
+@@ -5,12 +5,12 @@ load("@system_python//:version.bzl", "SYSTEM_PYTHON_VERSION")
+ 
+ def _get_suffix(limited_api, python_version, cpu):
+     """Computes an ABI version tag for an extension module per PEP 3149."""
+-    if "win32" in cpu or "win64" in cpu:
++    if "win32" in cpu or "win64" in cpu or "_windows" in cpu:
+         if limited_api:
+             return ".pyd"
+         if "win32" in cpu:
+             abi = "win32"
+-        elif "win64" in cpu:
++        elif "win64" in cpu or "x64_windows" in cpu:
+             abi = "win_amd64"
+         else:
+             fail("Unsupported CPU: " + cpu)
+@@ -27,6 +27,8 @@ def _get_suffix(limited_api, python_version, cpu):
+             "osx-x86_64": "darwin",
+             "osx-aarch_64": "darwin",
+             "linux-aarch_64": "aarch64-linux-gnu",
++            "aarch64": "aarch64-linux-gnu",
++            "ppc": "powerpc64le-linux-gnu",
+             "linux-x86_64": "x86_64-linux-gnu",
+             "k8": "x86_64-linux-gnu",
+         }
