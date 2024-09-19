@@ -1,4 +1,4 @@
-From f16d7479f3ebbe93617682c80025b80dfe367ecb Mon Sep 17 00:00:00 2001
+From 081087b59a3c9242fb37fa03edb9a8a46628f34a Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 16 Sep 2024 11:49:04 +0200
 Subject: [PATCH 5/7] Support more architectures for Python bindings
@@ -9,10 +9,10 @@ Subject: [PATCH 5/7] Support more architectures for Python bindings
  2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/WORKSPACE b/WORKSPACE
-index b7bc51c..16087fc 100644
+index 0e620de..2e3dc7c 100644
 --- a/WORKSPACE
 +++ b/WORKSPACE
-@@ -25,10 +25,10 @@ py_repositories()
+@@ -29,10 +29,10 @@ py_repositories()
  http_archive(
      name = "platforms",
      urls = [
@@ -27,7 +27,7 @@ index b7bc51c..16087fc 100644
  
  http_archive(
 diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
-index 75c21c3..f28c1ce 100644
+index 061125e..9f9316f 100644
 --- a/python/dist/dist.bzl
 +++ b/python/dist/dist.bzl
 @@ -5,12 +5,12 @@ load("@system_python//:version.bzl", "SYSTEM_PYTHON_VERSION")

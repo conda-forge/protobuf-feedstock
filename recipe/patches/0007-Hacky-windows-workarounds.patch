@@ -1,18 +1,18 @@
-From 5d0eb7d0f4577782dcabb081ef35fe83dd3751d1 Mon Sep 17 00:00:00 2001
+From 0fe2a660d7592bfa0fbc7273a775d4b96812a01b Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
 Subject: [PATCH 7/7] Hacky windows workarounds
 
 ---
- bazel/system_python.bzl | 6 +++---
- python/message.c        | 2 +-
- python/protobuf.c       | 2 +-
+ python/dist/system_python.bzl | 6 +++---
+ python/message.c              | 2 +-
+ python/protobuf.c             | 2 +-
  3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/bazel/system_python.bzl b/bazel/system_python.bzl
+diff --git a/python/dist/system_python.bzl b/python/dist/system_python.bzl
 index 29400be..45e7fd4 100644
---- a/bazel/system_python.bzl
-+++ b/bazel/system_python.bzl
+--- a/python/dist/system_python.bzl
++++ b/python/dist/system_python.bzl
 @@ -160,12 +160,12 @@ def register_system_python():
  
  def _get_python_version(repository_ctx):
@@ -38,10 +38,10 @@ index 29400be..45e7fd4 100644
  
      if path and python_version[0] == "3":
 diff --git a/python/message.c b/python/message.c
-index f873393..3073e6c 100644
+index 4a86a0e..44e5857 100644
 --- a/python/message.c
 +++ b/python/message.c
-@@ -967,7 +967,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
+@@ -969,7 +969,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
   * Attribute lookup must find both message fields and base class methods like
   * msg.SerializeToString().
   */
@@ -51,10 +51,10 @@ index f873393..3073e6c 100644
    PyUpb_Message* self = (void*)_self;
  
 diff --git a/python/protobuf.c b/python/protobuf.c
-index bfe776f..681d9ff 100644
+index 4d1cf30..7f8ad88 100644
 --- a/python/protobuf.c
 +++ b/python/protobuf.c
-@@ -380,7 +380,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
+@@ -405,7 +405,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
  // Module Entry Point
  // -----------------------------------------------------------------------------
  

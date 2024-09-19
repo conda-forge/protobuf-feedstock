@@ -1,4 +1,4 @@
-From b7835f5a9e88364af0bec5c0e5827eca30ec4d72 Mon Sep 17 00:00:00 2001
+From 5effba3160f4cad245f90e0f2ae69ba47dfdd7b9 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 17 Sep 2024 22:29:40 +0200
 Subject: [PATCH 6/7] Compatible windows changes
@@ -18,7 +18,7 @@ Subject: [PATCH 6/7] Compatible windows changes
  11 files changed, 23 insertions(+), 19 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index c4f87f7..b29f7de 100644
+index 503a62a..03ce7f7 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -174,11 +174,12 @@ exports_files(["version_script.lds"])
@@ -38,7 +38,7 @@ index c4f87f7..b29f7de 100644
      deps = [
          "//third_party/utf8_range",
 diff --git a/python/descriptor.c b/python/descriptor.c
-index 29ba6b3..d802767 100644
+index 7e121c4..9375ae2 100644
 --- a/python/descriptor.c
 +++ b/python/descriptor.c
 @@ -23,7 +23,7 @@
@@ -100,10 +100,10 @@ index 05751a0..2b36cea 100644
    const void* parent;    // upb_MessageDef*, upb_DefPool*, etc.
    PyObject* parent_obj;  // Python object that keeps parent alive, we own a ref.
 diff --git a/python/descriptor_pool.c b/python/descriptor_pool.c
-index 089d31b..31817bb 100644
+index cb79f89..e20ba9a 100644
 --- a/python/descriptor_pool.c
 +++ b/python/descriptor_pool.c
-@@ -21,7 +21,7 @@
+@@ -22,7 +22,7 @@
  // -----------------------------------------------------------------------------
  
  typedef struct {
@@ -135,7 +135,7 @@ index 34e1f9b..80ad1e9 100644
    size_t iter;
  } PyUpb_ExtensionIterator;
 diff --git a/python/map.c b/python/map.c
-index bbbd636..11f7a37 100644
+index 4b6e97e..8f808a3 100644
 --- a/python/map.c
 +++ b/python/map.c
 @@ -18,7 +18,7 @@
@@ -147,7 +147,7 @@ index bbbd636..11f7a37 100644
    PyObject* arena;
    // The field descriptor (upb_FieldDef*).
    // The low bit indicates whether the container is reified (see ptr below).
-@@ -422,7 +422,7 @@ static PyType_Spec PyUpb_MessageMapContainer_Spec = {
+@@ -420,7 +420,7 @@ static PyType_Spec PyUpb_MessageMapContainer_Spec = {
  // -----------------------------------------------------------------------------
  
  typedef struct {
@@ -157,10 +157,10 @@ index bbbd636..11f7a37 100644
    size_t iter;
    int version;
 diff --git a/python/message.c b/python/message.c
-index d394e6f..f873393 100644
+index c0c0882..4a86a0e 100644
 --- a/python/message.c
 +++ b/python/message.c
-@@ -176,7 +176,7 @@ err:
+@@ -177,7 +177,7 @@ err:
  // The parent may also be non-present, in which case a mutation will trigger a
  // chain reaction.
  typedef struct PyUpb_Message {
@@ -170,7 +170,7 @@ index d394e6f..f873393 100644
    uintptr_t def;  // Tagged, low bit 1 == upb_FieldDef*, else upb_MessageDef*
    union {
 diff --git a/python/protobuf.c b/python/protobuf.c
-index 4f53154..bfe776f 100644
+index 316b1f6..4d1cf30 100644
 --- a/python/protobuf.c
 +++ b/python/protobuf.c
 @@ -199,7 +199,7 @@ PyObject* PyUpb_ObjCache_Get(const void* key) {
@@ -199,7 +199,7 @@ index 9a2828b..1bdea0b 100644
              (
                  "//python/dist:osx_x86_64",
 diff --git a/python/repeated.c b/python/repeated.c
-index 57e3479..98cb947 100644
+index 7940b4d..0f0904a 100644
 --- a/python/repeated.c
 +++ b/python/repeated.c
 @@ -18,7 +18,7 @@ static PyObject* PyUpb_RepeatedScalarContainer_Append(PyObject* _self,

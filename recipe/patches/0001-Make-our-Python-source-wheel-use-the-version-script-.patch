@@ -1,4 +1,4 @@
-From 49d59cdd58b8332f425ff05f3f26de1c7e6ec0dd Mon Sep 17 00:00:00 2001
+From b231abcd3ee025baf8712a38060b93f4c8670572 Mon Sep 17 00:00:00 2001
 From: Joshua Haberman <haberman@google.com>
 Date: Fri, 21 Jun 2024 11:12:25 -0700
 Subject: [PATCH 1/7] Make our Python source wheel use the version script to
@@ -17,7 +17,7 @@ PiperOrigin-RevId: 645445353
  4 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index 325a56b..0023876 100644
+index 3e34bbd..162c365 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -181,6 +181,8 @@ filegroup(
@@ -30,10 +30,10 @@ index 325a56b..0023876 100644
      name = "_message",
      srcs = [":message_srcs"],
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index 03c44c0..861c558 100644
+index 265d9b8..5964ad3 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -237,6 +237,7 @@ pkg_files(
+@@ -238,6 +238,7 @@ pkg_files(
      srcs = [
          "//:LICENSE",
          "//python:message_srcs",
