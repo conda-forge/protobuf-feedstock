@@ -59,6 +59,8 @@ requirements:
     # - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
+  run_constrained:
+    - libprotobuf {{ lib_major ~ "." ~ version }}
 
 test:
   imports:
