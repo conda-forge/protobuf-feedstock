@@ -1,4 +1,4 @@
-From a3712d743b86f6177b8ee0cbbedd3bc6fc6d1cfe Mon Sep 17 00:00:00 2001
+From 0fe2a660d7592bfa0fbc7273a775d4b96812a01b Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
 Subject: [PATCH 7/7] Hacky windows workarounds
@@ -10,7 +10,7 @@ Subject: [PATCH 7/7] Hacky windows workarounds
  3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/python/dist/system_python.bzl b/python/dist/system_python.bzl
-index 29400be..01e6c42 100644
+index 29400be..45e7fd4 100644
 --- a/python/dist/system_python.bzl
 +++ b/python/dist/system_python.bzl
 @@ -160,12 +160,12 @@ def register_system_python():
@@ -33,7 +33,7 @@ index 29400be..01e6c42 100644
  def _system_python_impl(repository_ctx):
      path = _get_python_path(repository_ctx)
 -    python3 = repository_ctx.which("python3")
-+    python3 = repository_ctx.which("PYTHON_EXE")
++    python3 = "PYTHON_EXE"
      python_version = _get_python_version(repository_ctx)
  
      if path and python_version[0] == "3":
