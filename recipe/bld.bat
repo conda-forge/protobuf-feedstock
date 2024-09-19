@@ -3,12 +3,6 @@ setlocal enabledelayedexpansion
 
 md py_toolchain
 
-xcopy /s /y /i %PREFIX%\libs %SRC_DIR%\py_toolchain\libs
-if %ERRORLEVEL% neq 0 exit 1
-
-xcopy /s /y /i %PREFIX%\include %SRC_DIR%\py_toolchain\include
-if %ERRORLEVEL% neq 0 exit 1
-
 set "PYTHON_CYGPATH=%PYTHON:\=/%"
 set "PY_VER_NO_DOT=%PY_VER:.=%"
 
@@ -61,4 +55,10 @@ if defined CONDA_BLD_PATH (
 if %ERRORLEVEL% neq 0 exit 1
 
 %PYTHON% -m pip install ..\bazel-bin\python\dist\protobuf-%PKG_VERSION%-cp%PY_VER_NO_DOT%-abi3-win_amd64.whl
+if %ERRORLEVEL% neq 0 exit 1
+
+..\bazel clean --expunge
+if %ERRORLEVEL% neq 0 exit 1
+
+..\bazel shutdown
 if %ERRORLEVEL% neq 0 exit 1
