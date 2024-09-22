@@ -63,6 +63,8 @@ requirements:
     - libprotobuf {{ lib_major ~ "." ~ version }}
 
 test:
+  requires:
+    - pip
   imports:
     - google
     - google.protobuf
@@ -73,6 +75,7 @@ test:
     - google.protobuf.compiler
   commands:
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
+    - pip check
 
 about:
   home: https://developers.google.com/protocol-buffers/
