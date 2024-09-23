@@ -22,6 +22,7 @@ source:
       - patches/0005-Support-more-architectures-for-Python-bindings.patch
       - patches/0006-Compatible-windows-changes.patch
       - patches/0007-Hacky-windows-workarounds.patch  # [win]
+      - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
   - fn: bazel-standalone    # [unix]
@@ -36,7 +37,7 @@ source:
     sha256: 6eae8e7f28e1b68b833503d1a58caf139c11e52de19df0d787d974653a0ea4c6    # [build_platform == "win-64"]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -63,6 +64,8 @@ requirements:
     - libprotobuf {{ lib_major ~ "." ~ version }}
 
 test:
+  requires:
+    - pip
   imports:
     - google
     - google.protobuf
@@ -73,6 +76,7 @@ test:
     - google.protobuf.compiler
   commands:
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
+    - pip check
 
 about:
   home: https://developers.google.com/protocol-buffers/
