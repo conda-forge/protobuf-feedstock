@@ -1,0 +1,3 @@
+# Required for cargo-bazel binaries
+docker_image:                                       # [linux]
+  - quay.io/condaforge/linux-anvil-alma-x86_64:8    # [linux]
