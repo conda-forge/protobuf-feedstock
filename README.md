@@ -383,6 +383,3 @@ Feedstock Maintainers
 * [@xhochy](https://github.com/xhochy/)
 * [@xylar](https://github.com/xylar/)
 
-
-<!-- dummy commit to enable rerendering -->
-
