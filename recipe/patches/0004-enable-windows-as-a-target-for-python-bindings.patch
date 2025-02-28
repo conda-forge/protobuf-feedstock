@@ -1,44 +1,31 @@
-From 7494606a6d3e71ca7cf7cfe2e0d2c6fd1de8439c Mon Sep 17 00:00:00 2001
+From 3b3e9d4844fc92cabf5ed86806cf2fd4df3c2543 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 14 Jul 2024 22:44:55 +1100
-Subject: [PATCH 4/7] enable windows as a target for python bindings
+Subject: [PATCH 4/8] enable windows as a target for python bindings
 
 ---
- python/BUILD.bazel      | 11 -----------
- python/dist/BUILD.bazel |  1 -
- 2 files changed, 12 deletions(-)
+ python/BUILD.bazel      | 2 --
+ python/dist/BUILD.bazel | 1 -
+ 2 files changed, 3 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index f2535de..503a62a 100644
+index 0d2254394..537ac6992 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
-@@ -135,21 +135,10 @@ selects.config_setting_group(
-     ],
+@@ -131,8 +131,6 @@ selects.config_setting_group(
  )
  
--# begin:github_only
  _message_target_compatible_with = {
 -    "@system_python//:none": ["@platforms//:incompatible"],
 -    "@system_python//:unsupported": ["@platforms//:incompatible"],
      "//conditions:default": [],
  }
  
--# end:github_only
--# begin:google_only
--# _message_target_compatible_with = {
--#     "@platforms//os:windows": ["@platforms//:incompatible"],
--#     "//conditions:default": [],
--# }
--# end:google_only
--
- filegroup(
-     name = "message_srcs",
-     srcs = [
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index 5964ad3..457302c 100644
+index ee07c735e..b6ddf9231 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -351,7 +351,6 @@ py_wheel(
+@@ -352,7 +352,6 @@ py_wheel(
          "src/",
      ],
      target_compatible_with = select({
