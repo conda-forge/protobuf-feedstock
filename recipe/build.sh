@@ -17,7 +17,7 @@ fi
 cd python
 
 export PROTOC=$PREFIX/bin/protoc
-if [[ "$build_platform" == "$target_platform" ]]; then
+if [[ "$build_platform" != "$target_platform" ]]; then
     export PROTOC=$BUILD_PREFIX/bin/protoc
 fi
 
