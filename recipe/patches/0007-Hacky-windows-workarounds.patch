@@ -1,7 +1,7 @@
 From 7177923e7b81624e7be64a8e032b79577dab8d6d Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
-Subject: [PATCH 7/8] Hacky windows workarounds
+Subject: [PATCH 7/9] Hacky windows workarounds
 
 ---
  python/dist/system_python.bzl | 6 +++---

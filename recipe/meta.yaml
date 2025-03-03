@@ -21,8 +21,11 @@ source:
       - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
       - patches/0005-Support-more-architectures-for-Python-bindings.patch
       - patches/0006-Compatible-windows-changes.patch
-      - patches/0007-Hacky-windows-workarounds.patch  # [win]
+      - patches/0007-Hacky-windows-workarounds.patch                                # [win]
       - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
+      # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
+      - patches/0009-unvendor-abseil-zlib.patch                                     # [not win]
+
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
   - fn: bazel-standalone    # [unix]
@@ -56,6 +59,8 @@ requirements:
     - python
     - pip
     - setuptools
+    - libabseil     # [unix]
+    - zlib          # [unix]
     # - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python

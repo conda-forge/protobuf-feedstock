@@ -1,7 +1,7 @@
 From 44def1d302eab8155f2900d2cd38331b0e56e81f Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 29 Jun 2024 09:49:55 +1100
-Subject: [PATCH 2/8] don't mark windows as unsupported
+Subject: [PATCH 2/9] don't mark windows as unsupported
 
 ---
  python/BUILD.bazel | 1 -
