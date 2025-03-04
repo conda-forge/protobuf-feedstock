@@ -1,5 +1,5 @@
 # keep this without major version to let the bot pick it up
-{% set version = "28.3" %}
+{% set version = "29.1" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "5" %}
@@ -12,7 +12,7 @@ package:
 
 source:
   - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 7c3ebd7aaedd86fa5dc479a0fda803f602caaf78d8aff7ce83b89e1b8ae7442a
+    sha256: 3d32940e975c4ad9b8ba69640e78f5527075bae33ca2890275bf26b853c0962c
     patches:
       # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
       - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
@@ -21,8 +21,11 @@ source:
       - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
       - patches/0005-Support-more-architectures-for-Python-bindings.patch
       - patches/0006-Compatible-windows-changes.patch
-      - patches/0007-Hacky-windows-workarounds.patch  # [win]
+      - patches/0007-Hacky-windows-workarounds.patch                                # [win]
       - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
+      # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
+      - patches/0009-unvendor-abseil-zlib.patch                                     # [not win]
+
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "6.5.0" %}
   - fn: bazel-standalone    # [unix]
@@ -41,8 +44,10 @@ build:
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform or win]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python                                # [build_platform != target_platform or win]
+    - cross-python_{{ target_platform }}    # [build_platform != target_platform]
+    - libabseil                             # [build_platform != target_platform]
+    - zlib                                  # [build_platform != target_platform]
     # - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - bazel-toolchain       # [unix]
     - openjdk 21.*          # [unix]
@@ -56,6 +61,8 @@ requirements:
     - python
     - pip
     - setuptools
+    - libabseil     # [unix]
+    - zlib          # [unix]
     # - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
@@ -73,7 +80,9 @@ test:
     - google.protobuf.pyext
     - google.protobuf.util
     - google.protobuf.compiler
+    - google._upb._message
   commands:
+    - python -c "from google.protobuf.internal import api_implementation; print(api_implementation.Type())"
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
     - pip check
 

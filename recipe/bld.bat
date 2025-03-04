@@ -24,7 +24,11 @@ if defined CONDA_BLD_PATH (
   set OUTPUT_BASE=
 )
 
-..\bazel %OUTPUT_BASE% build --linkopt "/LIBPATH:%PREFIX%\libs" --action_env PYTHON_BIN_PATH=%PYTHON% //python/dist:binary_wheel --define=use_fast_cpp_protos=true
+..\bazel %OUTPUT_BASE% build ^
+    --linkopt "/LIBPATH:%PREFIX%\libs" ^
+    --action_env PYTHON_BIN_PATH=%PYTHON% ^
+    //python/dist:binary_wheel ^
+    --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
 %PYTHON% -m pip install ..\bazel-bin\python\dist\protobuf-%PKG_VERSION%-cp%PY_VER_NO_DOT%-abi3-win_amd64.whl
