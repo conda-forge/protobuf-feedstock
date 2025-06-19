@@ -30,6 +30,7 @@ requirements:
     - python
     - pip
     - libprotobuf {{ version }}
+    - setuptools
     - six
   run:
     - python
