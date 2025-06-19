@@ -24,6 +24,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}                    # [unix]
     - {{ compiler('cxx') }}                  # [unix]
+    - {{ stdlib('c') }}                      # [unix]
     - libprotobuf {{ version }}              # [build_platform != target_platform]
   host:
     - python
