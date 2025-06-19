@@ -7,11 +7,8 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_73_pypy
+- 3.11.* *_cpython
 python_impl:
-- pypy
+- cpython
 target_platform:
 - win-64
-zip_keys:
-- - python
-  - python_impl
