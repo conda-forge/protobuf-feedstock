@@ -35,10 +35,11 @@ for f in dist/BUILD.bazel dist/dist.bzl; do
   sed -i '/@system_python\/\/:version\.bzl/d' $f
   sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
 done
-if [[ "${PY_VER}" != "3.13" ]]; then
-  # https://github.com/protocolbuffers/protobuf/issues/22313
-  sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
-fi
+# https://github.com/protocolbuffers/protobuf/issues/22313
+sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
+sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.13",\n\1/' ../MODULE.bazel
+# Upgrade to a newer rules_python
+sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.5.0\2/' ../MODULE.bazel
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \

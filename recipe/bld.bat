@@ -37,10 +37,12 @@ for %%f in ("dist\BUILD.bazel" "dist\dist.bzl") do (
   if %ERRORLEVEL% neq 0 exit 1
 )
 
-if not "%PY_VER%"=="3.13" (
-  sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
-  if %ERRORLEVEL% neq 0 exit 1
-)
+sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 exit 1
+sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"3.13\",\n\1/" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 exit 1
+sed -i "s/\(bazel_dep(name *= *\"rules_python\", *version *= *\"\)[^\"]*\(\")\)/\11.5.0\2/" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel %OUTPUT_BASE% build ^
     --linkopt "/LIBPATH:%PREFIX%\libs" ^
