@@ -35,6 +35,7 @@ for f in dist/BUILD.bazel dist/dist.bzl; do
   sed -i '/@system_python\/\/:version\.bzl/d' $f
   sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
 done
+sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \
