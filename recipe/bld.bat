@@ -24,6 +24,20 @@ if defined CONDA_BLD_PATH (
   set OUTPUT_BASE=
 )
 
+if not "%PY_VER%"=="3.13" (
+    set "PY_VER_NODOT=%PY_VER:.=%"
+
+    for %%f in ("dist\BUILD.bazel" "dist\dist.bzl") do (
+        sed -i "/@system_python\/\/:version\.bzl/d" "%%~f"
+         if %ERRORLEVEL% neq 0 exit 1
+        sed -i "s|SYSTEM_PYTHON_VERSION|\"%PY_VER_NODOT%\"|g" "%%~f"
+        if %ERRORLEVEL% neq 0 exit 1
+    )
+
+    sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
+    if %ERRORLEVEL% neq 0 exit 1
+)
+
 ..\bazel %OUTPUT_BASE% build ^
     --linkopt "/LIBPATH:%PREFIX%\libs" ^
     --action_env PYTHON_BIN_PATH=%PYTHON% ^
