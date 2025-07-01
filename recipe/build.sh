@@ -38,8 +38,10 @@ done
 # https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
 sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.13",\n\1/' ../MODULE.bazel
-# Upgrade to a newer rules_python
-sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.5.0\2/' ../MODULE.bazel
+if [[ "${target_platform}" == osx-* ]]; then
+  # Upgrade to a newer rules_python
+  sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.5.0\2/' ../MODULE.bazel
+fi
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \
