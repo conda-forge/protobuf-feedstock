@@ -30,12 +30,15 @@ cp -R $RECIPE_DIR/tf_third_party/* $SRC_DIR/third_party/
 # this must use commas to separate libs, otherwise bazel breaks inscrutably
 export TF_SYSTEM_LIBS="com_google_absl,zlib"
 
-# Hacky workaround to fix some dependency issues with bazel
-for f in dist/BUILD.bazel dist/dist.bzl; do
-  sed -i '/@system_python\/\/:version\.bzl/d' $f
-  sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
-done
-sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
+if [[ "${PY_VER}" != "3.13" ]]; then
+  # Hacky workaround to fix some dependency issues with bazel
+  for f in dist/BUILD.bazel dist/dist.bzl; do
+    sed -i '/@system_python\/\/:version\.bzl/d' $f
+    sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
+  done
+  # https://github.com/protocolbuffers/protobuf/issues/22313
+  sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
+fi
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \
