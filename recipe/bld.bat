@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 @rem Use correct C++17 option
-sed "s/\(cxxopt=\)-std=c++17/\1\/std:c++17/g" .bazelrc
+sed -i "s/\(cxxopt=\)-std=c++17/\1\/std:c++17/g" .bazelrc
 if %ERRORLEVEL% neq 0 exit 1
 
 md py_toolchain
