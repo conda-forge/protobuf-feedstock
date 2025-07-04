@@ -39,8 +39,12 @@ for %%f in ("dist\BUILD.bazel" "dist\dist.bzl") do (
   if %ERRORLEVEL% neq 0 exit 1
 )
 
+:: protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
+:: https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
 if %ERRORLEVEL% neq 0 exit 1
+:: and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
+:: https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
 sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"3.13\",\n\1/" "..\MODULE.bazel"
 if %ERRORLEVEL% neq 0 exit 1
 sed -i "s/\(bazel_dep(name *= *\"rules_python\", *version *= *\"\)[^\"]*\(\")\)/\11.5.0\2/" "..\MODULE.bazel"

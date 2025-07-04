@@ -36,8 +36,11 @@ for f in dist/BUILD.bazel dist/dist.bzl; do
   sed -i '/@system_python\/\/:version\.bzl/d' $f
   sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
 done
+# protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
 # https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
+# and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
+# https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
 sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.13",\n\1/' ../MODULE.bazel
 if [[ "${target_platform}" == osx-* ]]; then
   # Upgrade to a newer rules_python
