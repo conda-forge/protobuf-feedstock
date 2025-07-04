@@ -4,6 +4,7 @@ set -ex
 # Workaround missing leading whitespace for mcpu stripping in bazel-toolchain
 export CFLAGS=" ${CXXFLAGS}"
 export CXXFLAGS=" ${CXXFLAGS}"
+export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc
 
 source gen-bazel-toolchain
 chmod +x bazel
@@ -29,6 +30,22 @@ cp -R $RECIPE_DIR/tf_third_party/* $SRC_DIR/third_party/
 # reuses infrastructure from tensorflow; in contrast to tensorflow feedstock,
 # this must use commas to separate libs, otherwise bazel breaks inscrutably
 export TF_SYSTEM_LIBS="com_google_absl,zlib"
+
+# Hacky workaround to fix some dependency issues with bazel
+for f in dist/BUILD.bazel dist/dist.bzl; do
+  sed -i '/@system_python\/\/:version\.bzl/d' $f
+  sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
+done
+# protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
+# https://github.com/protocolbuffers/protobuf/issues/22313
+sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
+# and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
+# https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
+sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.13",\n\1/' ../MODULE.bazel
+if [[ "${target_platform}" == osx-* ]]; then
+  # Upgrade to a newer rules_python
+  sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.5.0\2/' ../MODULE.bazel
+fi
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \

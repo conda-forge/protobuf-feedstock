@@ -1,4 +1,4 @@
-From 2043e08603619fff553c32a3734fd43153a814ae Mon Sep 17 00:00:00 2001
+From 113732b0d23ab8909c94183c033b663217c839c1 Mon Sep 17 00:00:00 2001
 From: Uwe Korn <uwelk@xhochy.com>
 Date: Mon, 23 Sep 2024 11:59:53 +0000
 Subject: [PATCH 8/9] Add osx-64 and linux-ppc64le as supported wheel tags
@@ -8,7 +8,7 @@ Subject: [PATCH 8/9] Add osx-64 and linux-ppc64le as supported wheel tags
  1 file changed, 22 insertions(+)
 
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index b6ddf9231..b229a876e 100644
+index c40bd66ac..809b1faf0 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
 @@ -65,6 +65,25 @@ config_setting(
@@ -20,14 +20,14 @@ index b6ddf9231..b229a876e 100644
 +    flag_values = {
 +        "//toolchain:release": "True",
 +    },
-+    values = {"cpu": "linux-ppc64le"},
++    values = {"cpu": "linux-ppc"},
 +)
 +
 +config_setting(
 +    name = "linux_ppc64le_local",
 +    constraint_values = [
 +        "@platforms//os:linux",
-+        "@platforms//cpu:ppc64le",
++        "@platforms//cpu:ppc",
 +    ],
 +    flag_values = {
 +        "//toolchain:release": "False",
@@ -37,7 +37,7 @@ index b6ddf9231..b229a876e 100644
  config_setting(
      name = "linux_x86_64_release",
      flag_values = {
-@@ -326,9 +345,12 @@ py_wheel(
+@@ -346,11 +365,14 @@ py_wheel(
      platform = select({
          ":linux_x86_64_local": "linux_x86_64",
          ":linux_x86_64_release": "manylinux2014_x86_64",
@@ -45,6 +45,8 @@ index b6ddf9231..b229a876e 100644
 +        ":linux_ppc64le_release": "manylinux2014_ppc64le",
          ":linux_aarch64_local": "linux_aarch64",
          ":linux_aarch64_release": "manylinux2014_aarch64",
+         ":linux_s390x_local_unused": "linux_s390x",
+         ":linux_s390x_release_unused": "manylinux2014_s390x",
          ":osx_universal2": "macosx_10_9_universal2",
 +        ":osx_x86_64": "macosx_10_13_x86_64",
          ":osx_aarch64": "macosx_11_0_arm64",

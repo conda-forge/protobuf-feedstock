@@ -1,33 +1,14 @@
-From 83d0651291523406837168ce7e4e2197560c7606 Mon Sep 17 00:00:00 2001
+From 2cf684ac1cb36ab70183461ff0b7f8dc0189d569 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 16 Sep 2024 11:49:04 +0200
 Subject: [PATCH 5/9] Support more architectures for Python bindings
 
 ---
- WORKSPACE            | 6 +++---
  python/dist/dist.bzl | 6 ++++--
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/WORKSPACE b/WORKSPACE
-index 1652c799f..0e521e4ab 100644
---- a/WORKSPACE
-+++ b/WORKSPACE
-@@ -29,10 +29,10 @@ pip_install_dependencies()
- http_archive(
-     name = "platforms",
-     urls = [
--        "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.7/platforms-0.0.7.tar.gz",
--        "https://github.com/bazelbuild/platforms/releases/download/0.0.7/platforms-0.0.7.tar.gz",
-+        "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.10/platforms-0.0.10.tar.gz",
-+        "https://github.com/bazelbuild/platforms/releases/download/0.0.10/platforms-0.0.10.tar.gz",
-     ],
--    sha256 = "3a561c99e7bdbe9173aa653fd579fe849f1d8d67395780ab4770b1f381431d51",
-+    sha256 = "218efe8ee736d26a3572663b374a253c012b716d8af0c07e842e82f238a0a7ee",
- )
- 
- http_archive(
 diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
-index 061125ede..9f9316f5c 100644
+index 7c9095e26..4034e7c9a 100644
 --- a/python/dist/dist.bzl
 +++ b/python/dist/dist.bzl
 @@ -5,12 +5,12 @@ load("@system_python//:version.bzl", "SYSTEM_PYTHON_VERSION")
@@ -53,4 +34,4 @@ index 061125ede..9f9316f5c 100644
 +            "ppc": "powerpc64le-linux-gnu",
              "linux-x86_64": "x86_64-linux-gnu",
              "k8": "x86_64-linux-gnu",
-         }
+             "s390x": "s390x-linux-gnu",

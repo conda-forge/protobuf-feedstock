@@ -1,4 +1,4 @@
-From 7177923e7b81624e7be64a8e032b79577dab8d6d Mon Sep 17 00:00:00 2001
+From 63b165ec47bb36682fca0ff0ec3688904383dfca Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
 Subject: [PATCH 7/9] Hacky windows workarounds
@@ -10,7 +10,7 @@ Subject: [PATCH 7/9] Hacky windows workarounds
  3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/python/dist/system_python.bzl b/python/dist/system_python.bzl
-index 9367dd00f..e89719405 100644
+index 390bf3c2a..901d974cc 100644
 --- a/python/dist/system_python.bzl
 +++ b/python/dist/system_python.bzl
 @@ -156,12 +156,12 @@ def register_system_python():
@@ -38,10 +38,10 @@ index 9367dd00f..e89719405 100644
  
      if path and python_version[0] == "3":
 diff --git a/python/message.c b/python/message.c
-index 08ecb9f4c..1aa2fbea3 100644
+index 3fe7480a6..85a893c14 100644
 --- a/python/message.c
 +++ b/python/message.c
-@@ -1018,7 +1018,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
+@@ -1025,7 +1025,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
   * Attribute lookup must find both message fields and base class methods like
   * msg.SerializeToString().
   */
@@ -51,14 +51,14 @@ index 08ecb9f4c..1aa2fbea3 100644
    PyUpb_Message* self = (void*)_self;
  
 diff --git a/python/protobuf.c b/python/protobuf.c
-index 498b13b43..0b2f5fed0 100644
+index 12b5f4493..9626a6574 100644
 --- a/python/protobuf.c
 +++ b/python/protobuf.c
-@@ -399,7 +399,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
+@@ -401,7 +401,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
  // Module Entry Point
  // -----------------------------------------------------------------------------
  
--__attribute__((visibility("default"))) PyMODINIT_FUNC PyInit__message(void) {
+-PyMODINIT_FUNC PyInit__message(void) {
 +__declspec(dllexport) PyMODINIT_FUNC PyInit__message(void) {
    PyObject* m = PyModule_Create(&module_def);
    if (!m) return NULL;

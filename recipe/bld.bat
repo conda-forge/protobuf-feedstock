@@ -1,6 +1,12 @@
 @echo on
 setlocal enabledelayedexpansion
 
+@rem Use correct C++17 option
+sed -i "s/\(cxxopt=\)-std=c++17/\1\/std:c++17/g" .bazelrc
+if %ERRORLEVEL% neq 0 exit 1
+
+set "BAZEL_LLVM=%BUILD_PREFIX%\Library"
+
 md py_toolchain
 
 set "PYTHON_CYGPATH=%PYTHON:\=/%"
@@ -23,6 +29,26 @@ if defined CONDA_BLD_PATH (
 ) else (
   set OUTPUT_BASE=
 )
+
+set "PY_VER_NODOT=%PY_VER:.=%"
+
+for %%f in ("dist\BUILD.bazel" "dist\dist.bzl") do (
+  sed -i "/@system_python\/\/:version\.bzl/d" "%%~f"
+   if %ERRORLEVEL% neq 0 exit 1
+  sed -i "s|SYSTEM_PYTHON_VERSION|\"%PY_VER_NODOT%\"|g" "%%~f"
+  if %ERRORLEVEL% neq 0 exit 1
+)
+
+:: protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
+:: https://github.com/protocolbuffers/protobuf/issues/22313
+sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 exit 1
+:: and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
+:: https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
+sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"3.13\",\n\1/" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 exit 1
+sed -i "s/\(bazel_dep(name *= *\"rules_python\", *version *= *\"\)[^\"]*\(\")\)/\11.5.0\2/" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel %OUTPUT_BASE% build ^
     --linkopt "/LIBPATH:%PREFIX%\libs" ^
