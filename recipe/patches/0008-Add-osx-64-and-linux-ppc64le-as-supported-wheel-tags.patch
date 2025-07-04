@@ -20,14 +20,14 @@ index c40bd66ac..809b1faf0 100644
 +    flag_values = {
 +        "//toolchain:release": "True",
 +    },
-+    values = {"cpu": "linux-ppc64le"},
++    values = {"cpu": "linux-ppc"},
 +)
 +
 +config_setting(
 +    name = "linux_ppc64le_local",
 +    constraint_values = [
 +        "@platforms//os:linux",
-+        "@platforms//cpu:ppc64le",
++        "@platforms//cpu:ppc",
 +    ],
 +    flag_values = {
 +        "//toolchain:release": "False",
