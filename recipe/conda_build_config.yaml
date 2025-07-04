@@ -1,3 +1,11 @@
 # Required for cargo-bazel binaries
 docker_image:                                       # [linux]
   - quay.io/condaforge/linux-anvil-alma-x86_64:8    # [linux]
+c_compiler:            # [win]
+  - clang              # [win]
+c_compiler_version:    # [win]
+  - 19                 # [win]
+cxx_compiler:          # [win]
+  - clangxx            # [win]
+cxx_compiler_version:  # [win]
+  - 19                 # [win]
