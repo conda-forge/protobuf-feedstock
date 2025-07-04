@@ -1,7 +1,7 @@
 c_compiler:
-- vs
+- clang
 c_compiler_version:
-- '2022'
+- '19'
 c_stdlib:
 - vs
 channel_sources:
@@ -9,9 +9,9 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs
+- clangxx
 cxx_compiler_version:
-- '2022'
+- '19'
 pin_run_as_build:
   python:
     min_pin: x.x
