@@ -5,6 +5,8 @@ setlocal enabledelayedexpansion
 sed -i "s/\(cxxopt=\)-std=c++17/\1\/std:c++17/g" .bazelrc
 if %ERRORLEVEL% neq 0 exit 1
 
+set "BAZEL_LLVM=%BUILD_PREFIX%\Library"
+
 md py_toolchain
 
 set "PYTHON_CYGPATH=%PYTHON:\=/%"
