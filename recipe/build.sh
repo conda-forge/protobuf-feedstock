@@ -4,6 +4,7 @@ set -ex
 # Workaround missing leading whitespace for mcpu stripping in bazel-toolchain
 export CFLAGS=" ${CXXFLAGS}"
 export CXXFLAGS=" ${CXXFLAGS}"
+export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc
 
 source gen-bazel-toolchain
 chmod +x bazel
