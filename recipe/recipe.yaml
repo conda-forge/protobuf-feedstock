@@ -59,25 +59,19 @@ build:
 requirements:
   build:
     - if: build_platform != target_platform or win
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - if: build_platform != target_platform
-      then: libabseil
-    - if: build_platform != target_platform
-      then: zlib
-    #- if: build_platform != target_platform
-    #  then: libprotobuf ${{ lib_major ~ "." ~ version }}.*
+      then:
+        - python
+        - libabseil
+        - zlib
+        - libprotobuf ${{ lib_major ~ "." ~ version }}.* 
     - if: unix
-      then: bazel-toolchain >=0.3.1
-    - if: unix
-      then: openjdk 21.*
-    - if: unix
-      then: sed
-    - if: not unix
-      then: posix
-    - if: not unix
-      then: m2-sed
+      then:
+        - bazel-toolchain >=0.3.1
+        - openjdk 21.*
+        - sed
+      else:
+        - posix
+        - m2-sed
     - ${{ stdlib('c') }}
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
@@ -89,7 +83,7 @@ requirements:
       then:
         - libabseil
         - zlib
-  # - libprotobuf ${{ lib_major ~ "." ~ version }}.*
+    # - libprotobuf ${{ lib_major ~ "." ~ version }}.*
   run:
     - python
   run_constraints:
@@ -136,4 +130,3 @@ extra:
     - hajapy
     - xhochy
     - conda-forge/libprotobuf
-
