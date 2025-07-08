@@ -24,9 +24,6 @@ if [[ "$build_platform" != "$target_platform" ]]; then
     export PROTOC=$BUILD_PREFIX/bin/protoc
 fi
 
-ls -R ../bazel
-ls -R ../bazel-standalone-*
-
 rm -rf $SRC_DIR/third_party/abseil-cpp
 cp -R $RECIPE_DIR/tf_third_party/* $SRC_DIR/third_party/
 # reuses infrastructure from tensorflow; in contrast to tensorflow feedstock,
@@ -56,7 +53,7 @@ export BAZEL="$(pwd)/../bazel-standalone"
     --crosstool_top=//bazel_toolchain:toolchain \
     ${EXTRA_BAZEL_ARGS:-} \
     --cpu=${TARGET_CPU} \
-    --local_cpu_resources=${CPU_COUNT} \
+    --local_resources=cpu=${CPU_COUNT} \
     //python/dist:binary_wheel \
     --define=use_fast_cpp_protos=true
 
