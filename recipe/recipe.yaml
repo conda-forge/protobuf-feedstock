@@ -1,0 +1,139 @@
+schema_version: 1
+
+context:
+  # keep this without major version to let the bot pick it up
+  # protobuf doesn't add the major version in the tag, it's defined per language in
+  # https://github.com/protocolbuffers/protobuf/blob/main/version.json
+  # libprotobuf can have a different major version than protobuf
+  version: 31.1
+  major: 6
+  lib_major: 6
+  bz_url: https://github.com/bazelbuild/bazel/releases/download
+  bz_ver: 7.2.1
+
+package:
+  name: protobuf
+  version: ${{ major ~ "." ~ version }}
+
+source:
+  - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v${{ version }}.tar.gz
+    sha256: c3a0a9ece8932e31c3b736e2db18b1c42e7070cd9b881388b26d01aa71e24ca2
+    patches:
+      # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
+      - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
+      - patches/0002-don-t-mark-windows-as-unsupported.patch
+      - patches/0003-don-t-link-statically-on-windows.patch
+      - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
+      - patches/0005-Support-more-architectures-for-Python-bindings.patch
+      - patches/0006-Compatible-windows-changes.patch
+      - if: win
+        then: patches/0007-Hacky-windows-workarounds.patch
+      - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
+      # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
+      - if: not win
+        then: patches/0009-unvendor-abseil-zlib.patch
+  - if: build_platform == "linux-64"
+    then:
+      url: ${{ bz_url }}/${{ bz_ver }}/bazel_nojdk-${{ bz_ver }}-linux-x86_64
+      sha256: 1c7a167ad2c45374afb19f60093465f58f9209a5142d53d63bc4aadb567323fa
+      file_name: bazel-standalone
+  - if: build_platform == "osx-64"
+    then:
+      url: ${{ bz_url }}/${{ bz_ver }}/bazel_nojdk-${{ bz_ver }}-darwin-x86_64
+      sha256: ba0a10ecbdaa70bf348bfdbad2fbcf0ba926a5ee07b613f6656046a1d3f60e07
+      file_name: bazel-standalone
+  - if: build_platform == "osx-arm64"
+    then:
+      url: ${{ bz_url }}/${{ bz_ver }}/bazel_nojdk-${{ bz_ver }}-darwin-arm64
+      sha256: ef15ff2c9ca3cbf2b09dcc88ea6d7d89575cfd6904e560d7691831a1d7daaf82
+      file_name: bazel-standalone
+  - if: build_platform == "win-64"
+    then:
+      url: ${{ bz_url }}/${{ bz_ver }}/bazel-${{ bz_ver }}-windows-x86_64.exe
+      sha256: 4926bd3bf580b8b3323e0d09bde5dc6120fdd262d99f753eb61fedfb9a2cfc49
+      file_name: bazel.exe
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - if: build_platform != target_platform or win
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: libabseil
+    - if: build_platform != target_platform
+      then: zlib
+    #- if: build_platform != target_platform
+    #  then: libprotobuf ${{ lib_major ~ "." ~ version }}.*
+    - if: unix
+      then: bazel-toolchain >=0.3.1
+    - if: unix
+      then: openjdk 21.*
+    - if: unix
+      then: sed
+    - if: not unix
+      then: posix
+    - if: not unix
+      then: m2-sed
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+  host:
+    - python
+    - pip
+    - setuptools
+    - if: unix
+      then:
+        - libabseil
+        - zlib
+  # - libprotobuf ${{ lib_major ~ "." ~ version }}.*
+  run:
+    - python
+  run_constraints:
+    - libprotobuf ${{ lib_major ~ "." ~ version }}.*
+
+tests:
+  - python:
+      imports:
+        - google
+        - google.protobuf
+        - google.protobuf.descriptor
+        - google.protobuf.internal
+        - google.protobuf.pyext
+        - google.protobuf.util
+        - google.protobuf.compiler
+        - google._upb._message
+  - requirements:
+      run:
+        - pip
+    script:
+      - python -c "from google.protobuf.internal import api_implementation; print(api_implementation.Type())"
+      - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
+      - pip check
+
+about:
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: Protocol Buffers - Google's data interchange format.
+  description: |
+    Protocol buffers are Google's language-neutral, platform-neutral, extensible
+    mechanism for serializing structured data,think XML, but smaller, faster, and simpler.
+  homepage: https://developers.google.com/protocol-buffers/
+  repository: https://github.com/protocolbuffers/protobuf
+  documentation: https://developers.google.com/protocol-buffers/docs/tutorials
+
+extra:
+  recipe-maintainers:
+    - jjerphan
+    - JohanMabille
+    - xylar
+    - dopplershift
+    - jakirkham
+    - ocefpaf
+    - hajapy
+    - xhochy
+    - conda-forge/libprotobuf
+
