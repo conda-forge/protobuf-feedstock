@@ -58,9 +58,10 @@ build:
 
 requirements:
   build:
-    - if: build_platform != target_platform or win
+    - if: build_platform != target_platform
       then:
         - python
+        - cross-python_${{ target_platform }}
         - libabseil
         - zlib
         - libprotobuf ${{ lib_major ~ "." ~ version }}.* 
@@ -70,6 +71,7 @@ requirements:
         - openjdk 21.*
         - sed
       else:
+        - python
         - posix
         - m2-sed
     - ${{ stdlib('c') }}
