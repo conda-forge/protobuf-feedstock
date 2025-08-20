@@ -1,4 +1,4 @@
-From 1aeec33598d70f70ae1726349b7fb897307d0341 Mon Sep 17 00:00:00 2001
+From 6e237642f77281033e7bb2e023789d0b509e8ff0 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 29 Jun 2024 09:50:18 +1100
 Subject: [PATCH 3/9] don't link statically on windows
@@ -8,7 +8,7 @@ Subject: [PATCH 3/9] don't link statically on windows
  1 file changed, 3 deletions(-)
 
 diff --git a/python/dist/setup.py b/python/dist/setup.py
-index f00d9fbfd..a46ffa36f 100755
+index 734a85e25..b4a7a48d9 100755
 --- a/python/dist/setup.py
 +++ b/python/dist/setup.py
 @@ -34,9 +34,6 @@ def GetVersion():
@@ -18,6 +18,6 @@ index f00d9fbfd..a46ffa36f 100755
 -if sys.platform.startswith('win'):
 -  extra_link_args = ['-static']
 -
- setup(
-     name='protobuf',
-     version=GetVersion(),
+ # If at some point the fasttable decoder is ready for prime time, we could
+ # enable it here. But even then we'll need to disable it on platforms where
+ # it will not work (eg. 32-bit, MSVC).

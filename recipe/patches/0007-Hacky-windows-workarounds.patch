@@ -1,4 +1,4 @@
-From 63b165ec47bb36682fca0ff0ec3688904383dfca Mon Sep 17 00:00:00 2001
+From 6d118266977f4e0ac572b90e4c0dabd83474ebd0 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
 Subject: [PATCH 7/9] Hacky windows workarounds
@@ -10,7 +10,7 @@ Subject: [PATCH 7/9] Hacky windows workarounds
  3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/python/dist/system_python.bzl b/python/dist/system_python.bzl
-index 390bf3c2a..901d974cc 100644
+index 5f0fdf56a..e46c15635 100644
 --- a/python/dist/system_python.bzl
 +++ b/python/dist/system_python.bzl
 @@ -156,12 +156,12 @@ def register_system_python():
@@ -38,10 +38,10 @@ index 390bf3c2a..901d974cc 100644
  
      if path and python_version[0] == "3":
 diff --git a/python/message.c b/python/message.c
-index 3fe7480a6..85a893c14 100644
+index 466eedecd..856250f9a 100644
 --- a/python/message.c
 +++ b/python/message.c
-@@ -1025,7 +1025,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
+@@ -1016,7 +1016,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
   * Attribute lookup must find both message fields and base class methods like
   * msg.SerializeToString().
   */
@@ -51,7 +51,7 @@ index 3fe7480a6..85a893c14 100644
    PyUpb_Message* self = (void*)_self;
  
 diff --git a/python/protobuf.c b/python/protobuf.c
-index 12b5f4493..9626a6574 100644
+index ff6bf7c0d..b9bba6a80 100644
 --- a/python/protobuf.c
 +++ b/python/protobuf.c
 @@ -401,7 +401,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
