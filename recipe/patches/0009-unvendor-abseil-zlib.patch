@@ -1,4 +1,4 @@
-From d5f0caca1b2e6766a473df6a11d59f8236d8cbeb Mon Sep 17 00:00:00 2001
+From 9a8d9303f92388a94f0bfcf878b8b78c7b8272f7 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Mon, 3 Mar 2025 11:59:27 +1100
 Subject: [PATCH 9/9] unvendor abseil/zlib
@@ -14,7 +14,7 @@ depends on putting tensorflow infrastructure in place, see feedstock build scrip
  delete mode 100644 third_party/zlib.BUILD
 
 diff --git a/WORKSPACE b/WORKSPACE
-index b1030fa78..a7f1b912a 100644
+index 6148f5e67..1ed0a75cf 100644
 --- a/WORKSPACE
 +++ b/WORKSPACE
 @@ -10,6 +10,21 @@ local_repository(
@@ -40,10 +40,10 @@ index b1030fa78..a7f1b912a 100644
  load("//:protobuf_deps.bzl", "PROTOBUF_MAVEN_ARTIFACTS", "protobuf_deps")
  
 diff --git a/protobuf_deps.bzl b/protobuf_deps.bzl
-index 86b343dbb..eeed873d2 100644
+index a3aed626d..ec74b8b8a 100644
 --- a/protobuf_deps.bzl
 +++ b/protobuf_deps.bzl
-@@ -71,26 +71,6 @@ def protobuf_deps():
+@@ -81,26 +81,6 @@ def protobuf_deps():
              ],
          )
  
@@ -51,8 +51,8 @@ index 86b343dbb..eeed873d2 100644
 -        _github_archive(
 -            name = "abseil-cpp",
 -            repo = "https://github.com/abseil/abseil-cpp",
--            commit = "9ac7062b1860d895fb5a8cbf58c3e9ef8f674b5f",  # Abseil LTS 20250127
--            sha256 = "d8ae9aa794a571ee39c77085ee69f1d4ac276212a7d99734974d95df7baa8d13",
+-            commit = "76bb24329e8bf5f39704eb10d21b9a80befa7c81",  # Abseil LTS 20250512.1
+-            integrity = "sha256-jF3/tZRlrthY/Y+cEgf1ljqPmtqNOcwVh392LHtERWA=",
 -        )
 -
 -    if not native.existing_rule("zlib"):
@@ -71,7 +71,7 @@ index 86b343dbb..eeed873d2 100644
          _github_archive(
              name = "jsoncpp",
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index 09573f6f3..829a0a192 100644
+index e1b74d3a9..07aefd4d2 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -20,6 +20,13 @@ package(

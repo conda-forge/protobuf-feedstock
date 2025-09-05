@@ -1,4 +1,4 @@
-From 2cf684ac1cb36ab70183461ff0b7f8dc0189d569 Mon Sep 17 00:00:00 2001
+From 058a74d9226d21033d50bcd5c361a9738ff233f5 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 16 Sep 2024 11:49:04 +0200
 Subject: [PATCH 5/9] Support more architectures for Python bindings

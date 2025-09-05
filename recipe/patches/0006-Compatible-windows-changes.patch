@@ -1,4 +1,4 @@
-From cf688ff027fde906b91e72ebd673f7fe798784bb Mon Sep 17 00:00:00 2001
+From b3c780cf5dd9020bcbabd873519f3e79e5780e01 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 17 Sep 2024 22:29:40 +0200
 Subject: [PATCH 6/9] Compatible windows changes
@@ -9,7 +9,7 @@ Subject: [PATCH 6/9] Compatible windows changes
  2 files changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index 9eafd65a1..09573f6f3 100644
+index a27012e28..e1b74d3a9 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -138,11 +138,12 @@ exports_files(["version_script.lds"])
@@ -29,11 +29,11 @@ index 9eafd65a1..09573f6f3 100644
      deps = [
          "//src/google/protobuf:descriptor_upb_reflection_proto",
 diff --git a/python/py_extension.bzl b/python/py_extension.bzl
-index 2afae61df..0a98ab349 100644
+index 8603aba54..0415fb1b7 100644
 --- a/python/py_extension.bzl
 +++ b/python/py_extension.bzl
 @@ -16,7 +16,10 @@ def py_extension(name, srcs, copts, deps = [], **kwargs):
-     native.cc_binary(
+     cc_binary(
          name = name + "_binary",
          srcs = srcs,
 -        copts = copts + ["-fvisibility=hidden"],

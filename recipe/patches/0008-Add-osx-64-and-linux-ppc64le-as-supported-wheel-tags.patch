@@ -1,4 +1,4 @@
-From 113732b0d23ab8909c94183c033b663217c839c1 Mon Sep 17 00:00:00 2001
+From 112d8f4cc8afcce0e7d811e50df62e9e44681689 Mon Sep 17 00:00:00 2001
 From: Uwe Korn <uwelk@xhochy.com>
 Date: Mon, 23 Sep 2024 11:59:53 +0000
 Subject: [PATCH 8/9] Add osx-64 and linux-ppc64le as supported wheel tags
@@ -8,7 +8,7 @@ Subject: [PATCH 8/9] Add osx-64 and linux-ppc64le as supported wheel tags
  1 file changed, 22 insertions(+)
 
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index c40bd66ac..809b1faf0 100644
+index fb44586d1..e3e47cf5d 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
 @@ -65,6 +65,25 @@ config_setting(
@@ -37,7 +37,7 @@ index c40bd66ac..809b1faf0 100644
  config_setting(
      name = "linux_x86_64_release",
      flag_values = {
-@@ -346,11 +365,14 @@ py_wheel(
+@@ -353,11 +372,14 @@ py_wheel(
      platform = select({
          ":linux_x86_64_local": "linux_x86_64",
          ":linux_x86_64_release": "manylinux2014_x86_64",
