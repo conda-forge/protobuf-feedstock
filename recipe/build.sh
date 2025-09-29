@@ -42,10 +42,8 @@ sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
 # and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
 # https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
 sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.13",\n    "3.14",\n\1/' ../MODULE.bazel
-if [[ "${target_platform}" == osx-* ]]; then
-  # Upgrade to a newer rules_python
-  sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.5.0\2/' ../MODULE.bazel
-fi
+# Upgrade to a newer rules_python (required for 3.14 support)
+sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \
