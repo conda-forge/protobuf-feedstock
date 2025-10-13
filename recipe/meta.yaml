@@ -25,6 +25,7 @@ source:
       - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
       # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
       - patches/0009-unvendor-abseil-zlib.patch                                     # [not win]
+      - patches/0010-Workaround-nvcc-bug-in-message_lite.h.patch
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "7.2.1" %}
@@ -40,7 +41,7 @@ source:
     sha256: 4926bd3bf580b8b3323e0d09bde5dc6120fdd262d99f753eb61fedfb9a2cfc49    # [build_platform == "win-64"]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
