@@ -1,5 +1,5 @@
 # keep this without major version to let the bot pick it up
-{% set version = "33.3" %}
+{% set version = "33.4" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
 {% set major = "6" %}
@@ -12,7 +12,7 @@ package:
 
 source:
   - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: e406daab9ccc4687b46ca45798b0fee1dd9bf63cb91f90216e2a78761efde321
+    sha256: 136a07aad488cc502b11c4416fe4a7df2dfdea1d0833a7a8211000bf952728ba
     patches:
       # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
       - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
