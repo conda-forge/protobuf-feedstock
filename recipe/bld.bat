@@ -3,6 +3,7 @@ setlocal enabledelayedexpansion
 
 @rem Create python3.exe symlink for rules_python compatibility
 @rem On Windows, only python.exe exists, but rules_python looks for python3
+@rem see https://github.com/conda-forge/python-feedstock/pull/640
 copy "%PREFIX%\python.exe" "%PREFIX%\python3.exe"
 if %ERRORLEVEL% neq 0 exit 1
 
@@ -70,3 +71,6 @@ if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel shutdown
 if %ERRORLEVEL% neq 0 exit 1
+
+@rem remove extraneous python3 again (see above)
+del /s /q %PREFIX%\python3.exe
