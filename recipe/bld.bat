@@ -1,6 +1,12 @@
 @echo on
 setlocal enabledelayedexpansion
 
+@rem Create python3.exe symlink for rules_python compatibility
+@rem On Windows, only python.exe exists, but rules_python looks for python3
+@rem see https://github.com/conda-forge/python-feedstock/pull/640
+copy "%PREFIX%\python.exe" "%PREFIX%\python3.exe"
+if %ERRORLEVEL% neq 0 exit 1
+
 @rem Use correct C++17 option
 sed -i "s/\(cxxopt=\)-std=c++17/\1\/std:c++17/g" .bazelrc
 if %ERRORLEVEL% neq 0 exit 1
@@ -45,7 +51,7 @@ sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
 if %ERRORLEVEL% neq 0 exit 1
 :: and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
 :: https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
-sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"3.13\",\n    \"3.14\",\n\1/" "..\MODULE.bazel"
+sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"3.14\",\n\1/" "..\MODULE.bazel"
 if %ERRORLEVEL% neq 0 exit 1
 sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 if %ERRORLEVEL% neq 0 exit 1
@@ -65,3 +71,6 @@ if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel shutdown
 if %ERRORLEVEL% neq 0 exit 1
+
+@rem remove extraneous python3 again (see above)
+del /s /q %PREFIX%\python3.exe

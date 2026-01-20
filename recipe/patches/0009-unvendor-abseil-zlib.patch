@@ -1,7 +1,7 @@
-From 9a8d9303f92388a94f0bfcf878b8b78c7b8272f7 Mon Sep 17 00:00:00 2001
+From 9efbfa310a9d6337ee209a344f80b5b470cb758a Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Mon, 3 Mar 2025 11:59:27 +1100
-Subject: [PATCH 9/9] unvendor abseil/zlib
+Subject: [PATCH 09/10] unvendor abseil/zlib
 
 depends on putting tensorflow infrastructure in place, see feedstock build scripts
 ---
@@ -14,7 +14,7 @@ depends on putting tensorflow infrastructure in place, see feedstock build scrip
  delete mode 100644 third_party/zlib.BUILD
 
 diff --git a/WORKSPACE b/WORKSPACE
-index 6148f5e67..1ed0a75cf 100644
+index 5a4b2f458..33728525e 100644
 --- a/WORKSPACE
 +++ b/WORKSPACE
 @@ -10,6 +10,21 @@ local_repository(
@@ -40,10 +40,10 @@ index 6148f5e67..1ed0a75cf 100644
  load("//:protobuf_deps.bzl", "PROTOBUF_MAVEN_ARTIFACTS", "protobuf_deps")
  
 diff --git a/protobuf_deps.bzl b/protobuf_deps.bzl
-index a3aed626d..ec74b8b8a 100644
+index d48146341..1f5b6e37e 100644
 --- a/protobuf_deps.bzl
 +++ b/protobuf_deps.bzl
-@@ -81,26 +81,6 @@ def protobuf_deps():
+@@ -82,26 +82,6 @@ def protobuf_deps():
              ],
          )
  
