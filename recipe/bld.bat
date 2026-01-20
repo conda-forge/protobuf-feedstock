@@ -1,6 +1,11 @@
 @echo on
 setlocal enabledelayedexpansion
 
+@rem Create python3.exe symlink for rules_python compatibility
+@rem On Windows, only python.exe exists, but rules_python looks for python3
+copy "%PREFIX%\python.exe" "%PREFIX%\python3.exe"
+if %ERRORLEVEL% neq 0 exit 1
+
 @rem Use correct C++17 option
 sed -i "s/\(cxxopt=\)-std=c++17/\1\/std:c++17/g" .bazelrc
 if %ERRORLEVEL% neq 0 exit 1
