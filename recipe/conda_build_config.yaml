@@ -1,0 +1,9 @@
+# protobuf has undeprecated bazel+MSVC again, but stuff still fails, c.f. #263
+c_compiler:            # [win]
+  - clang              # [win]
+c_compiler_version:    # [win]
+  - 21                 # [win]
+cxx_compiler:          # [win]
+  - clangxx            # [win]
+cxx_compiler_version:  # [win]
+  - 21                 # [win]
