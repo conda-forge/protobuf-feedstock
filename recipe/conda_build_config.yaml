@@ -1,13 +1,9 @@
-# Required for cargo-bazel binaries
-docker_image:                                       # [linux]
-  - quay.io/condaforge/linux-anvil-alma-x86_64:8    # [linux]
-# protobuf has deprecated bazel+MSVC, see
-# https://github.com/conda-forge/libprotobuf-feedstock/issues/246
+# protobuf has undeprecated bazel+MSVC again, but stuff still fails, c.f. #263
 c_compiler:            # [win]
   - clang              # [win]
 c_compiler_version:    # [win]
-  - 19                 # [win]
+  - 21                 # [win]
 cxx_compiler:          # [win]
   - clangxx            # [win]
 cxx_compiler_version:  # [win]
-  - 19                 # [win]
+  - 21                 # [win]
