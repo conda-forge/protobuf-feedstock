@@ -46,7 +46,7 @@ requirements:
   build:
     - python                                # [build_platform != target_platform or win]
     - cross-python_{{ target_platform }}    # [build_platform != target_platform]
-    - libabseil                             # [build_platform != target_platform]
+    - libabseil <20240116.0                            # [build_platform != target_platform]
     - zlib                                  # [build_platform != target_platform]
     # - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
     - bazel-toolchain <0.3  # [unix]
@@ -61,8 +61,8 @@ requirements:
     - python
     - pip
     - setuptools
-    - libabseil     # [unix]
-    - zlib          # [unix]
+    - libabseil <20240116.0     # [unix]
+    - zlib                      # [unix]
     # - libprotobuf {{ lib_major ~ "." ~ version }}
   run:
     - python
