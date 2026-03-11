@@ -41,7 +41,7 @@ source:
     sha256: 4926bd3bf580b8b3323e0d09bde5dc6120fdd262d99f753eb61fedfb9a2cfc49    # [build_platform == "win-64"]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -50,7 +50,7 @@ requirements:
     - libabseil                             # [build_platform != target_platform]
     - zlib                                  # [build_platform != target_platform]
     # - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
-    - bazel-toolchain ==0.5.1  # [unix]
+    - bazel-toolchain >=0.5.6  # [unix]
     - openjdk 21.*             # [unix]
     - sed                      # [unix]
     - posix                    # [not unix]
