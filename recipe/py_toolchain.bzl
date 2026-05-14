@@ -1,3 +1,4 @@
+load("@rules_python//python:py_runtime.bzl", "py_runtime")
 load("@bazel_tools//tools/python:toolchain.bzl", "py_runtime_pair")
 
 py_runtime(
@@ -15,5 +16,5 @@ py_runtime_pair(
 toolchain(
     name = "py_toolchain",
     toolchain = ":py_runtime_pair",
-    toolchain_type = "@bazel_tools//tools/python:toolchain_type",
+    toolchain_type = "@rules_python//python:toolchain_type",
 )
