@@ -19,7 +19,7 @@ source:
       # - patches/0002-don-t-mark-windows-as-unsupported.patch  # Already in 34.1
       - patches/0003-don-t-link-statically-on-windows.patch
       - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
-      - patches/0005-Support-more-architectures-for-Python-bindings.patch
+      # - patches/0005-Support-more-architectures-for-Python-bindings.patch  # Already in 34.1
       - patches/0006-Compatible-windows-changes.patch
       - patches/0007-Hacky-windows-workarounds.patch                                # [win]
       - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
