@@ -28,17 +28,17 @@ source:
       - patches/0010-Workaround-nvcc-bug-in-message_lite.h.patch
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
-  {% set bz_ver = "7.2.1" %}
+  {% set bz_ver = "8.2.1" %}
   - fn: bazel-standalone    # [unix]
   - fn: bazel.exe           # [win]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-x86_64        # [build_platform == "linux-64"]
-    sha256: 1c7a167ad2c45374afb19f60093465f58f9209a5142d53d63bc4aadb567323fa    # [build_platform == "linux-64"]
+    sha256: 20a1a5e194af979738a916501a73bb95a32d4feeee9a6ab83c101b3a69d34ccf    # [build_platform == "linux-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
-    sha256: ba0a10ecbdaa70bf348bfdbad2fbcf0ba926a5ee07b613f6656046a1d3f60e07    # [build_platform == "osx-64"]
+    sha256: 6390238f3c06eddd9429329696bd1d85ba5baf8c2254c37d0037f49bf17a28c6    # [build_platform == "osx-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-arm64        # [build_platform == "osx-arm64"]
-    sha256: ef15ff2c9ca3cbf2b09dcc88ea6d7d89575cfd6904e560d7691831a1d7daaf82    # [build_platform == "osx-arm64"]
+    sha256: 639cfb05d4d2ee683100f339bf90c88a67c5c7f45d7bc5e494db3e3a74b6417d    # [build_platform == "osx-arm64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [build_platform == "win-64"]
-    sha256: 4926bd3bf580b8b3323e0d09bde5dc6120fdd262d99f753eb61fedfb9a2cfc49    # [build_platform == "win-64"]
+    sha256: 94d3463f990601c2561a2904c0622205c51e4bc100783c77d6d13e720a540cb8    # [build_platform == "win-64"]
 
 build:
   number: 0
