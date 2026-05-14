@@ -14,7 +14,13 @@ py_runtime_pair(
 )
 
 toolchain(
-    name = "py_toolchain",
+    name = "py_toolchain_rules_python",
     toolchain = ":py_runtime_pair",
     toolchain_type = "@rules_python//python:toolchain_type",
+)
+
+toolchain(
+    name = "py_toolchain_bazel_tools",
+    toolchain = ":py_runtime_pair",
+    toolchain_type = "@bazel_tools//tools/python:toolchain_type",
 )

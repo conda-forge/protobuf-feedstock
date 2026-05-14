@@ -14,5 +14,6 @@ EOF
 chmod +x python.shebang
 
 cat >> .bazelrc <<EOF
-build --extra_toolchains=//py_toolchain:py_toolchain
+build --extra_toolchains=//py_toolchain:py_toolchain_rules_python
+build --extra_toolchains=//py_toolchain:py_toolchain_bazel_tools
 EOF
