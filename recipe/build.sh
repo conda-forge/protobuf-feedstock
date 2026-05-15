@@ -37,7 +37,9 @@ for f in dist/BUILD.bazel dist/dist.bzl; do
 done
 # protobuf 34.1 is missing ppc64le ABI suffix mapping in dist.bzl
 if ! grep -q 'ppc64le-linux-gnu' dist/dist.bzl; then
-    sed -i '/elif cpu == "aarch64":/a\            elif cpu == "ppc64le":\n                abi = "powerpc64le-linux-gnu"' dist/dist.bzl
+    sed -i '/elif cpu == "aarch64":/{n; s/abi = "aarch64-linux-gnu"/abi = "aarch64-linux-gnu"\
+                        elif cpu == "ppc64le":\
+                                abi = "powerpc64le-linux-gnu"/;}' dist/dist.bzl
 fi
 # protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
 # https://github.com/protocolbuffers/protobuf/issues/22313
