@@ -35,6 +35,10 @@ for f in dist/BUILD.bazel dist/dist.bzl; do
   sed -i '/@system_python\/\/:version\.bzl/d' $f
   sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
 done
+# protobuf 34.1 is missing ppc64le ABI suffix mapping in dist.bzl
+if ! grep -q 'ppc64le-linux-gnu' dist/dist.bzl; then
+    sed -i '/elif cpu == "aarch64":/a\            elif cpu == "ppc64le":\n                abi = "powerpc64le-linux-gnu"' dist/dist.bzl
+fi
 # protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
 # https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
