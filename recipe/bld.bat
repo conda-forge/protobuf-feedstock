@@ -65,7 +65,10 @@ if %ERRORLEVEL% neq 0 exit 1
     --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
-%PYTHON% -m pip install ..\bazel-bin\python\dist\protobuf-%PKG_VERSION%-cp%PY_VER_NO_DOT%-abi3-win_amd64.whl
+set "WHEEL_FILE="
+for %%f in (..\bazel-bin\python\dist\protobuf-*.whl) do set "WHEEL_FILE=%%f"
+if "%WHEEL_FILE%"=="" exit 1
+%PYTHON% -m pip install %WHEEL_FILE%
 if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel clean --expunge

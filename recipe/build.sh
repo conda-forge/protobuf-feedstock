@@ -10,10 +10,9 @@ source gen-bazel-toolchain
 chmod +x bazel
 chmod +x bazel-standalone
 
-if [[ "${target_platform}" == linux-* ]]; then
-  $RECIPE_DIR/add_py_toolchain.sh
-  EXTRA_BAZEL_ARGS="--extra_toolchains=//py_toolchain:py_toolchain_rules_python --extra_toolchains=//py_toolchain:py_toolchain_bazel_tools"
-fi
+# protobuf 34.1 + bazel 8 resolves Python via rules_python/system_python,
+# custom py_toolchain injection causes Bazel 8 toolchain incompatibilities.
+EXTRA_BAZEL_ARGS=""
 
 cd python
 
@@ -62,4 +61,5 @@ export BAZEL="$(pwd)/../bazel-standalone"
     //python/dist:binary_wheel \
     --define=use_fast_cpp_protos=true
 
-python -m pip install ../bazel-bin/python/dist/protobuf-${PKG_VERSION}-*.whl
+WHEEL_FILE=$(ls ../bazel-bin/python/dist/protobuf-*.whl | head -n 1)
+python -m pip install "$WHEEL_FILE"
