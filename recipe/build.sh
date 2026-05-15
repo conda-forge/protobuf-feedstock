@@ -10,10 +10,9 @@ source gen-bazel-toolchain
 chmod +x bazel
 chmod +x bazel-standalone
 
-if [[ "${target_platform}" == linux-* ]]; then
-  $RECIPE_DIR/add_py_toolchain.sh
-  EXTRA_BAZEL_ARGS="--extra_toolchains=//py_toolchain:py_toolchain"
-fi
+# protobuf 34.1 + bazel 8 resolves Python via rules_python/system_python,
+# custom py_toolchain injection causes Bazel 8 toolchain incompatibilities.
+EXTRA_BAZEL_ARGS=""
 
 cd python
 
@@ -36,14 +35,23 @@ for f in dist/BUILD.bazel dist/dist.bzl; do
   sed -i '/@system_python\/\/:version\.bzl/d' $f
   sed -i "s|SYSTEM_PYTHON_VERSION|\"${PY_VER//./}\"|g" $f
 done
+# protobuf 34.1 is missing ppc64le ABI suffix mapping in dist.bzl
+if ! grep -q 'ppc64le-linux-gnu' dist/dist.bzl; then
+    sed -i '/elif cpu == "aarch64":/{n; s/abi = "aarch64-linux-gnu"/abi = "aarch64-linux-gnu"\
+                        elif cpu == "ppc64le":\
+                                abi = "powerpc64le-linux-gnu"/;}' dist/dist.bzl
+fi
 # protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
 # https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
-# and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
-# https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
-sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.14",\n\1/' ../MODULE.bazel
-# Upgrade to a newer rules_python (required for 3.14 support)
-sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
+# add the current python version to SUPPORTED_PYTHON_VERSIONS if not already present
+if ! grep -q "\"${PY_VER}\"" ../MODULE.bazel; then
+    sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "'"${PY_VER}"'",\n\1/' ../MODULE.bazel
+fi
+# Upgrade to a newer rules_python (required for 3.14 support) if needed
+if grep -q 'bazel_dep(name *= *"rules_python"' ../MODULE.bazel; then
+    sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
+fi
 
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone build \
@@ -59,4 +67,5 @@ export BAZEL="$(pwd)/../bazel-standalone"
     //python/dist:binary_wheel \
     --define=use_fast_cpp_protos=true
 
-python -m pip install ../bazel-bin/python/dist/protobuf-${PKG_VERSION}-*.whl
+WHEEL_FILE=$(ls ../bazel-bin/python/dist/protobuf-*.whl | head -n 1)
+python -m pip install "$WHEEL_FILE"

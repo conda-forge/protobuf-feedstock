@@ -49,10 +49,12 @@ for %%f in ("dist\BUILD.bazel" "dist\dist.bzl") do (
 :: https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"%PY_VER%\"|g" "..\MODULE.bazel"
 if %ERRORLEVEL% neq 0 exit 1
-:: and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
-:: https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
-sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"3.14\",\n\1/" "..\MODULE.bazel"
-if %ERRORLEVEL% neq 0 exit 1
+:: add current python to SUPPORTED_PYTHON_VERSIONS only if not already there
+grep -q "\"%PY_VER%\"" "..\MODULE.bazel"
+if %ERRORLEVEL% neq 0 (
+    sed -i "/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    \"%PY_VER%\",\n\1/" "..\MODULE.bazel"
+    if %ERRORLEVEL% neq 0 exit 1
+)
 sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 if %ERRORLEVEL% neq 0 exit 1
 
@@ -63,7 +65,10 @@ if %ERRORLEVEL% neq 0 exit 1
     --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
-%PYTHON% -m pip install ..\bazel-bin\python\dist\protobuf-%PKG_VERSION%-cp%PY_VER_NO_DOT%-abi3-win_amd64.whl
+set "WHEEL_FILE="
+for %%f in (..\bazel-bin\python\dist\protobuf-*.whl) do set "WHEEL_FILE=%%f"
+if "%WHEEL_FILE%"=="" exit 1
+%PYTHON% -m pip install %WHEEL_FILE%
 if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel clean --expunge
