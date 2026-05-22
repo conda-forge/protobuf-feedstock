@@ -8,7 +8,7 @@ export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc
 
 source gen-bazel-toolchain
 chmod +x bazel
-chmod +x bazel-standalone
+chmod +x bazel-standalone-*
 
 if [[ "${target_platform}" == linux-* ]]; then
   $RECIPE_DIR/add_py_toolchain.sh
@@ -23,7 +23,7 @@ if [[ "$build_platform" != "$target_platform" ]]; then
 fi
 
 ls -R ../bazel
-ls -R ../bazel-standalone
+ls -R ../bazel-standalone-*
 
 rm -rf $SRC_DIR/third_party/abseil-cpp
 cp -R $RECIPE_DIR/tf_third_party/* $SRC_DIR/third_party/
@@ -44,7 +44,7 @@ sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
 sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 
 export BAZEL="$(pwd)/../bazel-standalone"
-../bazel-standalone build \
+../bazel-standalone-* build \
     --action_env TF_SYSTEM_LIBS=$TF_SYSTEM_LIBS \
     --platforms=//bazel_toolchain:target_platform \
     --host_platform=//bazel_toolchain:build_platform \
