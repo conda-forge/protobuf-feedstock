@@ -32,6 +32,8 @@ source:
   - fn: bazel.exe           # [win]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-x86_64        # [build_platform == "linux-64"]
     sha256: 1c7a167ad2c45374afb19f60093465f58f9209a5142d53d63bc4aadb567323fa    # [build_platform == "linux-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-arm64         # [build_platform == "linux-aarch64"]
+    sha256: 15f5a93b8d2179b1dbb53fd54ba3720ea7f3261d482641d61547acbd08733817    # [build_platform == "linux-aarch64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
     sha256: ba0a10ecbdaa70bf348bfdbad2fbcf0ba926a5ee07b613f6656046a1d3f60e07    # [build_platform == "osx-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-arm64        # [build_platform == "osx-arm64"]
