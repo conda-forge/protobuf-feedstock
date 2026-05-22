@@ -1,0 +1,35 @@
+From e39326550a9ddfcad35abd6f5cb313e49f05aa06 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <isuruf@gmail.com>
+Date: Mon, 13 Oct 2025 16:10:25 -0500
+Subject: [PATCH 9/9] Workaround nvcc bug in message_lite.h
+
+See https://github.com/protocolbuffers/protobuf/issues/21542
+
+Patch by Samuel Benzaquen (sbenzaquen)
+---
+ src/google/protobuf/message_lite.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/google/protobuf/message_lite.h b/src/google/protobuf/message_lite.h
+index 710ce67..02adf56 100644
+--- a/src/google/protobuf/message_lite.h
++++ b/src/google/protobuf/message_lite.h
+@@ -297,11 +297,18 @@ struct MessageTraitsImpl {
+ template <typename T>
+ using MessageTraits = decltype(MessageTraitsImpl::value<T>);
+ 
++#ifdef __CUDACC__
++struct EnumTraitsImpl {
++  template <typename T>
++  static std::enable_if_t<sizeof(T) != 0> value;
++};
++#else
+ struct EnumTraitsImpl {
+   struct Undefined;
+   template <typename T>
+   static Undefined value;
+ };
++#endif
+ template <typename T>
+ using EnumTraits = decltype(EnumTraitsImpl::value<T>);
+ 

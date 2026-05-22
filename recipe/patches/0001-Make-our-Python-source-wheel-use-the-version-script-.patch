@@ -1,7 +1,7 @@
-From 9772f74d02677d54d3f8787f5e624ff2272aa757 Mon Sep 17 00:00:00 2001
+From 568ad1c5dc7cf421ad4a632390eec774f287b3df Mon Sep 17 00:00:00 2001
 From: Joshua Haberman <haberman@google.com>
 Date: Fri, 21 Jun 2024 11:12:25 -0700
-Subject: [PATCH 01/10] Make our Python source wheel use the version script to
+Subject: [PATCH 1/9] Make our Python source wheel use the version script to
  restruct symbol visibility.
 
 We generally want our extension module to hide all symbols except a single entry point, `PyInit__message()`.  We accomplish this through a `version_script.lds`, which instructs the linker to hide all symbols except our single entry point.
@@ -17,10 +17,10 @@ PiperOrigin-RevId: 645445353
  4 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index e8c94aecf..90bfc3dc4 100644
+index b4d8c9a..1195392 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
-@@ -136,6 +136,8 @@ filegroup(
+@@ -105,6 +105,8 @@ filegroup(
      ],
  )
  
@@ -30,10 +30,10 @@ index e8c94aecf..90bfc3dc4 100644
      name = "_message",
      srcs = [":message_srcs"],
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index c3da3d096..07faa16b9 100644
+index 9eff63f..8abf7e3 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -262,6 +262,7 @@ pkg_files(
+@@ -285,6 +285,7 @@ pkg_files(
      srcs = [
          "//:LICENSE",
          "//python:message_srcs",
@@ -42,7 +42,7 @@ index c3da3d096..07faa16b9 100644
          "//upb/base:source_files",
          "//upb/hash:source_files",
 diff --git a/python/dist/MANIFEST.in b/python/dist/MANIFEST.in
-index 1b619364e..f243c1018 100644
+index 1b61936..f243c10 100644
 --- a/python/dist/MANIFEST.in
 +++ b/python/dist/MANIFEST.in
 @@ -1,2 +1,3 @@
@@ -52,7 +52,7 @@ index 1b619364e..f243c1018 100644
 +global-include *.inc
 +include python/version_script.lds
 diff --git a/python/dist/setup.py b/python/dist/setup.py
-index e534a9a4c..734a85e25 100755
+index 92aa8b6..a1f20c0 100755
 --- a/python/dist/setup.py
 +++ b/python/dist/setup.py
 @@ -32,7 +32,7 @@ def GetVersion():
