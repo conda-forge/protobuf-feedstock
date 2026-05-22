@@ -381,5 +381,4 @@ Feedstock Maintainers
 * [@jjerphan](https://github.com/jjerphan/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@xhochy](https://github.com/xhochy/)
-* [@xylar](https://github.com/xylar/)
 
