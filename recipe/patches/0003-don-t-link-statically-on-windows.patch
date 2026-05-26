@@ -1,7 +1,7 @@
-From 945e83de8e877d87e93968a3325a2e4cdef75faf Mon Sep 17 00:00:00 2001
+From b618d9411a7962a0c499a9331958652ce9a4fc63 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 29 Jun 2024 09:50:18 +1100
-Subject: [PATCH 03/10] don't link statically on windows
+Subject: [PATCH 03/11] don't link statically on windows
 
 ---
  python/dist/setup.py | 3 ---
