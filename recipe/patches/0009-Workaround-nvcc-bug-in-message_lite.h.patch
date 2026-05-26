@@ -1,7 +1,7 @@
-From e39326550a9ddfcad35abd6f5cb313e49f05aa06 Mon Sep 17 00:00:00 2001
+From b974e47228cbe6c24458bc1f17cd058a1c27fdd2 Mon Sep 17 00:00:00 2001
 From: Isuru Fernando <isuruf@gmail.com>
 Date: Mon, 13 Oct 2025 16:10:25 -0500
-Subject: [PATCH 9/9] Workaround nvcc bug in message_lite.h
+Subject: [PATCH 09/10] Workaround nvcc bug in message_lite.h
 
 See https://github.com/protocolbuffers/protobuf/issues/21542
 

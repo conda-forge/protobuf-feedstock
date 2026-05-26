@@ -1,7 +1,7 @@
-From d456b1888ba246d95c6a8a0442f3e993bcacc1c2 Mon Sep 17 00:00:00 2001
+From 9a7264dbdf04f7953ad1d9187114121585c826ff Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 17 Sep 2024 22:29:40 +0200
-Subject: [PATCH 5/9] Compatible windows changes
+Subject: [PATCH 05/10] Compatible windows changes
 
 ---
  python/BUILD.bazel      | 7 ++++---

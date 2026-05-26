@@ -1,7 +1,7 @@
-From caca346d4fc24ea48036d98df962c6eddc4117c1 Mon Sep 17 00:00:00 2001
+From 9d0b1131beeaa979ff0758d69ad9f831b26b1aaa Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
-Subject: [PATCH 6/9] Hacky windows workarounds
+Subject: [PATCH 06/10] Hacky windows workarounds
 
 ---
  python/dist/system_python.bzl | 6 +++---

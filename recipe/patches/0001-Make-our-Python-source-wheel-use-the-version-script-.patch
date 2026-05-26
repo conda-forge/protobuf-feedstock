@@ -1,7 +1,7 @@
-From 568ad1c5dc7cf421ad4a632390eec774f287b3df Mon Sep 17 00:00:00 2001
+From 9029bb241847c730c16674cf8aa28d33e4be4c3c Mon Sep 17 00:00:00 2001
 From: Joshua Haberman <haberman@google.com>
 Date: Fri, 21 Jun 2024 11:12:25 -0700
-Subject: [PATCH 1/9] Make our Python source wheel use the version script to
+Subject: [PATCH 01/10] Make our Python source wheel use the version script to
  restruct symbol visibility.
 
 We generally want our extension module to hide all symbols except a single entry point, `PyInit__message()`.  We accomplish this through a `version_script.lds`, which instructs the linker to hide all symbols except our single entry point.

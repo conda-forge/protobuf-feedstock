@@ -25,6 +25,7 @@ source:
       # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
       - patches/0008-unvendor-abseil-zlib.patch                                     # [not win]
       - patches/0009-Workaround-nvcc-bug-in-message_lite.h.patch
+      - patches/0010-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "8.7.0" %}

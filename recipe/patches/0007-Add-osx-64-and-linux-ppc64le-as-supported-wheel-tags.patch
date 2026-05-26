@@ -1,7 +1,7 @@
-From 61a778228a815861e1588653cf03aa77bbf76a50 Mon Sep 17 00:00:00 2001
+From 056d64d4236161b5e9793385aa3fa1889de31109 Mon Sep 17 00:00:00 2001
 From: Uwe Korn <uwelk@xhochy.com>
 Date: Mon, 23 Sep 2024 11:59:53 +0000
-Subject: [PATCH 7/9] Add osx-64 and linux-ppc64le as supported wheel tags
+Subject: [PATCH 07/10] Add osx-64 and linux-ppc64le as supported wheel tags
 
 ---
  python/dist/BUILD.bazel | 22 ++++++++++++++++++++++

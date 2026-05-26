@@ -1,7 +1,7 @@
-From e9c1c7c0e7a52d6345ef144bea31736f936af807 Mon Sep 17 00:00:00 2001
+From b8d819f0a5585020498823d75c7341d9cc9c781a Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 14 Jul 2024 22:44:55 +1100
-Subject: [PATCH 3/9] enable windows as a target for python bindings
+Subject: [PATCH 03/10] enable windows as a target for python bindings
 
 ---
  python/BUILD.bazel      | 2 --
