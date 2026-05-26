@@ -51,7 +51,7 @@ requirements:
     - libabseil                             # [build_platform != target_platform]
     - zlib                                  # [build_platform != target_platform]
     # - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
-    - bazel-toolchain >=0.5.6  # [unix]
+    - bazel-toolchain >=0.5.9  # [unix]
     - openjdk 21.*             # [unix]
     - sed                      # [unix]
     - posix                    # [not unix]
