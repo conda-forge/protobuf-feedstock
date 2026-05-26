@@ -8,7 +8,7 @@ export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc
 
 source gen-bazel-toolchain
 chmod +x bazel
-chmod +x bazel-standalone
+chmod +x bazel-standalone-*
 
 if [[ "${target_platform}" == linux-* ]]; then
   $RECIPE_DIR/add_py_toolchain.sh
@@ -23,7 +23,7 @@ if [[ "$build_platform" != "$target_platform" ]]; then
 fi
 
 ls -R ../bazel
-ls -R ../bazel-standalone
+ls -R ../bazel-standalone-*
 
 rm -rf $SRC_DIR/third_party/abseil-cpp
 cp -R $RECIPE_DIR/tf_third_party/* $SRC_DIR/third_party/
@@ -39,14 +39,12 @@ done
 # protobuf misuses `SUPPORTED_PYTHON_VERSIONS[-1]` to mean "default python", see
 # https://github.com/protocolbuffers/protobuf/issues/22313
 sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
-# and somehow hasn't added SUPPORTED_PYTHON_VERSIONS to the list of supported versions yet, see
-# https://github.com/protocolbuffers/protobuf/blob/v31.1/MODULE.bazel#L112-L117
-sed -i '/SUPPORTED_PYTHON_VERSIONS *= *\[/,/]/ s/^\( *\]\)/    "3.14",\n\1/' ../MODULE.bazel
+
 # Upgrade to a newer rules_python (required for 3.14 support)
 sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 
 export BAZEL="$(pwd)/../bazel-standalone"
-../bazel-standalone build \
+../bazel-standalone-* build \
     --action_env TF_SYSTEM_LIBS=$TF_SYSTEM_LIBS \
     --platforms=//bazel_toolchain:target_platform \
     --host_platform=//bazel_toolchain:build_platform \

@@ -1,10 +1,10 @@
 # keep this without major version to let the bot pick it up
-{% set version = "33.5" %}
+{% set version = "34.1" %}
 # protobuf doesn't add the major version in the tag, it's defined per language in
 # https://github.com/protocolbuffers/protobuf/blob/main/version.json
-{% set major = "6" %}
+{% set major = "7" %}
 # libprotobuf can have a different major version than protobuf
-{% set lib_major = "6" %}
+{% set lib_major = "7" %}
 
 package:
   name: protobuf
@@ -12,36 +12,38 @@ package:
 
 source:
   - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 440848dffa209beb8a04e41cc352762e44f8e91342b2a43aab6af9b30713c2f6
+    sha256: a83103b7ed3afaeedee9a212c8f65825444f58144f5e075b73c83f2b4ff27b62
     patches:
       # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
       - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
-      - patches/0002-don-t-mark-windows-as-unsupported.patch
-      - patches/0003-don-t-link-statically-on-windows.patch
-      - patches/0004-enable-windows-as-a-target-for-python-bindings.patch
-      - patches/0005-Support-more-architectures-for-Python-bindings.patch
-      - patches/0006-Compatible-windows-changes.patch
-      - patches/0007-Hacky-windows-workarounds.patch                                # [win]
-      - patches/0008-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
+      - patches/0002-don-t-link-statically-on-windows.patch
+      - patches/0003-enable-windows-as-a-target-for-python-bindings.patch
+      - patches/0004-Support-more-architectures-for-Python-bindings.patch
+      - patches/0005-Compatible-windows-changes.patch
+      - patches/0006-Hacky-windows-workarounds.patch                                # [win]
+      - patches/0007-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
       # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
-      - patches/0009-unvendor-abseil-zlib.patch                                     # [not win]
-      - patches/0010-Workaround-nvcc-bug-in-message_lite.h.patch
+      - patches/0008-unvendor-abseil-zlib.patch                                     # [not win]
+      - patches/0009-Workaround-nvcc-bug-in-message_lite.h.patch
+      - patches/0010-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
-  {% set bz_ver = "7.2.1" %}
-  - fn: bazel-standalone    # [unix]
+  {% set bz_ver = "8.7.0" %}
+  - fn: bazel-standalone-{{ bz_ver }}  # [unix]
   - fn: bazel.exe           # [win]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-x86_64        # [build_platform == "linux-64"]
-    sha256: 1c7a167ad2c45374afb19f60093465f58f9209a5142d53d63bc4aadb567323fa    # [build_platform == "linux-64"]
+    sha256: 83a0ec39f7ef3938b651c82d77ababfe96a9e4b9b566d7633f1c5f2ee9d2c8ed    # [build_platform == "linux-64"]
+    url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-linux-arm64         # [build_platform == "linux-aarch64"]
+    sha256: 15f5a93b8d2179b1dbb53fd54ba3720ea7f3261d482641d61547acbd08733817    # [build_platform == "linux-aarch64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-x86_64       # [build_platform == "osx-64"]
-    sha256: ba0a10ecbdaa70bf348bfdbad2fbcf0ba926a5ee07b613f6656046a1d3f60e07    # [build_platform == "osx-64"]
+    sha256: ac6175783fc463cc8f764353a52d4136550834d8855808086e7e21514f3c6ccd    # [build_platform == "osx-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-arm64        # [build_platform == "osx-arm64"]
-    sha256: ef15ff2c9ca3cbf2b09dcc88ea6d7d89575cfd6904e560d7691831a1d7daaf82    # [build_platform == "osx-arm64"]
+    sha256: fb49e0b21742c29ae1b413396af49d5a9cc1d0d7b6b958df4335225ad5f8d4ad    # [build_platform == "osx-arm64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [build_platform == "win-64"]
-    sha256: 4926bd3bf580b8b3323e0d09bde5dc6120fdd262d99f753eb61fedfb9a2cfc49    # [build_platform == "win-64"]
+    sha256: 29f1796f57379933340afa135f02703ffa21dd30135754bea695f8fd15103420    # [build_platform == "win-64"]
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
@@ -50,7 +52,7 @@ requirements:
     - libabseil                             # [build_platform != target_platform]
     - zlib                                  # [build_platform != target_platform]
     # - libprotobuf {{ lib_major ~ "." ~ version }}  # [build_platform != target_platform]
-    - bazel-toolchain >=0.5.6  # [unix]
+    - bazel-toolchain >=0.5.9  # [unix]
     - openjdk 21.*             # [unix]
     - sed                      # [unix]
     - posix                    # [not unix]
