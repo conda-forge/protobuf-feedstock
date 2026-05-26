@@ -4,6 +4,8 @@ set -ex
 # Workaround missing leading whitespace for mcpu stripping in bazel-toolchain
 export CFLAGS=" ${CXXFLAGS}"
 export CXXFLAGS=" ${CXXFLAGS}"
+# Re-add Python include path lost by overwriting CFLAGS above
+export CFLAGS="${CFLAGS} -I${PREFIX}/include/python${PY_VER}"
 export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc
 
 source gen-bazel-toolchain
@@ -46,6 +48,7 @@ sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6
 export BAZEL="$(pwd)/../bazel-standalone"
 ../bazel-standalone-* build \
     --action_env TF_SYSTEM_LIBS=$TF_SYSTEM_LIBS \
+    --action_env CFLAGS \
     --platforms=//bazel_toolchain:target_platform \
     --host_platform=//bazel_toolchain:build_platform \
     --extra_toolchains=//bazel_toolchain:cc_cf_toolchain \
