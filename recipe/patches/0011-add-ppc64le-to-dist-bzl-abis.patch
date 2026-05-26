@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Julien Jerphanion <git@jjerphan.xyz>
+Date: Tue, 26 May 2026 00:00:00 +0000
+Subject: [PATCH 11/11] Add ppc64le to python/dist ABI suffix map
+
+Bazel's TARGET_CPU for linux-ppc64le builds is "ppc64le", but patch 0005
+only mapped "ppc". Without this entry, py_dist_module fails during analysis
+with: key "ppc64le" not found in dictionary.
+---
+ python/dist/dist.bzl | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
+index 4034e7c9a..a8f3c2d1b 100644
+--- a/python/dist/dist.bzl
++++ b/python/dist/dist.bzl
+@@ -29,6 +29,7 @@ def _get_suffix(limited_api, python_version, cpu):
+             "linux-aarch_64": "aarch64-linux-gnu",
+             "aarch64": "aarch64-linux-gnu",
+             "ppc": "powerpc64le-linux-gnu",
++            "ppc64le": "powerpc64le-linux-gnu",
+             "linux-x86_64": "x86_64-linux-gnu",
+             "k8": "x86_64-linux-gnu",
+             "s390x": "s390x-linux-gnu",
