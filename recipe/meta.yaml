@@ -26,7 +26,6 @@ source:
       - patches/0008-unvendor-abseil-zlib.patch                                     # [not win]
       - patches/0009-Workaround-nvcc-bug-in-message_lite.h.patch
       - patches/0010-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
-      - patches/0011-Remove-3.14-from-supported-python-versions-to-avoid-.patch
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "8.7.0" %}

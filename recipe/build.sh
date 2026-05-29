@@ -2,7 +2,7 @@
 set -ex
 
 # Workaround missing leading whitespace for mcpu stripping in bazel-toolchain
-export CFLAGS=" ${CXXFLAGS}"
+export CFLAGS=" ${CFLAGS}"
 export CXXFLAGS=" ${CXXFLAGS}"
 # Re-add Python include path lost by overwriting CFLAGS above
 export CFLAGS="${CFLAGS} -I${PREFIX}/include/python${PY_VER}"
