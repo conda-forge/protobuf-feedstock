@@ -1,7 +1,7 @@
-From 9d0b1131beeaa979ff0758d69ad9f831b26b1aaa Mon Sep 17 00:00:00 2001
+From 86f48e8663a61e900dd663e0fcaa16b0ac56c67d Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
-Subject: [PATCH 06/10] Hacky windows workarounds
+Subject: [PATCH 06/11] Hacky windows workarounds
 
 ---
  python/dist/system_python.bzl | 6 +++---
@@ -10,7 +10,7 @@ Subject: [PATCH 06/10] Hacky windows workarounds
  3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/python/dist/system_python.bzl b/python/dist/system_python.bzl
-index 232085f..f0358eb 100644
+index 232085f59..f0358eb36 100644
 --- a/python/dist/system_python.bzl
 +++ b/python/dist/system_python.bzl
 @@ -159,12 +159,12 @@ def register_system_python():
@@ -38,7 +38,7 @@ index 232085f..f0358eb 100644
  
      if path and python_version[0] == "3":
 diff --git a/python/message.c b/python/message.c
-index 886e6a4..21237f4 100644
+index 886e6a495..21237f498 100644
 --- a/python/message.c
 +++ b/python/message.c
 @@ -1024,7 +1024,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
@@ -51,7 +51,7 @@ index 886e6a4..21237f4 100644
    PyUpb_Message* self = (void*)_self;
  
 diff --git a/python/protobuf.c b/python/protobuf.c
-index 256fff6..8e65832 100644
+index 256fff6b6..8e6583265 100644
 --- a/python/protobuf.c
 +++ b/python/protobuf.c
 @@ -441,7 +441,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
