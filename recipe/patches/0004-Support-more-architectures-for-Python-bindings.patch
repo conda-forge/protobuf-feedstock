@@ -1,14 +1,14 @@
-From 4fd267707525272e8800abd68be6f53b7cd577f0 Mon Sep 17 00:00:00 2001
+From dbcbf786b88b2c6841e73a75ad624bae8809a8ba Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 16 Sep 2024 11:49:04 +0200
-Subject: [PATCH 04/11] Support more architectures for Python bindings
+Subject: [PATCH 04/10] Support more architectures for Python bindings
 
 ---
  python/dist/dist.bzl | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
-index 2aca2f186..4ea95a648 100644
+index 2aca2f1868..4ea95a6485 100644
 --- a/python/dist/dist.bzl
 +++ b/python/dist/dist.bzl
 @@ -24,7 +24,7 @@ def _get_suffix(ctx, limited_api, python_version):
