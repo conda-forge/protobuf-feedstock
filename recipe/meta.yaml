@@ -43,7 +43,7 @@ source:
     sha256: 29f1796f57379933340afa135f02703ffa21dd30135754bea695f8fd15103420    # [build_platform == "win-64"]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
