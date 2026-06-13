@@ -1,14 +1,14 @@
-From 8ed84e97efccde27d74bdf0cfea69a996d0b4a3d Mon Sep 17 00:00:00 2001
+From e4a66569f83ea6d27603bf6a5ded340aec46c451 Mon Sep 17 00:00:00 2001
 From: Uwe Korn <uwelk@xhochy.com>
 Date: Mon, 23 Sep 2024 11:59:53 +0000
-Subject: [PATCH 07/11] Add osx-64 and linux-ppc64le as supported wheel tags
+Subject: [PATCH 07/10] Add osx-64 and linux-ppc64le as supported wheel tags
 
 ---
  python/dist/BUILD.bazel | 22 ++++++++++++++++++++++
  1 file changed, 22 insertions(+)
 
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index a7bbf2a86..ee672205c 100644
+index a7bbf2a86f..ee672205c0 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
 @@ -69,6 +69,25 @@ config_setting(

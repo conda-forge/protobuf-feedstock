@@ -1,14 +1,14 @@
-From 92ee4723aaa15718fcc4c3119de8052e51243d38 Mon Sep 17 00:00:00 2001
+From ef70fbd6db78d741ac4332dd6fea84c190382588 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 29 Jun 2024 09:50:18 +1100
-Subject: [PATCH 02/11] don't link statically on windows
+Subject: [PATCH 02/10] don't link statically on windows
 
 ---
  python/dist/setup.py | 3 ---
  1 file changed, 3 deletions(-)
 
 diff --git a/python/dist/setup.py b/python/dist/setup.py
-index a1f20c026..cc84912c0 100755
+index a1f20c026d..cc84912c07 100755
 --- a/python/dist/setup.py
 +++ b/python/dist/setup.py
 @@ -34,9 +34,6 @@ def GetVersion():

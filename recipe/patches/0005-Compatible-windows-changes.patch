@@ -1,7 +1,7 @@
-From 3364420a2ce024014083bedb195d620f8ef67682 Mon Sep 17 00:00:00 2001
+From 60453cdf4b3f05a56d914546fd2f6853ff6f523c Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 17 Sep 2024 22:29:40 +0200
-Subject: [PATCH 05/11] Compatible windows changes
+Subject: [PATCH 05/10] Compatible windows changes
 
 ---
  python/BUILD.bazel      | 7 ++++---
@@ -9,7 +9,7 @@ Subject: [PATCH 05/11] Compatible windows changes
  2 files changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index 4d8a80390..9c3086467 100644
+index d9f34af261..ec9185c636 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -108,11 +108,12 @@ exports_files(["version_script.lds"])
@@ -25,11 +25,11 @@ index 4d8a80390..9c3086467 100644
 -    ],
 +        "//conditions:default": ["-Wno-pedantic"],
 +    }),
+     features = UPB_DEFAULT_FEATURES,
      target_compatible_with = select(_message_target_compatible_with),
      deps = [
-         "//src/google/protobuf:descriptor_upb_reflection_proto",
 diff --git a/python/py_extension.bzl b/python/py_extension.bzl
-index 82d8445e2..8587e2b8e 100644
+index 82d8445e26..8587e2b8ee 100644
 --- a/python/py_extension.bzl
 +++ b/python/py_extension.bzl
 @@ -16,7 +16,10 @@ def py_extension(name, srcs, copts, deps = [], **kwargs):
