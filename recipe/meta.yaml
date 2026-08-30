@@ -58,7 +58,7 @@ requirements:
     - bazel-toolchain >=0.5.9  # [unix]
     - openjdk 21.*             # [unix]
     - sed                      # [unix]
-    - posix                    # [not unix and not arm64]
+    - m2-base                  # [win]
     - m2-sed                   # [not unix]
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
@@ -76,8 +76,9 @@ requirements:
     - libprotobuf {{ lib_major ~ "." ~ version }}
 
 test:
-  files:                     # [win and arm64]
-    - test_win_arm64.py  # [win and arm64]
+  files:
+    - test_protobuf.py
+    - test_win_arm64.py       # [win and arm64]
   requires:
     - pip
   imports:
@@ -92,6 +93,7 @@ test:
   commands:
     - python -c "from google.protobuf.internal import api_implementation; print(api_implementation.Type())"
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
+    - python test_protobuf.py
     - python test_win_arm64.py  # [win and arm64]
     - pip check
 
