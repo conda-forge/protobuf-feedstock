@@ -28,6 +28,9 @@ source:
       - patches/0010-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
       # Upstream v35.1 defines Windows wheel platforms only for x86 and x86-64.
       - patches/0011-Add-Windows-ARM64-Bazel-platform-and-wheel-tag.patch           # [win and arm64]
+      # Clang's MSVC ARM64 target does not define __SEH__, so the upstream
+      # alignment guard does not prevent an SEH unwind-info compiler crash.
+      - patches/0012-Avoid-p2align-on-Windows-ARM64.patch                            # [win and arm64]
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "8.7.0" %}
