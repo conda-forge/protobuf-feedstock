@@ -26,6 +26,8 @@ source:
       - patches/0008-unvendor-abseil-zlib.patch                                     # [not win]
       - patches/0009-Workaround-nvcc-bug-in-message_lite.h.patch
       - patches/0010-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
+      # Upstream v35.1 defines Windows wheel platforms only for x86 and x86-64.
+      - patches/0011-Add-Windows-ARM64-Bazel-platform-and-wheel-tag.patch           # [win and arm64]
 
   {% set bz_url = "https://github.com/bazelbuild/bazel/releases/download" %}
   {% set bz_ver = "8.7.0" %}
@@ -39,8 +41,9 @@ source:
     sha256: ac6175783fc463cc8f764353a52d4136550834d8855808086e7e21514f3c6ccd    # [build_platform == "osx-64"]
     url: {{ bz_url }}/{{ bz_ver }}/bazel_nojdk-{{ bz_ver }}-darwin-arm64        # [build_platform == "osx-arm64"]
     sha256: fb49e0b21742c29ae1b413396af49d5a9cc1d0d7b6b958df4335225ad5f8d4ad    # [build_platform == "osx-arm64"]
-    url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [build_platform == "win-64"]
-    sha256: 29f1796f57379933340afa135f02703ffa21dd30135754bea695f8fd15103420    # [build_platform == "win-64"]
+    # Windows ARM64 runs the x86-64 Bazel binary under emulation.
+    url: {{ bz_url }}/{{ bz_ver }}/bazel-{{ bz_ver }}-windows-x86_64.exe        # [win]
+    sha256: 29f1796f57379933340afa135f02703ffa21dd30135754bea695f8fd15103420    # [win]
 
 build:
   number: 2
@@ -55,7 +58,7 @@ requirements:
     - bazel-toolchain >=0.5.9  # [unix]
     - openjdk 21.*             # [unix]
     - sed                      # [unix]
-    - posix                    # [not unix]
+    - posix                    # [not unix and not arm64]
     - m2-sed                   # [not unix]
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
@@ -73,6 +76,8 @@ requirements:
     - libprotobuf {{ lib_major ~ "." ~ version }}
 
 test:
+  files:                     # [win and arm64]
+    - test_win_arm64.py  # [win and arm64]
   requires:
     - pip
   imports:
@@ -87,6 +92,7 @@ test:
   commands:
     - python -c "from google.protobuf.internal import api_implementation; print(api_implementation.Type())"
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
+    - python test_win_arm64.py  # [win and arm64]
     - pip check
 
 about:

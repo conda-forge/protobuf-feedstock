@@ -38,6 +38,13 @@ if defined CONDA_BLD_PATH (
 
 set "PY_VER_NODOT=%PY_VER:.=%"
 
+set "BAZEL_PLATFORM_FLAGS="
+set "WHEEL_PLATFORM=win_amd64"
+if "%TARGET_PLATFORM%"=="win-arm64" (
+  set "BAZEL_PLATFORM_FLAGS=--enable_platform_specific_config=false --platforms=//build_defs:arm64_windows-clang-cl --host_platform=//build_defs:arm64_windows-clang-cl --extra_execution_platforms=//build_defs:arm64_windows-clang-cl --extra_toolchains=@local_config_cc//:cc-toolchain-arm64_windows-clang-cl"
+  set "WHEEL_PLATFORM=win_arm64"
+)
+
 for %%f in ("dist\BUILD.bazel" "dist\dist.bzl") do (
   sed -i "/@system_python\/\/:version\.bzl/d" "%%~f"
    if %ERRORLEVEL% neq 0 exit 1
@@ -52,14 +59,14 @@ if %ERRORLEVEL% neq 0 exit 1
 sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 if %ERRORLEVEL% neq 0 exit 1
 
-..\bazel %OUTPUT_BASE% build ^
+..\bazel %OUTPUT_BASE% build %BAZEL_PLATFORM_FLAGS% ^
     --linkopt "/LIBPATH:%PREFIX%\libs" ^
     --action_env PYTHON_BIN_PATH=%PYTHON% ^
     //python/dist:binary_wheel ^
     --define=use_fast_cpp_protos=true
 if %ERRORLEVEL% neq 0 exit 1
 
-%PYTHON% -m pip install ..\bazel-bin\python\dist\protobuf-%PKG_VERSION%-cp%PY_VER_NO_DOT%-abi3-win_amd64.whl
+%PYTHON% -m pip install ..\bazel-bin\python\dist\protobuf-%PKG_VERSION%-cp%PY_VER_NO_DOT%-abi3-%WHEEL_PLATFORM%.whl
 if %ERRORLEVEL% neq 0 exit 1
 
 ..\bazel clean --expunge
