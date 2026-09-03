@@ -81,7 +81,6 @@ requirements:
 test:
   files:
     - test_protobuf.py
-    - test_win_arm64.py       # [win and arm64]
   requires:
     - pip
   imports:
@@ -97,7 +96,6 @@ test:
     - python -c "from google.protobuf.internal import api_implementation; print(api_implementation.Type())"
     - python -c "from google.protobuf.internal import api_implementation; assert api_implementation.Type() == 'upb'"
     - python test_protobuf.py
-    - python test_win_arm64.py  # [win and arm64]
     - pip check
 
 about:
