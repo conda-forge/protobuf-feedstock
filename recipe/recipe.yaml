@@ -5,7 +5,7 @@ context:
   # protobuf doesn't add the major version in the tag, it's defined per language in
   # https://github.com/protocolbuffers/protobuf/blob/main/version.json
   # libprotobuf can have a different major version than protobuf
-  version: "35.1"
+  version: "36.2"
   major: 7
   lib_major: 7
   bz_url: https://github.com/bazelbuild/bazel/releases/download
@@ -30,7 +30,7 @@ package:
 
 source:
   - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 22775f9376938295efa2d59a59bde4cd075a42df5a9b4d27aa9b99fa6a413bd2
+    sha256: 7e7eaf580ec77f1a392ff1ab1013c13d3b04a6716f002f697f67f3c1113f0530
     patches:
       # backport https://github.com/protocolbuffers/protobuf/pull/17207 to avoid upb leakage
       - patches/0001-Make-our-Python-source-wheel-use-the-version-script-.patch
@@ -60,7 +60,7 @@ source:
     file_name: ${{ bz_fn }}
 
 build:
-  number: 5
+  number: 0
 
 requirements:
   build:

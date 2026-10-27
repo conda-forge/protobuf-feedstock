@@ -1,4 +1,4 @@
-From d0b3f434e539b8773ac8bf30415315291329f4e9 Mon Sep 17 00:00:00 2001
+From be2d4411c78ffa32b9ffd2d923c9db69ff65c3d4 Mon Sep 17 00:00:00 2001
 From: Clay Warren <claywarren@users.noreply.github.com>
 Date: Sun, 30 Aug 2026 03:04:00 -0500
 Subject: [PATCH 11/12] Add Windows ARM64 Bazel platform and wheel tag
@@ -29,10 +29,10 @@ index 8591747933..8ee93f7fa5 100644
      name = "x64_windows-msvc-cl",
      constraint_values = PLATFORMS["win64"] + [
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index ee672205c0..c56b5028a8 100644
+index af1ddefae3..123f0f2f37 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -262,6 +262,14 @@ selects.config_setting_group(
+@@ -252,6 +252,14 @@ selects.config_setting_group(
      ],
  )
  
@@ -45,9 +45,9 @@ index ee672205c0..c56b5028a8 100644
 +)
 +
  pkg_files(
-     name = "generated_wkt",
+     name = "generated_bootstrap",
      srcs = [
-@@ -404,6 +412,7 @@ py_wheel(
+@@ -398,6 +406,7 @@ py_wheel(
          ":osx_aarch64": "macosx_11_0_arm64",
          ":windows_x86_32": "win32",
          ":windows_x86_64": "win_amd64",

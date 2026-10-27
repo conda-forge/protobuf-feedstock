@@ -1,4 +1,4 @@
-From dc228d49e3ccaf253b04640b80ad121d5a556779 Mon Sep 17 00:00:00 2001
+From ce5cd8bc21d25590673923ef5816f3010cb0507f Mon Sep 17 00:00:00 2001
 From: Joshua Haberman <haberman@google.com>
 Date: Fri, 21 Jun 2024 11:12:25 -0700
 Subject: [PATCH 01/12] Make our Python source wheel use the version script to
@@ -17,7 +17,7 @@ PiperOrigin-RevId: 645445353
  4 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index b5376ebdd6..ba619aa006 100644
+index f282a602de..bdeb9b7a29 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -105,6 +105,8 @@ filegroup(
@@ -30,10 +30,10 @@ index b5376ebdd6..ba619aa006 100644
      name = "_message",
      srcs = [":message_srcs"],
 diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
-index 9eff63f096..8abf7e3616 100644
+index a87dfc4c85..8aa468dd18 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -285,6 +285,7 @@ pkg_files(
+@@ -279,6 +279,7 @@ pkg_files(
      srcs = [
          "//:LICENSE",
          "//python:message_srcs",
@@ -52,7 +52,7 @@ index 1b619364e9..f243c10185 100644
 +global-include *.inc
 +include python/version_script.lds
 diff --git a/python/dist/setup.py b/python/dist/setup.py
-index 92aa8b6b29..a1f20c026d 100755
+index c47f524d1c..5f51e73b70 100755
 --- a/python/dist/setup.py
 +++ b/python/dist/setup.py
 @@ -32,7 +32,7 @@ def GetVersion():
@@ -61,6 +61,6 @@ index 92aa8b6b29..a1f20c026d 100755
  current_dir = os.path.dirname(os.path.abspath(__file__))
 -extra_link_args = []
 +extra_link_args = ["-Wl,--version-script=python/version_script.lds"]
+ extra_compile_args = []
  
  if sys.platform.startswith('win'):
-   extra_link_args = ['-static']

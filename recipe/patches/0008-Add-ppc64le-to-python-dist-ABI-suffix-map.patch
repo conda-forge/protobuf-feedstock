@@ -1,4 +1,4 @@
-From bba9e38e03e14917e061b69e0712c0e2ab493b90 Mon Sep 17 00:00:00 2001
+From 18423f25b3d5d92174bd9dc477e93afaaee802ba Mon Sep 17 00:00:00 2001
 From: Julien Jerphanion <git@jjerphan.xyz>
 Date: Tue, 26 May 2026 00:00:00 +0000
 Subject: [PATCH 08/12] Add ppc64le to python/dist ABI suffix map
@@ -12,7 +12,7 @@ ppc64le in _cpu_constraints, causing _get_cpu_name to fail with
  1 file changed, 3 insertions(+)
 
 diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
-index 4ea95a6485..084f8f0f7f 100644
+index 832b9c08b1..e449db4673 100644
 --- a/python/dist/dist.bzl
 +++ b/python/dist/dist.bzl
 @@ -44,6 +44,8 @@ def _get_suffix(ctx, limited_api, python_version):
@@ -24,7 +24,7 @@ index 4ea95a6485..084f8f0f7f 100644
              elif cpu == "s390x":
                  abi = "s390x-linux-gnu"
              else:
-@@ -165,6 +167,7 @@ py_dist_module = rule(
+@@ -167,6 +169,7 @@ py_dist_module = rule(
                  "x86_64": "@platforms//cpu:x86_64",
                  "x86_32": "@platforms//cpu:x86_32",
                  "s390x": "@platforms//cpu:s390x",

@@ -1,4 +1,4 @@
-From b0a612977e582aa02142ad298ba94fd47f1dc600 Mon Sep 17 00:00:00 2001
+From 16ae8c85ad5425b3182527b6fb50a345fe4e4198 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 18 Sep 2024 11:54:27 +0200
 Subject: [PATCH 09/12] Hacky windows workarounds
@@ -38,10 +38,10 @@ index 232085f591..f0358eb36d 100644
  
      if path and python_version[0] == "3":
 diff --git a/python/message.c b/python/message.c
-index 0497d394fa..e71aa3ca06 100644
+index e559c08ebb..bdfcc3f359 100644
 --- a/python/message.c
 +++ b/python/message.c
-@@ -1036,7 +1036,7 @@ int PyUpb_Message_GetVersion(PyObject* _self) {
+@@ -1098,7 +1098,7 @@ bool PyUpb_Message_IsFrozen(PyObject* _self) {
   * Attribute lookup must find both message fields and base class methods like
   * msg.SerializeToString().
   */
@@ -51,10 +51,10 @@ index 0497d394fa..e71aa3ca06 100644
    PyUpb_Message* self = (void*)_self;
  
 diff --git a/python/protobuf.c b/python/protobuf.c
-index 004fac99eb..4dc7b899d5 100644
+index 6a72273015..4cc3e60d00 100644
 --- a/python/protobuf.c
 +++ b/python/protobuf.c
-@@ -491,7 +491,7 @@ bool PyUpb_IndexToRange(PyObject* index, Py_ssize_t size, Py_ssize_t* i,
+@@ -581,7 +581,7 @@ bool PyUpb_CheckFrozen(bool is_frozen, const char* error_msg) {
  // Module Entry Point
  // -----------------------------------------------------------------------------
  
