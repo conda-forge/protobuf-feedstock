@@ -60,7 +60,7 @@ source:
     file_name: ${{ bz_fn }}
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
