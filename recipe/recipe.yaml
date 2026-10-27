@@ -38,15 +38,15 @@ source:
       - patches/0003-enable-windows-as-a-target-for-python-bindings.patch
       - patches/0004-Support-more-architectures-for-Python-bindings.patch
       - patches/0005-Compatible-windows-changes.patch
-      - patches/0007-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
-      - patches/0009-Workaround-nvcc-bug-in-message_lite.h.patch
-      - patches/0010-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
+      - patches/0006-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
+      - patches/0007-Workaround-nvcc-bug-in-message_lite.h.patch
+      - patches/0008-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
       - if: win
         then:
-          - patches/0006-Hacky-windows-workarounds.patch
+          - patches/0009-Hacky-windows-workarounds.patch
         else:
           # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
-          - patches/0008-unvendor-abseil-zlib.patch
+          - patches/0010-unvendor-abseil-zlib.patch
       - if: win and arm64
         then:
           # Upstream v35.1 defines Windows wheel platforms only for x86 and x86-64.
