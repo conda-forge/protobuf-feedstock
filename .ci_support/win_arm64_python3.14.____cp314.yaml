@@ -20,6 +20,3 @@ python:
 - 3.14.* *_cp314
 target_platform:
 - win-arm64
-zip_keys:
-- - python
-  - channel_sources
