@@ -1,4 +1,6 @@
 bot:
+  abi_migration_branches:
+  - v7.35.x
   check_solvable: true
 build_platform:
   linux_ppc64le: linux_64
