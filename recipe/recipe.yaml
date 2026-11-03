@@ -13,16 +13,9 @@ context:
   bz_artefact: ${{ "bazel_nojdk" if unix else "bazel" }}
   bz_fn: ${{ "bazel-standalone-" ~ bz_ver  if unix else "bazel.exe" }}
   # Windows ARM64 runs the x86-64 Bazel binary under emulation.
-  bz_arch: ${{ "linux-x86_64" if build_platform == "linux-64" else
-               "linux-arm64" if build_platform == "linux-aarch64" else
-               "darwin-x86_64" if build_platform == "osx-64" else
-               "darwin-arm64" if build_platform == "osx-arm64" else
-               "windows-x86_64.exe" }}
-  bz_hash: ${{ "83a0ec39f7ef3938b651c82d77ababfe96a9e4b9b566d7633f1c5f2ee9d2c8ed" if build_platform == "linux-64" else
-               "15f5a93b8d2179b1dbb53fd54ba3720ea7f3261d482641d61547acbd08733817" if build_platform == "linux-aarch64" else
-               "ac6175783fc463cc8f764353a52d4136550834d8855808086e7e21514f3c6ccd" if build_platform == "osx-64" else
-               "fb49e0b21742c29ae1b413396af49d5a9cc1d0d7b6b958df4335225ad5f8d4ad" if build_platform == "osx-arm64" else
-               "29f1796f57379933340afa135f02703ffa21dd30135754bea695f8fd15103420" }}
+  bz_arch: ${{ "linux-x86_64" if build_platform == "linux-64" else "linux-arm64" if build_platform == "linux-aarch64" else "darwin-x86_64" if build_platform == "osx-64" else "darwin-arm64" if build_platform == "osx-arm64" else "windows-x86_64.exe" }}
+  bz_hash: ${{ "83a0ec39f7ef3938b651c82d77ababfe96a9e4b9b566d7633f1c5f2ee9d2c8ed" if build_platform == "linux-64" else "15f5a93b8d2179b1dbb53fd54ba3720ea7f3261d482641d61547acbd08733817" if build_platform == "linux-aarch64" else "ac6175783fc463cc8f764353a52d4136550834d8855808086e7e21514f3c6ccd" if build_platform == 
+    "osx-64" else "fb49e0b21742c29ae1b413396af49d5a9cc1d0d7b6b958df4335225ad5f8d4ad" if build_platform == "osx-arm64" else "29f1796f57379933340afa135f02703ffa21dd30135754bea695f8fd15103420" }}
 
 package:
   name: protobuf
@@ -60,7 +53,7 @@ source:
     file_name: ${{ bz_fn }}
 
 build:
-  number: 5
+  number: 6
 
 requirements:
   build:
