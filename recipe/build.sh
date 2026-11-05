@@ -5,7 +5,18 @@ set -ex
 export CFLAGS=" ${CFLAGS}"
 export CXXFLAGS=" ${CXXFLAGS}"
 # Re-add Python include path lost by overwriting CFLAGS above
-export CFLAGS="${CFLAGS} -I${PREFIX}/include/python${PY_VER}"
+PYTHON_INCLUDE=$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')
+export CFLAGS="${CFLAGS} -I${PYTHON_INCLUDE}"
+
+PYTHON_ABI_ARGS=()
+if [[ $(python -c 'import sysconfig; print(int(bool(sysconfig.get_config_var("Py_GIL_DISABLED"))))') == 1 ]]; then
+  PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
+  PYTHON_ABI_ARGS=(
+    --//python:free_threaded=true
+    --//python:limited_api=false
+    "--//python:extension_suffix=${PYTHON_EXT_SUFFIX}"
+  )
+fi
 export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc
 
 source gen-bazel-toolchain
@@ -52,6 +63,7 @@ export BAZEL="$(pwd)/../bazel-standalone"
     --extra_toolchains=//bazel_toolchain:cc_cf_host_toolchain \
     --crosstool_top=//bazel_toolchain:toolchain \
     ${EXTRA_BAZEL_ARGS:-} \
+    "${PYTHON_ABI_ARGS[@]}" \
     --cpu=${TARGET_CPU} \
     --local_resources=cpu=${CPU_COUNT} \
     //python/dist:binary_wheel \

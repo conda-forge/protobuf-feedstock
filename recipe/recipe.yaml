@@ -34,6 +34,7 @@ source:
       - patches/0006-Add-osx-64-and-linux-ppc64le-as-supported-wheel-tags.patch
       - patches/0007-Workaround-nvcc-bug-in-message_lite.h.patch
       - patches/0008-Add-ppc64le-to-python-dist-ABI-suffix-map.patch
+      - patches/0013-Support-free-threaded-Unix-wheel-packaging.patch
       - if: win
         then:
           - patches/0009-Hacky-windows-workarounds.patch
@@ -54,6 +55,8 @@ source:
 
 build:
   number: 6
+  # Protobuf uses a POSIX-only mutex in the free-threaded Python extension.
+  skip: win and "cp314t" in python
 
 requirements:
   build:
