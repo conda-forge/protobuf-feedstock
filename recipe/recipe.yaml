@@ -38,6 +38,7 @@ source:
       - if: win
         then:
           - patches/0009-Hacky-windows-workarounds.patch
+          - patches/0014-Fix-Windows-bootstrap-proto-include-path.patch
         else:
           # TF_SYSTEM_LIBS (or rather: abseil_dll setup) not compatible with windows
           - patches/0010-unvendor-abseil-zlib.patch
