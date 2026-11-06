@@ -8,7 +8,10 @@ export CXXFLAGS=" ${CXXFLAGS}"
 PYTHON_INCLUDE=$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')
 export CFLAGS="${CFLAGS} -I${PYTHON_INCLUDE}"
 
-PYTHON_ABI_ARGS=()
+# Keep the array nonempty: macOS Bash 3.2 treats empty arrays as unset under -u.
+# This is also Protobuf's default for regular Python builds.
+# https://github.com/protocolbuffers/protobuf/blob/35cd01f9fe9afbeea38cc7b979a3b6bfcde82c03/python/BUILD.bazel#L26-L29
+PYTHON_ABI_ARGS=(--//python:limited_api=true)
 if [[ $(python -c 'import sysconfig; print(int(bool(sysconfig.get_config_var("Py_GIL_DISABLED"))))') == 1 ]]; then
   PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
   PYTHON_ABI_ARGS=(
