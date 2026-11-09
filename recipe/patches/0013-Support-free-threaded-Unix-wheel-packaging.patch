@@ -1,0 +1,60 @@
+Subject: [PATCH] Support free-threaded Unix wheel packaging
+
+Keep the existing abi3 packaging for regular Python. For free-threaded
+builds, select the CPython-specific wheel ABI and accept EXT_SUFFIX from
+the target interpreter's sysconfig (including cross-python builds).
+The build script also disables the limited API for these builds.
+
+--- a/python/BUILD.bazel
++++ b/python/BUILD.bazel
+@@ -30,6 +30,20 @@
+     ":limited_api_3.10": ["-DPy_LIMITED_API=0x030a0000"],
+     "//conditions:default": [],
+ }
++
++# Free-threaded builds use the target interpreter's full ABI.
++bool_flag(
++    name = "free_threaded",
++    build_setting_default = False,
++)
++config_setting(
++    name = "free_threaded_enabled",
++    flag_values = {":free_threaded": "True"},
++)
++string_flag(
++    name = "extension_suffix",
++    build_setting_default = "",
++)
+ 
+ bool_flag(
+     name = "limited_api",
+--- a/python/dist/BUILD.bazel
++++ b/python/dist/BUILD.bazel
+@@ -371,6 +371,7 @@
+ py_wheel(
+     name = "binary_wheel",
+     abi = select({
++        "//python:free_threaded_enabled": "cp" + SYSTEM_PYTHON_VERSION + "t",
+         "//conditions:default": "abi3",
+     }),
+     author = "protobuf@googlegroups.com",
+--- a/python/dist/dist.bzl
++++ b/python/dist/dist.bzl
+@@ -17,6 +17,9 @@
+ 
+ def _get_suffix(ctx, limited_api, python_version):
+     """Computes an ABI version tag for an extension module per PEP 3149."""
++    extension_suffix = ctx.attr._extension_suffix[BuildSettingInfo].value
++    if extension_suffix:
++        return extension_suffix
+     os = _get_os_name(ctx)
+     cpu = _get_cpu_name(ctx)
+     if os == "windows":
+@@ -149,6 +152,7 @@
+             mandatory = True,
+             cfg = _py_multiarch_transition,
+         ),
++        "_extension_suffix": attr.label(default = "//python:extension_suffix"),
+         "_limited_api": attr.label(default = "//python:limited_api"),
+         "_python_version": attr.label(default = "//python:python_version"),
+         "_allowlist_function_transition": attr.label(
