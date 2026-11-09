@@ -8,10 +8,7 @@ export CXXFLAGS=" ${CXXFLAGS}"
 PYTHON_INCLUDE=$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')
 export CFLAGS="${CFLAGS} -I${PYTHON_INCLUDE}"
 
-# Keep the array nonempty: macOS Bash 3.2 treats empty arrays as unset under -u.
-# This is also Protobuf's default for regular Python builds.
-# https://github.com/protocolbuffers/protobuf/blob/35cd01f9fe9afbeea38cc7b979a3b6bfcde82c03/python/BUILD.bazel#L26-L29
-PYTHON_ABI_ARGS=(--//python:limited_api=true)
+PYTHON_ABI_ARGS=()
 if [[ $(python -c 'import sysconfig; print(int(bool(sysconfig.get_config_var("Py_GIL_DISABLED"))))') == 1 ]]; then
   PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
   PYTHON_ABI_ARGS=(
@@ -57,6 +54,7 @@ sed -i "s|SUPPORTED_PYTHON_VERSIONS\[-1\]|\"${PY_VER}\"|g" ../MODULE.bazel
 sed -i 's/\(bazel_dep(name *= *"rules_python", *version *= *"\)[^"]*\(")\)/\11.6.0\2/' ../MODULE.bazel
 
 export BAZEL="$(pwd)/../bazel-standalone"
+# The guarded array expansion below supports empty arrays under set -u on Bash 3.2.
 ../bazel-standalone-* build \
     --action_env TF_SYSTEM_LIBS=$TF_SYSTEM_LIBS \
     --action_env CFLAGS \
@@ -66,7 +64,7 @@ export BAZEL="$(pwd)/../bazel-standalone"
     --extra_toolchains=//bazel_toolchain:cc_cf_host_toolchain \
     --crosstool_top=//bazel_toolchain:toolchain \
     ${EXTRA_BAZEL_ARGS:-} \
-    "${PYTHON_ABI_ARGS[@]}" \
+    ${PYTHON_ABI_ARGS[@]+"${PYTHON_ABI_ARGS[@]}"} \
     --cpu=${TARGET_CPU} \
     --local_resources=cpu=${CPU_COUNT} \
     //python/dist:binary_wheel \
