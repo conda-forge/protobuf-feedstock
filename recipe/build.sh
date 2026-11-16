@@ -8,7 +8,9 @@ export CXXFLAGS=" ${CXXFLAGS}"
 PYTHON_INCLUDE=$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')
 export CFLAGS="${CFLAGS} -I${PYTHON_INCLUDE}"
 
-PYTHON_ABI_ARGS=()
+# Reflects how the feedstock currently creates a distinct build for each Python version
+PYTHON_ABI_ARGS=(--//python:limited_api=false)
+
 if [[ $(python -c 'import sysconfig; print(int(bool(sysconfig.get_config_var("Py_GIL_DISABLED"))))') == 1 ]]; then
   PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
   PYTHON_ABI_ARGS=(
