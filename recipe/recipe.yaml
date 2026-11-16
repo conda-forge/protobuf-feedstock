@@ -65,6 +65,9 @@ build:
   number: 1
   # Protobuf uses a POSIX-only mutex in the free-threaded Python extension.
   skip: win and is_freethreading
+  variant:
+    use_keys:
+      - is_freethreading
 
 requirements:
   build:
