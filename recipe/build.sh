@@ -11,7 +11,7 @@ export CFLAGS="${CFLAGS} -I${PYTHON_INCLUDE}"
 # Reflects how the feedstock currently creates a distinct build for each Python version
 PYTHON_ABI_ARGS=(--//python:limited_api=false)
 
-if [[ $(python -c 'import sysconfig; print(int(bool(sysconfig.get_config_var("Py_GIL_DISABLED"))))') == 1 ]]; then
+if [[ ${is_freethreading} == "true" ]]; then
   PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
   PYTHON_ABI_ARGS=(
     --//python:free_threaded=true
