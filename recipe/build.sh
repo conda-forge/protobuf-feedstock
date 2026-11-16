@@ -9,14 +9,15 @@ PYTHON_INCLUDE=$(python -c 'import sysconfig; print(sysconfig.get_path("include"
 export CFLAGS="${CFLAGS} -I${PYTHON_INCLUDE}"
 
 # Reflects how the feedstock currently creates a distinct build for each Python version
-PYTHON_ABI_ARGS=(--//python:limited_api=false)
+PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
+PYTHON_ABI_ARGS=(
+  --//python:limited_api=false
+  "--//python:extension_suffix=${PYTHON_EXT_SUFFIX}"
+)
 
 if [[ ${is_freethreading} == "true" ]]; then
-  PYTHON_EXT_SUFFIX=$(python -c 'import sysconfig; print(sysconfig.get_config_var("EXT_SUFFIX"))')
-  PYTHON_ABI_ARGS=(
+  PYTHON_ABI_ARGS+=(
     --//python:free_threaded=true
-    --//python:limited_api=false
-    "--//python:extension_suffix=${PYTHON_EXT_SUFFIX}"
   )
 fi
 export CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc

@@ -1,13 +1,12 @@
 Subject: [PATCH] Support free-threaded Unix wheel packaging
 
-Keep the existing abi3 packaging for regular Python. For free-threaded
-builds, select the CPython-specific wheel ABI and accept EXT_SUFFIX from
+Select CPython-specific wheel ABIs when the limited API is disabled,
+including the t suffix for free-threaded builds. Accept EXT_SUFFIX from
 the target interpreter's sysconfig (including cross-python builds).
-The build script also disables the limited API for these builds.
 
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
-@@ -30,6 +30,20 @@
+@@ -30,6 +30,27 @@
      ":limited_api_3.10": ["-DPy_LIMITED_API=0x030a0000"],
      "//conditions:default": [],
  }
@@ -21,6 +20,13 @@ The build script also disables the limited API for these builds.
 +    name = "free_threaded_enabled",
 +    flag_values = {":free_threaded": "True"},
 +)
++config_setting(
++    name = "full_api_enabled",
++    flag_values = {
++        ":free_threaded": "False",
++        ":limited_api": "False",
++    },
++)
 +string_flag(
 +    name = "extension_suffix",
 +    build_setting_default = "",
@@ -30,11 +36,12 @@ The build script also disables the limited API for these builds.
      name = "limited_api",
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -371,6 +371,7 @@
+@@ -371,6 +371,8 @@
  py_wheel(
      name = "binary_wheel",
      abi = select({
 +        "//python:free_threaded_enabled": "cp" + SYSTEM_PYTHON_VERSION + "t",
++        "//python:full_api_enabled": "cp" + SYSTEM_PYTHON_VERSION,
          "//conditions:default": "abi3",
      }),
      author = "protobuf@googlegroups.com",
