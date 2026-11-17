@@ -1,0 +1,25 @@
+From 65e5f99d721ab5c6ce3515f0a0dbf6cb0d43a24d Mon Sep 17 00:00:00 2001
+From: Clay Warren <claywarren@users.noreply.github.com>
+Date: Sun, 30 Aug 2026 11:44:00 -0500
+Subject: [PATCH 14/14] Avoid p2align on Windows ARM64
+
+Clang targeting aarch64-pc-windows-msvc defines _WIN32 but not __SEH__.
+Use the platform macro as an additional guard so the existing LLVM #47432
+workaround also covers the MSVC ABI target.
+---
+ upb/wire/internal/encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/upb/wire/internal/encoder.c b/upb/wire/internal/encoder.c
+index 3b67547f52..75e12c89de 100644
+--- a/upb/wire/internal/encoder.c
++++ b/upb/wire/internal/encoder.c
+@@ -172,7 +172,7 @@ UPB_NOINLINE static char* encode_longvarint(char* ptr, upb_encstate* e,
+       "br %[addr]\n"
+       // Work around llvm/llvm-project#47432, where alignment directives inside
+       // functions crash the compiler when generating SEH info on windows.
+-      #ifndef __SEH__
++      #if !defined(__SEH__) && !defined(_WIN32)
+       ".p2align " UPB_BTI_SHIFT_IMM
+       #endif
+       "0:\n"
