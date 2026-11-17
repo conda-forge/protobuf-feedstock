@@ -1,0 +1,28 @@
+From 4cc13ed1e26db59e5f182381d59c1b11245f6617 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Mon, 3 Mar 2025 11:59:27 +1100
+Subject: [PATCH 12/14] unvendor abseil/zlib
+
+depends on putting tensorflow infrastructure in place, see feedstock build scripts
+---
+ python/BUILD.bazel | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/python/BUILD.bazel b/python/BUILD.bazel
+index ae94f5f9eb..7c9599d8ac 100644
+--- a/python/BUILD.bazel
++++ b/python/BUILD.bazel
+@@ -19,6 +19,13 @@ package(
+     default_visibility = ["//python/dist:__pkg__"],
+ )
+ 
++# some other targets expect to find this here
++cc_library(
++    name = "zlib",
++    deps = ["@zlib//:zlib"],
++    visibility = ["//visibility:public"],
++)
++
+ LIMITED_API_FLAG_SELECT = {
+     ":limited_api_3.10": ["-DPy_LIMITED_API=0x030a0000"],
+     "//conditions:default": [],
