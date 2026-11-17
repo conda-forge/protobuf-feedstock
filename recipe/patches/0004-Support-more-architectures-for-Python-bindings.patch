@@ -1,7 +1,7 @@
 From b41d14dc15d0c38ed5480ff21f7c6884499de45b Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 16 Sep 2024 11:49:04 +0200
-Subject: [PATCH 04/12] Support more architectures for Python bindings
+Subject: [PATCH 04/14] Support more architectures for Python bindings
 
 ---
  python/dist/dist.bzl | 4 +++-

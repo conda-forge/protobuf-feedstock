@@ -1,16 +1,25 @@
-Subject: [PATCH] Support free-threaded Unix wheel packaging
+From ab42f3e9dca29cb59edc670d92b39b270847f933 Mon Sep 17 00:00:00 2001
+From: Sherman Siu <s8siu@uwaterloo.ca>
+Date: Thu, 5 Nov 2026 17:47:08 -0500
+Subject: [PATCH 09/14] Support free-threaded Unix wheel packaging
 
 Select CPython-specific wheel ABIs when the limited API is disabled,
 including the t suffix for free-threaded builds. Accept EXT_SUFFIX from
 the target interpreter's sysconfig (including cross-python builds).
+---
+ python/BUILD.bazel      | 21 +++++++++++++++++++++
+ python/dist/BUILD.bazel |  2 ++
+ python/dist/dist.bzl    |  4 ++++
+ 3 files changed, 27 insertions(+)
 
+diff --git a/python/BUILD.bazel b/python/BUILD.bazel
+index 8ed02c95f8..576f080fcd 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
-@@ -30,6 +30,27 @@
-     ":limited_api_3.10": ["-DPy_LIMITED_API=0x030a0000"],
+@@ -24,6 +24,27 @@ LIMITED_API_FLAG_SELECT = {
      "//conditions:default": [],
  }
-+
+ 
 +# Free-threaded builds use the target interpreter's full ABI.
 +bool_flag(
 +    name = "free_threaded",
@@ -31,12 +40,15 @@ the target interpreter's sysconfig (including cross-python builds).
 +    name = "extension_suffix",
 +    build_setting_default = "",
 +)
- 
++
  bool_flag(
      name = "limited_api",
+     build_setting_default = True,
+diff --git a/python/dist/BUILD.bazel b/python/dist/BUILD.bazel
+index af1ddefae3..28a0f0c2d9 100644
 --- a/python/dist/BUILD.bazel
 +++ b/python/dist/BUILD.bazel
-@@ -371,6 +371,8 @@
+@@ -365,6 +365,8 @@ genrule(
  py_wheel(
      name = "binary_wheel",
      abi = select({
@@ -45,9 +57,11 @@ the target interpreter's sysconfig (including cross-python builds).
          "//conditions:default": "abi3",
      }),
      author = "protobuf@googlegroups.com",
+diff --git a/python/dist/dist.bzl b/python/dist/dist.bzl
+index e449db4673..a904b28719 100644
 --- a/python/dist/dist.bzl
 +++ b/python/dist/dist.bzl
-@@ -17,6 +17,9 @@
+@@ -17,6 +17,9 @@ def _get_cpu_name(ctx):
  
  def _get_suffix(ctx, limited_api, python_version):
      """Computes an ABI version tag for an extension module per PEP 3149."""
@@ -57,7 +71,7 @@ the target interpreter's sysconfig (including cross-python builds).
      os = _get_os_name(ctx)
      cpu = _get_cpu_name(ctx)
      if os == "windows":
-@@ -149,6 +152,7 @@
+@@ -151,6 +154,7 @@ py_dist_module = rule(
              mandatory = True,
              cfg = _py_multiarch_transition,
          ),

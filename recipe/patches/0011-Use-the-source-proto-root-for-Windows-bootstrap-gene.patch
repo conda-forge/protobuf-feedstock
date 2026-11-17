@@ -1,13 +1,22 @@
-Subject: [PATCH] Use the source proto root for Windows bootstrap generation
+From 9bc8d517e43279cee2219b73092181956434b292 Mon Sep 17 00:00:00 2001
+From: Sherman Siu <s8siu@uwaterloo.ca>
+Date: Fri, 6 Nov 2026 16:38:57 -0500
+Subject: [PATCH 11/14] Use the source proto root for Windows bootstrap
+ generation
 
 The feedstock builds the pinned Protobuf source as the main workspace.
 Both descriptor.proto and compiler/plugin.proto are under src/, and the
 bootstrap genrules already declare these files as inputs. Use that root
 directly instead of deriving it through dirname in the Windows shell.
+---
+ upb_generator/bootstrap_compiler.bzl | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/upb_generator/bootstrap_compiler.bzl b/upb_generator/bootstrap_compiler.bzl
+index 93dee5b535..1b3bf1caac 100644
 --- a/upb_generator/bootstrap_compiler.bzl
 +++ b/upb_generator/bootstrap_compiler.bzl
-@@ -18,7 +18,9 @@
+@@ -27,7 +27,9 @@ def _c_library_with_default_copts(**kwargs):
  _stages = ["_stage0", "_stage1", ""]
  _protoc = "//src/google/protobuf/compiler/release:protoc_minimal"
  

@@ -1,7 +1,7 @@
 From 18423f25b3d5d92174bd9dc477e93afaaee802ba Mon Sep 17 00:00:00 2001
 From: Julien Jerphanion <git@jjerphan.xyz>
 Date: Tue, 26 May 2026 00:00:00 +0000
-Subject: [PATCH 08/12] Add ppc64le to python/dist ABI suffix map
+Subject: [PATCH 08/14] Add ppc64le to python/dist ABI suffix map
 
 conda-forge's bazel-toolchain sets CONDA_BAZEL_TOOLCHAIN_PPC64LE_CPU=ppc,
 so the target platform uses @platforms//cpu:ppc. Upstream only lists

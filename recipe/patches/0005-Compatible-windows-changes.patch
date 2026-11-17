@@ -1,7 +1,7 @@
 From acc2993381c06bbe66bf6795dd77ce8d9360b4f3 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 17 Sep 2024 22:29:40 +0200
-Subject: [PATCH 05/12] Compatible windows changes
+Subject: [PATCH 05/14] Compatible windows changes
 
 ---
  python/py_extension.bzl | 5 ++++-
