@@ -1,7 +1,7 @@
-From aa33aac22417934134115862ab21dd539603111e Mon Sep 17 00:00:00 2001
+From 4cc13ed1e26db59e5f182381d59c1b11245f6617 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Mon, 3 Mar 2025 11:59:27 +1100
-Subject: [PATCH 10/12] unvendor abseil/zlib
+Subject: [PATCH 12/14] unvendor abseil/zlib
 
 depends on putting tensorflow infrastructure in place, see feedstock build scripts
 ---
@@ -9,7 +9,7 @@ depends on putting tensorflow infrastructure in place, see feedstock build scrip
  1 file changed, 7 insertions(+)
 
 diff --git a/python/BUILD.bazel b/python/BUILD.bazel
-index ec9185c636..16523a658b 100644
+index ae94f5f9eb..7c9599d8ac 100644
 --- a/python/BUILD.bazel
 +++ b/python/BUILD.bazel
 @@ -19,6 +19,13 @@ package(
